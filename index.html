@@ -392,12 +392,12 @@
     <main id="sec-audio" class="content-section">
       <!-- VISTA PRINCIPALE AUDIO -->
       <div id="audio-main-view">
+        <div id="audio-singoli-list"></div>
+
         <div class="audio-cat-card" onclick="showRosarioSubmenu()">
           <span><i class="fa-solid fa-layer-group" style="color:var(--accent-terracotta); margin-right:10px;"></i> Il Santo Rosario</span>
           <i class="fa-solid fa-chevron-right" style="color:var(--accent-terracotta);"></i>
         </div>
-
-        <div id="audio-singoli-list"></div>
       </div>
 
       <!-- SOTTOCATEGORIA ROSARIO -->
@@ -517,17 +517,36 @@
           lettureAudioBox.style.display = 'none';
         }
 
-        // Audio Singoli (es. Coroncina)
+        // Audio Coroncina e Singoli
         const singoliDiv = document.getElementById('audio-singoli-list');
-        if (datiOrazione.audioSingoli && singoliDiv) {
+        if (singoliDiv) {
           singoliDiv.innerHTML = '';
-          datiOrazione.audioSingoli.forEach(a => {
+
+          // 1. Mostra la Coroncina della Divina Misericordia se presente
+          if (datiOrazione.coroncinaMisericordia) {
             singoliDiv.innerHTML += `
               <div class="audio-item-box">
-                <strong style="font-size:14px; color:#2C2623;"><i class="fa-solid fa-music" style="color:var(--accent-terracotta); margin-right:6px;"></i> ${a.titolo}</strong>
-                <audio controls src="${a.url}" style="margin-top:8px; width:100%;"></audio>
+                <strong style="font-size:14px; color:#2C2623;">
+                  <i class="fa-solid fa-hands-praying" style="color:var(--accent-terracotta); margin-right:6px;"></i> 
+                  Coroncina della Divina Misericordia
+                </strong>
+                <audio controls src="${datiOrazione.coroncinaMisericordia}" style="margin-top:8px; width:100%;"></audio>
               </div>`;
-          });
+          }
+
+          // 2. Mostra eventuali altri audio singoli
+          if (datiOrazione.audioSingoli) {
+            datiOrazione.audioSingoli.forEach(a => {
+              singoliDiv.innerHTML += `
+                <div class="audio-item-box">
+                  <strong style="font-size:14px; color:#2C2623;">
+                    <i class="fa-solid fa-music" style="color:var(--accent-terracotta); margin-right:6px;"></i> 
+                    ${a.titolo}
+                  </strong>
+                  <audio controls src="${a.url}" style="margin-top:8px; width:100%;"></audio>
+                </div>`;
+            });
+          }
         }
 
         // Rosario Misteri
