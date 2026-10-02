@@ -68,8 +68,8 @@ const datiOrazione = {
       testoPreghiera1: "Ti salutiamo, Cuore ammirabile di Gesù. Ti lodiamo, Ti benediciamo, Ti glorifichiamo, Ti ringraziamo, Ti offriamo il nostro cuore, Te lo consegniamo e lo consacriamo a Te. Ricevilo e possiedilo intero; purificalo, illuminalo e santificalo, affinchè Tu viva e regni in esso perpetuamente.",
       foto1: "cascdg.jpg",
 
-      titoloPreghiera2: "MARTEDÌ - Culto di amore",
-      testoPreghiera2: "Signore nostro Gesù Cristo, insegnaci ad essere mansueti e umili di cuore per amare i nostri fratelli come Tu ci ami ed a trasformare tutta la nostra vita in una continua offerta agli altri. Ti chiediamo, oggi, di vivere intensamente questa consegna al servizio della nostra comunità. In unione con la Vergine nostra madre, Ti preghiamo in modo speciale per il Papa, i Vescovi, i Sacerdoti, i Diaconi, i Missionari, che hanno la vocazione di unire tutti gli uomini nell’amore. Cuore di Gesù, pieno di bontà e di amore, abbi pietà di noi.",
+      titoloPreghiera2: "MARTEDÌ - Culto di riconoscenza",
+      testoPreghiera2: "Signore nostro Gesù Cristo, uniti a Te vogliamo dar grazie al Padre per il dono della fede e per i tanti favori che a noi elargisci ogni giorno. Dà a noi la semplicità del bambino per riconoscere le meraviglie che Dio fece in noi e a vivere nella gioia dei salvati. Desideriamo, oggi, rinnovare la nostra fedeltà ai voti battesimali. Come la Vergine nel Suo Magnificat, e in unione ad Essa, desideriamo cantare la gloria di Dio per mezzo del nostro apostolato. Ti preghiamo per tutti quelli che lavorano al servizio della Chiesa, perché perseverino nella loro missione di inviati di Dio. Cuore di Gesù, dalla cui pienezza tutti abbiamo ricevuto, abbi pietà di noi.",
       foto2: "madonnina.jpg",
 
       titoloPreghiera3: "preghiera A nostra Signora del Sacro Cuore",
