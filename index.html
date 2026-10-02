@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Preghiera del giorno</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <title>Gesù è vivo e cammina insieme a noi.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <!-- Caricamento remoto dinamico da GitHub Pages -->
@@ -43,16 +43,24 @@
     }
     header h1 {
       font-family: 'Playfair Display', serif;
-      font-size: 24px;
-      letter-spacing: 2px;
+      font-size: 20px;
+      line-height: 1.3;
       color: #2C2623;
-      text-transform: uppercase;
       font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    header .author {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 15px;
+      color: var(--accent-terracotta);
+      margin-top: 6px;
+      font-weight: 400;
     }
     .cross-icon {
       color: var(--accent-terracotta);
       font-size: 13px;
-      margin: 4px 0 10px;
+      margin: 8px 0 10px;
     }
     .badge {
       display: inline-block;
@@ -240,7 +248,8 @@
 
   <div class="app-container">
     <header>
-      <h1>Preghiera del giorno</h1>
+      <h1>Gesù è vivo e cammina insieme a noi.</h1>
+      <div class="author">Padre Emiliano Tardif</div>
       <div class="cross-icon"><i class="fa-solid fa-cross"></i></div>
       <div class="badge" id="section-badge">Lodi del Giorno</div>
     </header>
