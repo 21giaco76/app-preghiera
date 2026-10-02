@@ -2,8 +2,8 @@ const datiOrazione = {
   links: {
     lodi: "https://www.chiesacattolica.it/la-liturgia-delle-ore/?data-liturgia=20261001&ora=lodi-mattutine",
     vespri: "https://www.chiesacattolica.it/la-liturgia-delle-ore/?data-liturgia=20261001&ora=vespri",
-    compieta: "https://www.liturgiadelleore.it",
-    letture: "https://www.chiesacattolica.it/la-liturgia-delle-ore/?data-liturgia=20261001&ora=compieta"
+    compieta: "https://www.chiesacattolica.it/la-liturgia-delle-ore/?data-liturgia=20261001&ora=compieta",
+    letture: "https://www.chiesacattolica.it/liturgia-del-giorno"
   },
   fotoSezioni: {
     lodi: "lodi.jpg",
