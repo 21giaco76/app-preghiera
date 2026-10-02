@@ -16,6 +16,9 @@ const datiOrazione = {
   },
  // Audio per le Letture della Messa (lascia vuoto "" se non c'è audio)
   audioLetture: "",
+  
+  // Audio per la Coroncina della Divina Misericordia
+  coroncinaMisericordia: "https://archive.org/download/coroncina-divina-misericordia-tempo-di-preghiera/Coroncina-divina-misericordia-Tempo-di-preghiera.mp3",
 
   // Sottocategorie: Misteri del Santo Rosario
   misteriRosario: [
