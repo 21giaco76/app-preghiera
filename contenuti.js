@@ -33,7 +33,7 @@ const datiOrazione = {
     },
     { 
       titolo: "Misteri Gloriosi (Mercoledì e Domenica)", 
-      url: "" 
+      url: "https://archive.org/download/misteri-gloriosi-mercoledi-e-domenica/misteri-gloriosi-mercoledi-e-domenica.mp3" 
     }
   ],
   preghiereSettimanali: [
