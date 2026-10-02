@@ -15,13 +15,13 @@ const datiOrazione = {
     letture: "letture.jpg"
   },
  // Audio per le Letture della Messa (lascia vuoto "" se non c'è audio)
-  audioLetture: "",
+  audioLetture: "https://archive.org/download/parolaaudio/parolaaudio.mp3",
 
   // Sottocategorie: Misteri del Santo Rosario
   misteriRosario: [
     { 
       titolo: "Misteri Gaudiosi (Lunedì e Sabato)", 
-      url: "https://archive.org/download/misteri-della-gioia-audio_202610/Misteri%20della%20Gioia%20audio.mp3" 
+      url: "https://archive.org/download/misteri-della-gioia-lunedi-e-sabato/misteri-della-gioia-lunedi-e-sabato.mp3" 
     },
     { 
       titolo: "Misteri Luminosi (Giovedì)", 
@@ -29,7 +29,7 @@ const datiOrazione = {
     },
     { 
       titolo: "Misteri Dolorosi (Martedì e Venerdì)", 
-      url: "" 
+      url: "https://archive.org/download/misteri-dolorosi-martedi-e-venerdi/misteri-dolorosi-martedi-e-venerdi.mp3" 
     },
     { 
       titolo: "Misteri Gloriosi (Mercoledì e Domenica)", 
