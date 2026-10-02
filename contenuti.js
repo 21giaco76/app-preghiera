@@ -15,7 +15,7 @@ const datiOrazione = {
     letture: "letture.jpg"
   },
  // Audio per le Letture della Messa (lascia vuoto "" se non c'è audio)
-  audioLetture: "https://archive.org/download/parolaaudio/parolaaudio.mp3",
+  audioLetture: "",
 
   // Sottocategorie: Misteri del Santo Rosario
   misteriRosario: [
