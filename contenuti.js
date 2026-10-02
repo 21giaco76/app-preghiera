@@ -13,8 +13,8 @@ const datiOrazione = {
   },
   audioLista: [
 {
-      titolo: "Santo Rosario del Giorno",
-      url: "https://archive.org/download/misteri-della-gioia-lunedi-e-sabato/misteri-della-gioia-lunedi-e-sabato_vbr.m3u"
+      titolo: "Santo Rosario - Misteri della Gioia (Lunedì e Sabato)",
+      url: "https://archive.org/download/misteri-della-gioia-lunedi-e-sabato/misteri-della-gioia-lunedi-e-sabato.mp3"
     }
   ],
   preghiereSettimanali: [
