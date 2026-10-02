@@ -25,7 +25,7 @@ const datiOrazione = {
     },
     { 
       titolo: "Misteri Luminosi (Giovedì)", 
-      url: "" 
+      url: "https://archive.org/download/misteri-luce-giovedi/misteri-luce-giovedi.mp3" 
     },
     { 
       titolo: "Misteri Dolorosi (Martedì e Venerdì)", 
