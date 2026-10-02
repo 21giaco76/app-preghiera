@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preghiera del giorno</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Caricamento remoto dinamico da GitHub Pages -->
+  <script src="https://21giaco76.github.io/app-preghiera/contenuti.js"></script>
+
+  <style>
+    :root {
+      --bg-color: #F8F5F0;
+      --card-bg: #FFFFFF;
+      --accent-terracotta: #C05A3E;
+      --text-main: #2C2623;
+      --text-muted: #8C827A;
+      --border-color: #E6E0D6;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .app-container {
+      width: 100%;
+      max-width: 480px;
+      background: var(--bg-color);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      padding-bottom: 85px;
+    }
+    header {
+      padding: 25px 20px 10px;
+      text-align: center;
+    }
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      letter-spacing: 2px;
+      color: #2C2623;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .cross-icon {
+      color: var(--accent-terracotta);
+      font-size: 13px;
+      margin: 4px 0 10px;
+    }
+    .badge {
+      display: inline-block;
+      background-color: var(--accent-terracotta);
+      color: white;
+      padding: 6px 18px;
+      border-radius: 20px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+    .content-section { display: none; padding: 15px 15px 20px; }
+    .content-section.active { display: block; }
+
+    .link-card {
+      background: var(--card-bg);
+      border-radius: 18px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+      border: 1px solid var(--border-color);
+      margin-top: 10px;
+      overflow: hidden;
+    }
+    .card-img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      margin-bottom: 18px;
+    }
+    .link-card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      color: #2C2623;
+      margin-bottom: 8px;
+    }
+    .link-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+    .open-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      background-color: var(--accent-terracotta);
+      color: white;
+      padding: 14px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: background 0.2s;
+    }
+    .open-btn:hover { background-color: #a84c33; }
+
+    /* ELENCO GIORNI PREGHIERE */
+    .days-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .day-item-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      padding: 16px 20px;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-main);
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+      transition: all 0.2s;
+      text-align: left;
+    }
+    .day-item-btn:hover {
+      border-color: var(--accent-terracotta);
+      color: var(--accent-terracotta);
+    }
+    .day-item-btn i {
+      color: var(--accent-terracotta);
+      font-size: 14px;
+    }
+
+    /* SCHEDA DETTAGLIO PREGHIERA SINGOLA */
+    .prayer-detail-card {
+      display: none;
+      background: var(--card-bg);
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+      border: 1px solid var(--border-color);
+      margin-top: 10px;
+    }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: none;
+      border: none;
+      color: var(--accent-terracotta);
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+    
+    .prayer-detail-card img.prayer-img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      margin: 12px 0 16px 0;
+      display: block;
+    }
+
+    .prayer-detail-card h2.main-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      color: var(--accent-terracotta);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .sub-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      color: #2C2623;
+      margin: 20px 0 8px 0;
+      font-weight: 700;
+    }
+    .prayer-detail-card p {
+      font-size: 15px;
+      color: var(--text-main);
+      line-height: 1.6;
+      white-space: pre-line;
+      margin-bottom: 12px;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      max-width: 480px;
+      background: #FFFFFF;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 8px 5px 12px;
+      border-top: 1px solid var(--border-color);
+      box-shadow: 0 -5px 25px rgba(0,0,0,0.03);
+    }
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      padding: 6px 8px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .nav-item i { font-size: 15px; }
+    .nav-item.active {
+      background-color: var(--accent-terracotta);
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+    <header>
+      <h1>Preghiera del giorno</h1>
+      <div class="cross-icon"><i class="fa-solid fa-cross"></i></div>
+      <div class="badge" id="section-badge">Lodi del Giorno</div>
+    </header>
+
+    <!-- LODI -->
+    <main id="sec-lodi" class="content-section active">
+      <div class="link-card">
+        <img id="img-lodi" class="card-img" src="" alt="Lodi" onerror="this.style.display='none'">
+        <h2>Lodi Mattutine</h2>
+        <p>Leggi le Lodi direttamente sul sito della Liturgia delle Ore.</p>
+        <a id="btn-lodi" href="#" target="_blank" class="open-btn">
+          <span>Apri Lodi Mattutine</span>
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </a>
+      </div>
+    </main>
+
+    <!-- VESPRI -->
+    <main id="sec-vespri" class="content-section">
+      <div class="link-card">
+        <img id="img-vespri" class="card-img" src="" alt="Vespri" onerror="this.style.display='none'">
+        <h2>Vespri della Sera</h2>
+        <p>Leggi i Vespri direttamente sul sito della Liturgia delle Ore.</p>
+        <a id="btn-vespri" href="#" target="_blank" class="open-btn">
+          <span>Apri Vespri della Sera</span>
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </a>
+      </div>
+    </main>
+
+    <!-- COMPIETA -->
+    <main id="sec-compieta" class="content-section">
+      <div class="link-card">
+        <img id="img-compieta" class="card-img" src="" alt="Compieta" onerror="this.style.display='none'">
+        <h2>Compieta</h2>
+        <p>Leggi la Compieta prima del riposo notturno.</p>
+        <a id="btn-compieta" href="#" target="_blank" class="open-btn">
+          <span>Apri Compieta</span>
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </a>
+      </div>
+    </main>
+
+    <!-- LETTURE -->
+    <main id="sec-letture" class="content-section">
+      <div class="link-card">
+        <img id="img-letture" class="card-img" src="" alt="Letture" onerror="this.style.display='none'">
+        <h2>Letture della Messa</h2>
+        <p>Consulta le letture e il Vangelo del giorno sul sito ufficiale.</p>
+        <a id="btn-letture" href="#" target="_blank" class="open-btn">
+          <span>Apri Letture del Giorno</span>
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </a>
+      </div>
+    </main>
+
+    <!-- AUDIO EXTRA -->
+    <main id="sec-audio" class="content-section">
+      <div class="link-card" style="text-align:left;">
+        <h2 style="text-align:center;">Audio e Rosari</h2>
+        <div id="audio-list" style="margin-top:15px;"></div>
+      </div>
+    </main>
+
+    <!-- PREGHIERE CSCV -->
+    <main id="sec-preghiere" class="content-section">
+      <div id="days-container" class="days-list"></div>
+
+      <div id="prayer-detail" class="prayer-detail-card">
+        <button class="back-btn" onclick="showDaysList()">
+          <i class="fa-solid fa-arrow-left"></i> Torna all'elenco giorni
+        </button>
+        
+        <h2 id="detail-title" class="main-title"></h2>
+        
+        <!-- SEZIONE 1: Titolo -> Testo -> Foto -->
+        <h3 id="title-p1" class="sub-title"></h3>
+        <p id="text-p1"></p>
+        <img id="img-foto1" class="prayer-img" src="" alt="" onerror="this.style.display='none'">
+        
+        <!-- SEZIONE 2: Titolo -> Testo -> Foto -->
+        <h3 id="title-p2" class="sub-title"></h3>
+        <p id="text-p2"></p>
+        <img id="img-foto2" class="prayer-img" src="" alt="" onerror="this.style.display='none'">
+        
+        <!-- SEZIONE 3 -->
+        <h3 id="title-p3" class="sub-title"></h3>
+        <p id="text-p3"></p>
+
+        <!-- SEZIONE 4 -->
+        <h3 id="title-p4" class="sub-title"></h3>
+        <p id="text-p4"></p>
+
+        <!-- SEZIONE 5 -->
+        <h3 id="title-p5" class="sub-title"></h3>
+        <p id="text-p5"></p>
+      </div>
+    </main>
+
+    <!-- NAVIGAZIONE IN BASSO -->
+    <nav class="bottom-nav">
+      <button class="nav-item active" onclick="switchTab('lodi', 'Lodi del Giorno', this)">
+        <i class="fa-solid fa-sun"></i>
+        <span>LODI</span>
+      </button>
+      <button class="nav-item" onclick="switchTab('vespri', 'Vespri della Sera', this)">
+        <i class="fa-solid fa-moon"></i>
+        <span>VESPRI</span>
+      </button>
+      <button class="nav-item" onclick="switchTab('compieta', 'Compieta', this)">
+        <i class="fa-solid fa-bed"></i>
+        <span>COMPIETA</span>
+      </button>
+      <button class="nav-item" onclick="switchTab('letture', 'Letture del Giorno', this)">
+        <i class="fa-solid fa-book-open"></i>
+        <span>LETTURE</span>
+      </button>
+      <button class="nav-item" onclick="switchTab('audio', 'Audio Guidati', this)">
+        <i class="fa-solid fa-headphones"></i>
+        <span>AUDIO</span>
+      </button>
+      <button class="nav-item" onclick="switchTab('preghiere', 'Preghiere CSCV', this)">
+        <i class="fa-solid fa-hands-praying"></i>
+        <span>PREGHIERE</span>
+      </button>
+    </nav>
+  </div>
+
+  <script>
+    // Funzione principale per inizializzare e ricaricare tutti i dati e le foto
+    function inizializzaApp() {
+      if (typeof datiOrazione !== 'undefined') {
+        // Ripristina Link
+        if (datiOrazione.links) {
+          const btnLodi = document.getElementById('btn-lodi');
+          const btnVespri = document.getElementById('btn-vespri');
+          const btnCompieta = document.getElementById('btn-compieta');
+          const btnLetture = document.getElementById('btn-letture');
+
+          if (btnLodi) btnLodi.href = datiOrazione.links.lodi || '#';
+          if (btnVespri) btnVespri.href = datiOrazione.links.vespri || '#';
+          if (btnCompieta) btnCompieta.href = datiOrazione.links.compieta || '#';
+          if (btnLetture) btnLetture.href = datiOrazione.links.letture || '#';
+        }
+
+        // Ripristina Foto Sezioni principali
+        if (datiOrazione.fotoSezioni) {
+          const imgLodi = document.getElementById('img-lodi');
+          const imgVespri = document.getElementById('img-vespri');
+          const imgCompieta = document.getElementById('img-compieta');
+          const imgLetture = document.getElementById('img-letture');
+
+          if (imgLodi && datiOrazione.fotoSezioni.lodi) { imgLodi.src = datiOrazione.fotoSezioni.lodi; imgLodi.style.display = 'block'; }
+          if (imgVespri && datiOrazione.fotoSezioni.vespri) { imgVespri.src = datiOrazione.fotoSezioni.vespri; imgVespri.style.display = 'block'; }
+          if (imgCompieta && datiOrazione.fotoSezioni.compieta) { imgCompieta.src = datiOrazione.fotoSezioni.compieta; imgCompieta.style.display = 'block'; }
+          if (imgLetture && datiOrazione.fotoSezioni.letture) { imgLetture.src = datiOrazione.fotoSezioni.letture; imgLetture.style.display = 'block'; }
+        }
+
+        // Generazione Lista Audio
+        const audioDiv = document.getElementById('audio-list');
+        if (datiOrazione.audioLista && audioDiv) {
+          audioDiv.innerHTML = '';
+          datiOrazione.audioLista.forEach(a => {
+            audioDiv.innerHTML += `<div style="margin-bottom:15px; background:#FAF8F5; padding:12px; border-radius:12px;">
+              <strong style="font-size:14px; color:#2C2623;">${a.titolo}</strong>
+              <audio controls src="${a.url}" style="margin-top:8px; width:100%;"></audio>
+            </div>`;
+          });
+        }
+
+        // Generazione Elenco Giorni
+        const daysContainer = document.getElementById('days-container');
+        if (datiOrazione.preghiereSettimanali && daysContainer) {
+          daysContainer.innerHTML = '';
+          datiOrazione.preghiereSettimanali.forEach(p => {
+            daysContainer.innerHTML += `
+              <button class="day-item-btn" onclick="openPrayer('${p.id}')">
+                <span>${p.titolo}</span>
+                <i class="fa-solid fa-chevron-right"></i>
+              </button>
+            `;
+          });
+        }
+      }
+    }
+
+    // Esegui immediatamente all'avvio e su tutte le fasi di caricamento Android
+    document.addEventListener("DOMContentLoaded", inizializzaApp);
+    window.onload = inizializzaApp;
+
+    // Esegue il ricaricamento automatico quando l'utente torna indietro dal browser
+    window.addEventListener("pageshow", function(event) {
+      inizializzaApp();
+    });
+
+    function openPrayer(id) {
+      if (typeof datiOrazione === 'undefined' || !datiOrazione.preghiereSettimanali) return;
+      const preghiera = datiOrazione.preghiereSettimanali.find(p => p.id === id);
+      if (preghiera) {
+        document.getElementById('detail-title').innerText = preghiera.titolo || '';
+
+        // SEZIONE 1
+        document.getElementById('title-p1').innerText = preghiera.titoloPreghiera1 || '';
+        document.getElementById('text-p1').innerText = preghiera.testoPreghiera1 || '';
+        const img1 = document.getElementById('img-foto1');
+        if (preghiera.foto1) { img1.src = preghiera.foto1; img1.style.display = 'block'; } 
+        else { img1.style.display = 'none'; }
+
+        // SEZIONE 2
+        document.getElementById('title-p2').innerText = preghiera.titoloPreghiera2 || '';
+        document.getElementById('text-p2').innerText = preghiera.testoPreghiera2 || '';
+        const img2 = document.getElementById('img-foto2');
+        if (preghiera.foto2) { img2.src = preghiera.foto2; img2.style.display = 'block'; } 
+        else { img2.style.display = 'none'; }
+
+        // SEZIONI 3, 4, 5
+        document.getElementById('title-p3').innerText = preghiera.titoloPreghiera3 || '';
+        document.getElementById('text-p3').innerText = preghiera.testoPreghiera3 || '';
+
+        document.getElementById('title-p4').innerText = preghiera.titoloPreghiera4 || '';
+        document.getElementById('text-p4').innerText = preghiera.testoPreghiera4 || '';
+
+        document.getElementById('title-p5').innerText = preghiera.titoloPreghiera5 || '';
+        document.getElementById('text-p5').innerText = preghiera.testoPreghiera5 || preghiera.testoPreghiera || '';
+
+        document.getElementById('days-container').style.display = 'none';
+        document.getElementById('prayer-detail').style.display = 'block';
+      }
+    }
+
+    function showDaysList() {
+      document.getElementById('prayer-detail').style.display = 'none';
+      document.getElementById('days-container').style.display = 'flex';
+    }
+
+    function switchTab(tabId, badgeText, btn) {
+      document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+      document.getElementById('sec-' + tabId).classList.add('active');
+      btn.classList.add('active');
+      document.getElementById('section-badge').innerText = badgeText;
+
+      if (tabId === 'preghiere') {
+        showDaysList();
+      }
+    }
+  </script>
+</body>
+</html>
