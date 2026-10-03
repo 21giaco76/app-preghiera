@@ -3,10 +3,10 @@ const datiOrazione = {
   logoUrl: "https://21giaco76.github.io/app-preghiera/logo.png",
 
   links: {
-    lodi: "https://www.chiesacattolica.it/la-liturgia-delle-ore/?ora=lodi-mattutine",
+    lodi: "https://www.chiesacattolica.it/la-liturgia-delle-ore/"
     vespri: "https://www.chiesacattolica.it/la-liturgia-delle-ore/?ora=vespri",
     compieta: "https://www.chiesacattolica.it/la-liturgia-delle-ore/?ora=compieta",
-    letture: "https://www.chiesacattolica.it/liturgia-del-giorno"
+    letture: "https://www.vaticannews.va/it/vangelo-del-giorno-e-parola-del-giorno.html"
   },
 
   fotoSezioni: {
