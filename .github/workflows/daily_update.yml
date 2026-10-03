@@ -1,0 +1,27 @@
+name: Aggiornamento Liturgia Giornaliera
+
+on:
+  schedule:
+    - cron: '5 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Configura Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      - name: Installa dipendenze
+        run: pip install requests beautifulsoup4
+      - name: Esegui script di estrazione
+        run: python scripts/fetch_liturgia.py
+      - name: Salva modifiche su GitHub
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add dati/oggi.json
+          git commit -m "Aggiornamento automatizzato liturgia del giorno" || exit 0
+          git push
