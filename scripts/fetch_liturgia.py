@@ -9,7 +9,6 @@ def genera_dati_liturgia():
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
     }
     
-    # Data odierna YYYYMMDD
     oggi_str = datetime.now().strftime("%Y%m%d")
     
     dati = {
@@ -20,57 +19,54 @@ def genera_dati_liturgia():
         "audio_url": ""
     }
 
-    # Helper per scaricare la liturgia
-    def scarica_ora(ora_nome):
-        url = f"https://www.chiesacattolica.it/la-liturgia-delle-ore/?data-liturgia={oggi_str}&ora={ora_nome}"
+    def pulisci_html(soup_elem):
+        if not soup_elem:
+            return ""
+        # Rimuove link di condivisione o stampa
+        for tag in soup_elem.find_all(['script', 'style', 'iframe']):
+            tag.decompose()
+        return str(soup_elem)
+
+    def scarica_pagina(url):
         try:
-            r = requests.get(url, headers=headers, timeout=10)
+            r = requests.get(url, headers=headers, timeout=12)
             if r.status_code == 200:
                 soup = BeautifulSoup(r.text, 'html.parser')
-                content = soup.find('div', class_='entry-content') or soup.find('article')
-                if content:
-                    return str(content)
+                content = soup.find('div', class_='entry-content') or soup.find('article') or soup.find('main')
+                return soup, content
         except Exception as e:
-            print(f"Errore {ora_nome}: {e}")
-        return f"<p>Impossibile caricare {ora_nome} per il giorno corrente.</p>"
+            print(f"Errore download {url}: {e}")
+        return None, None
 
-    print("Download Lodi...")
-    dati["lodi"] = scarica_ora("lodi-mattutine")
+    # 1. Lodi, Vespri, Compieta
+    for ora, key in [("lodi-mattutine", "lodi"), ("vespri", "vespri"), ("compieta", "compieta")]:
+        url = f"https://www.chiesacattolica.it/la-liturgia-delle-ore/?data-liturgia={oggi_str}&ora={ora}"
+        _, content = scarica_pagina(url)
+        if content:
+            dati[key] = pulisci_html(content)
+        else:
+            dati[key] = f"<p>Impossibile caricare {key} per la data odierna.</p>"
+
+    # 2. Letture del giorno + Audio mp3
+    url_letture = f"https://www.chiesacattolica.it/liturgia-del-giorno/?data-liturgia={oggi_str}"
+    soup_l, content_l = scarica_pagina(url_letture)
     
-    print("Download Vespri...")
-    dati["vespri"] = scarica_ora("vespri")
-    
-    print("Download Compieta...")
-    dati["compieta"] = scarica_ora("compieta")
+    if soup_l:
+        # Cerca il file audio
+        audio_tag = soup_l.find('audio')
+        if audio_tag and audio_tag.get('src'):
+            dati["audio_url"] = audio_tag['src']
+        else:
+            source_tag = soup_l.find('source')
+            if source_tag and source_tag.get('src'):
+                dati["audio_url"] = source_tag['src']
+                
+    if content_l:
+        dati["letture"] = pulisci_html(content_l)
+    else:
+        dati["letture"] = "<p>Impossibile caricare le Letture della Messa.</p>"
 
-    # Download Letture del giorno + Audio
-    print("Download Letture...")
-    try:
-        url_letture = f"https://www.chiesacattolica.it/liturgia-del-giorno/?data-liturgia={oggi_str}"
-        r = requests.get(url_letture, headers=headers, timeout=10)
-        if r.status_code == 200:
-            soup = BeautifulSoup(r.text, 'html.parser')
-            
-            # Cerca il file audio mp3
-            audio_tag = soup.find('audio')
-            if audio_tag and audio_tag.get('src'):
-                dati["audio_url"] = audio_tag['src']
-            else:
-                source_tag = soup.find('source', type='audio/mpeg')
-                if source_tag and source_tag.get('src'):
-                    dati["audio_url"] = source_tag['src']
-            
-            content = soup.find('div', class_='entry-content') or soup.find('article')
-            if content:
-                dati["letture"] = str(content)
-    except Exception as e:
-        print(f"Errore Letture: {e}")
-        dati["letture"] = "<p>Impossibile caricare le Letture del giorno.</p>"
-
-    # Assicurati che la cartella dati esista
     os.makedirs('dati', exist_ok=True)
-
-    # Salva il file JSON
     with open('dati/oggi.json', 'w', encoding='utf-8') as f:
         json.dump(dati, f, ensure_ascii=False, indent=2)
 
