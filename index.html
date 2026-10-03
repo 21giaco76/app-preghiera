@@ -38,7 +38,7 @@
       padding-bottom: 85px;
     }
 
-    /* TOP BAR ELEGANTE CON SCRITTA CENTRATA, DOPPIO LOGO E POSIZIONE FISSA IN ALTO */
+    /* TOP BAR ELEGANTE */
     .top-bar {
       display: flex;
       align-items: center;
@@ -379,12 +379,6 @@
           <span>Apri Letture del Giorno</span>
           <i class="fa-solid fa-arrow-up-right-from-square"></i>
         </a>
-
-        <!-- Lettore Audio per Letture -->
-        <div id="audio-letture-box" class="audio-player-box" style="display:none;">
-          <h3><i class="fa-solid fa-volume-high" style="color:var(--accent-terracotta);"></i> Ascolta le Letture e Meditazione</h3>
-          <audio id="audio-letture-player" controls style="width:100%; margin-top:8px;"></audio>
-        </div>
       </div>
     </main>
 
@@ -507,22 +501,12 @@
           if (imgLetture && datiOrazione.fotoSezioni.letture) { imgLetture.src = datiOrazione.fotoSezioni.letture; imgLetture.style.display = 'block'; }
         }
 
-        // Audio Letture
-        const lettureAudioBox = document.getElementById('audio-letture-box');
-        const letturePlayer = document.getElementById('audio-letture-player');
-        if (datiOrazione.audioLetture && lettureAudioBox && letturePlayer) {
-          letturePlayer.src = datiOrazione.audioLetture;
-          lettureAudioBox.style.display = 'block';
-        } else if (lettureAudioBox) {
-          lettureAudioBox.style.display = 'none';
-        }
-
-        // Audio Coroncina e Singoli
+        // Audio Coroncina nella Sezione AUDIO
         const singoliDiv = document.getElementById('audio-singoli-list');
         if (singoliDiv) {
           singoliDiv.innerHTML = '';
 
-          // 1. Mostra la Coroncina della Divina Misericordia se presente
+          // Caricamento Coroncina della Divina Misericordia
           if (datiOrazione.coroncinaMisericordia) {
             singoliDiv.innerHTML += `
               <div class="audio-item-box">
@@ -532,20 +516,6 @@
                 </strong>
                 <audio controls src="${datiOrazione.coroncinaMisericordia}" style="margin-top:8px; width:100%;"></audio>
               </div>`;
-          }
-
-          // 2. Mostra eventuali altri audio singoli
-          if (datiOrazione.audioSingoli) {
-            datiOrazione.audioSingoli.forEach(a => {
-              singoliDiv.innerHTML += `
-                <div class="audio-item-box">
-                  <strong style="font-size:14px; color:#2C2623;">
-                    <i class="fa-solid fa-music" style="color:var(--accent-terracotta); margin-right:6px;"></i> 
-                    ${a.titolo}
-                  </strong>
-                  <audio controls src="${a.url}" style="margin-top:8px; width:100%;"></audio>
-                </div>`;
-            });
           }
         }
 
