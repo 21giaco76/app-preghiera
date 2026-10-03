@@ -1,7 +1,7 @@
 {
   "background_color": "#fff8f3",
   "dir": "ltr",
-  "display": "standalone",
+  "display": "fullscreen",
   "name": "CSCV",
   "orientation": "any",
   "scope": "/",
@@ -11,7 +11,8 @@
   "id": "cscv-app",
   "description": "App di Preghiera CSCV",
   "display_override": [
-    "window-controls-overlay"
+    "fullscreen",
+    "minimal-ui"
   ],
   "icons": [
     {
