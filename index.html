@@ -104,7 +104,7 @@
       text-transform: uppercase;
     }
     .content-section { display: none; padding: 15px 15px 20px; }
-    .content-section.active { display: block; }
+    .content-section.active { display: block !important; }
 
     .link-card {
       background: var(--card-bg);
@@ -158,14 +158,6 @@
       border-radius: 14px;
       border: 1px solid var(--border-color);
       text-align: left;
-    }
-    .audio-player-box h3 {
-      font-size: 14px;
-      color: var(--text-main);
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
     }
 
     /* CATEGORIE AUDIO */
@@ -316,7 +308,7 @@
 
   <div class="app-container">
     
-    <!-- BARRA SUPERIORE CON CSCV CENTRATO E DOPPIO LOGO AI LATI -->
+    <!-- TOP BAR -->
     <div class="top-bar">
       <img id="top-logo-left" class="top-bar-logo" src="https://21giaco76.github.io/app-preghiera/logo.png" alt="Logo">
       <span class="top-bar-title">CSCV</span>
@@ -330,7 +322,7 @@
       <div class="badge" id="section-badge">Lodi del Giorno</div>
     </header>
 
-    <!-- LODI -->
+    <!-- LODI (Attiva di default subito al caricamento HTML) -->
     <main id="sec-lodi" class="content-section active">
       <div class="link-card">
         <img id="img-lodi" class="card-img" src="" alt="Lodi" onerror="this.style.display='none'">
@@ -384,7 +376,6 @@
 
     <!-- AUDIO -->
     <main id="sec-audio" class="content-section">
-      <!-- VISTA PRINCIPALE AUDIO -->
       <div id="audio-main-view">
         <div id="audio-singoli-list"></div>
 
@@ -394,7 +385,6 @@
         </div>
       </div>
 
-      <!-- SOTTOCATEGORIA ROSARIO -->
       <div id="audio-rosario-view" style="display:none;">
         <button class="back-btn" onclick="showAudioMainView()">
           <i class="fa-solid fa-arrow-left"></i> Torna agli Audio
@@ -414,7 +404,6 @@
         </button>
         
         <h2 id="detail-title" class="main-title"></h2>
-        
         <h3 id="title-p1" class="sub-title"></h3>
         <p id="text-p1"></p>
         <img id="img-foto1" class="prayer-img" src="" alt="" onerror="this.style.display='none'">
@@ -425,10 +414,8 @@
         
         <h3 id="title-p3" class="sub-title"></h3>
         <p id="text-p3"></p>
-
         <h3 id="title-p4" class="sub-title"></h3>
         <p id="text-p4"></p>
-
         <h3 id="title-p5" class="sub-title"></h3>
         <p id="text-p5"></p>
       </div>
@@ -464,10 +451,27 @@
   </div>
 
   <script>
+    // Blocco riproduzione simultanea degli audio
+    function gestisciAudioUnico() {
+      const allAudio = document.querySelectorAll('audio');
+      allAudio.forEach(audio => {
+        audio.removeEventListener('play', handlePlay);
+        audio.addEventListener('play', handlePlay);
+      });
+    }
+
+    function handlePlay(e) {
+      const allAudio = document.querySelectorAll('audio');
+      allAudio.forEach(otherAudio => {
+        if (otherAudio !== e.target) {
+          otherAudio.pause();
+        }
+      });
+    }
+
     function inizializzaApp() {
       if (typeof datiOrazione !== 'undefined') {
         
-        // Impostazione Logo Barra Superiore
         if (datiOrazione.logoUrl) {
           const logoL = document.getElementById('top-logo-left');
           const logoR = document.getElementById('top-logo-right');
@@ -475,7 +479,6 @@
           if (logoR) logoR.src = datiOrazione.logoUrl;
         }
 
-        // Link Esterni
         if (datiOrazione.links) {
           const btnLodi = document.getElementById('btn-lodi');
           const btnVespri = document.getElementById('btn-vespri');
@@ -488,7 +491,6 @@
           if (btnLetture) btnLetture.href = datiOrazione.links.letture || '#';
         }
 
-        // Foto Sezioni
         if (datiOrazione.fotoSezioni) {
           const imgLodi = document.getElementById('img-lodi');
           const imgVespri = document.getElementById('img-vespri');
@@ -501,12 +503,9 @@
           if (imgLetture && datiOrazione.fotoSezioni.letture) { imgLetture.src = datiOrazione.fotoSezioni.letture; imgLetture.style.display = 'block'; }
         }
 
-        // Audio Coroncina nella Sezione AUDIO
         const singoliDiv = document.getElementById('audio-singoli-list');
         if (singoliDiv) {
           singoliDiv.innerHTML = '';
-
-          // Caricamento Coroncina della Divina Misericordia
           if (datiOrazione.coroncinaMisericordia) {
             singoliDiv.innerHTML += `
               <div class="audio-item-box">
@@ -519,7 +518,6 @@
           }
         }
 
-        // Rosario Misteri
         const misteriDiv = document.getElementById('rosario-misteri-list');
         if (datiOrazione.misteriRosario && misteriDiv) {
           misteriDiv.innerHTML = '';
@@ -532,7 +530,8 @@
           });
         }
 
-        // Giorni Preghiere
+        gestisciAudioUnico();
+
         const daysContainer = document.getElementById('days-container');
         if (datiOrazione.preghiereSettimanali && daysContainer) {
           daysContainer.innerHTML = '';
@@ -548,9 +547,8 @@
       }
     }
 
+    // Caricamento immediato
     document.addEventListener("DOMContentLoaded", inizializzaApp);
-    window.onload = inizializzaApp;
-    window.addEventListener("pageshow", function(event) { inizializzaApp(); });
 
     function openPrayer(id) {
       if (typeof datiOrazione === 'undefined' || !datiOrazione.preghiereSettimanali) return;
