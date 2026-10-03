@@ -5,9 +5,12 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 
 def genera_dati_liturgia():
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
-    }
+    # Sessione per mantenere i cookie di navigazione (fondamentale per saltare l'Invitatorio)
+    session = requests.Session()
+    session.headers.update({
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept-Language': 'it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7'
+    })
     
     oggi_str = datetime.now().strftime("%Y%m%d")
     
@@ -19,79 +22,83 @@ def genera_dati_liturgia():
         "audio_url": ""
     }
 
-    # Helper per scaricare e pulire il contenuto HTML mantenendo solo il testo formattato
-    def estrai_contenuto_pulito(url):
-        try:
-            r = requests.get(url, headers=headers, timeout=15)
-            r.encoding = 'utf-8'
-            if r.status_code == 200:
-                soup = BeautifulSoup(r.text, 'html.parser')
+    def pulisci_html(elem):
+        if not elem:
+            return ""
+        # Rimuove elementi grafici, pulsanti di stampa/condivisione e script
+        for tag in elem.find_all(['script', 'style', 'iframe', 'form', 'nav', 'footer']):
+            tag.decompose()
+        
+        # Pulisce gli attributi inline lasciando che sia il CSS dell'app a formattare
+        for tag in elem.find_all(True):
+            if 'style' in tag.attrs:
+                del tag.attrs['style']
+            if 'class' in tag.attrs:
+                del tag.attrs['class']
                 
-                # Rimuove elementi indesiderati
-                for tag in soup.find_all(['script', 'style', 'iframe', 'form', 'nav', 'header', 'footer']):
-                    tag.decompose()
-                
-                # Trova il corpo del testo principale
-                contenuto = soup.find('div', class_='entry-content') or \
-                            soup.find('div', class_='content-liturgia') or \
-                            soup.find('article') or \
-                            soup.find('main')
-                
-                if contenuto:
-                    # Pulisce attributi di stile inline per permettere all'app di gestire i font
-                    for tag in contenuto.find_all(True):
-                        if 'style' in tag.attrs:
-                            del tag.attrs['style']
-                        if 'class' in tag.attrs:
-                            del tag.attrs['class']
-                    return str(contenuto)
-        except Exception as e:
-            print(f"Errore caricamento {url}: {e}")
-        return ""
+        return str(elem)
 
-    # 1. Liturgia delle Ore
-    ore = [
+    # 1. SCARICAMENTO ORE LITURGICHE (Lodi, Vespri, Compieta)
+    ore_map = [
         ("lodi-mattutine", "lodi"),
         ("vespri", "vespri"),
         ("compieta", "compieta")
     ]
 
-    for ora_param, chiave in ore:
+    for ora_param, chiave in ore_map:
         url = f"https://www.chiesacattolica.it/la-liturgia-delle-ore/?data-liturgia={oggi_str}&ora={ora_param}"
-        testo = estrai_contenuto_pulito(url)
-        if testo:
-            dati[chiave] = testo
-        else:
-            dati[chiave] = f"<p>Testo delle {chiave.capitalize()} del giorno non disponibile.</p>"
+        try:
+            r = session.get(url, timeout=12)
+            if r.status_code == 200:
+                soup = BeautifulSoup(r.text, 'html.parser')
+                
+                # Rimuove l'invitatorio se presente in cima per Vespri e Compieta
+                invitatorio = soup.find('div', id='invitatorio')
+                if invitatorio:
+                    invitatorio.decompose()
 
-    # 2. Letture della Messa e Audio MP3
+                contenuto = soup.find('div', class_='entry-content') or \
+                            soup.find('div', class_='content-liturgia') or \
+                            soup.find('article')
+                
+                if contenuto:
+                    dati[chiave] = pulisci_html(contenuto)
+                else:
+                    dati[chiave] = f"<p>Impossibile caricare il testo di {chiave.capitalize()}.</p>"
+        except Exception as e:
+            print(f"Errore caricamento {chiave}: {e}")
+            dati[chiave] = f"<p>Errore durante il recupero di {chiave.capitalize()}.</p>"
+
+    # 2. SCARICAMENTO LETTURE E AUDIO MP3
     url_letture = f"https://www.chiesacattolica.it/liturgia-del-giorno/?data-liturgia={oggi_str}"
     try:
-        r = requests.get(url_letture, headers=headers, timeout=15)
-        r.encoding = 'utf-8'
+        r = session.get(url_letture, timeout=12)
         if r.status_code == 200:
             soup = BeautifulSoup(r.text, 'html.parser')
             
             # Cerca audio MP3
-            audio = soup.find('audio')
-            if audio and audio.get('src'):
-                dati["audio_url"] = audio['src']
+            audio_tag = soup.find('audio')
+            if audio_tag and audio_tag.get('src'):
+                dati["audio_url"] = audio_tag['src']
             else:
-                source = soup.find('source')
-                if source and source.get('src'):
-                    dati["audio_url"] = source['src']
+                source_tag = soup.find('source')
+                if source_tag and source_tag.get('src'):
+                    dati["audio_url"] = source_tag['src']
+                else:
+                    for a in soup.find_all('a', href=True):
+                        if a['href'].endswith('.mp3'):
+                            dati["audio_url"] = a['href']
+                            break
 
-            # Estrazione testo letture
-            for tag in soup.find_all(['script', 'style', 'iframe', 'form', 'nav', 'header', 'footer']):
-                tag.decompose()
-            contenuto = soup.find('div', class_='entry-content') or soup.find('article') or soup.find('main')
-            if contenuto:
-                for tag in contenuto.find_all(True):
-                    if 'style' in tag.attrs: del tag.attrs['style']
-                    if 'class' in tag.attrs: del tag.attrs['class']
-                dati["letture"] = str(contenuto)
+            # Cerca testo delle Letture
+            contenuto_l = soup.find('div', class_='entry-content') or \
+                          soup.find('div', class_='liturgia-giorno') or \
+                          soup.find('article')
+                          
+            if contenuto_l:
+                dati["letture"] = pulisci_html(contenuto_l)
             else:
-                dati["letture"] = "<p>Letture del giorno non disponibili.</p>"
+                dati["letture"] = "<p>Testo delle Letture non trovato.</p>"
     except Exception as e:
         print(f"Errore Letture: {e}")
         dati["letture"] = "<p>Errore nel caricamento delle Letture del giorno.</p>"
