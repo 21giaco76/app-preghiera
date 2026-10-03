@@ -10,39 +10,35 @@ def genera_dati_liturgia():
     }
     
     oggi = datetime.now()
-    data_str = oggi.strftime("%Y-%m-%d")  # Formato YYYY-MM-DD
+    data_str = oggi.strftime("%Y-%m-%d")
 
     dati = {
         "lodi": "",
         "vespri": "",
         "compieta": "",
         "letture": "",
-        "audio_url": ""  # Lasciato vuoto per ora
+        "audio_url": ""
     }
 
-    # Funzione per isolare solo il testo delle preghiere e rimuovere i menu di iBreviary
+    # Funzione per estrarre e pulire solo il testo vero e proprio
     def pulisci_e_estrai_testo(raw_html):
         if not raw_html:
             return ""
         soup = BeautifulSoup(raw_html, 'html.parser')
         
-        # 1. Rimuove elementi di disturbo (script, stili, link, immagini, form)
-        for elem in soup.find_all(['script', 'style', 'iframe', 'form', 'img', 'a', 'nav', 'header', 'footer']):
+        # 1. Rimuove elementi grafici, script, form e liste di menu (elimina i punti neri a sinistra)
+        for elem in soup.find_all(['script', 'style', 'iframe', 'form', 'img', 'a', 'nav', 'header', 'footer', 'ul', 'ol', 'li']):
             elem.decompose()
             
-        # 2. Rimuove specifici blocchi di menu o intestazioni di iBreviary
+        # 2. Rimuove contenitori di navigazione residui
         for menu in soup.find_all('div', class_=['top_menu', 'header', 'navbar', 'menu', 'breadcrumb', 'nav_menu']):
             menu.decompose()
             
-        # 3. Cerca il contenitore principale dove risiede il testo liturgico
+        # 3. Estrae il blocco di testo principale
         contenuto = soup.find('div', id='content') or soup.find('div', class_='text') or soup.find('body')
         
         if contenuto:
-            # Elimina eventuali menu interni residui
-            for sub_menu in contenuto.find_all('div', class_=['menu', 'nav']):
-                sub_menu.decompose()
-            
-            # Pulisce tutti gli stili inline così il testo risponde ai tasti A- e A+ dell'app
+            # Elimina stili e classi per permettere alla tua app di gestire liberamente font e dimensioni
             for tag in contenuto.find_all(True):
                 if 'style' in tag.attrs:
                     del tag.attrs['style']
@@ -73,8 +69,8 @@ def genera_dati_liturgia():
             print(f"Errore {chiave}: {e}")
             dati[chiave] = f"<p>Errore nel caricamento di {chiave.capitalize()}.</p>"
 
-    # 2. RECUPERO LETTURE DELLA MESSA
-    url_messa = f"https://www.ibreviary.com/m2/messa.php?data={data_str}&lang=it"
+    # 2. RECUPERO LETTURE DELLA MESSA (URL corretto per la Messa)
+    url_messa = f"https://www.ibreviary.com/m2/messa.php?s=messa&data={data_str}&lang=it"
     try:
         r_messa = requests.get(url_messa, headers=headers, timeout=12)
         if r_messa.status_code == 200:
@@ -86,7 +82,7 @@ def genera_dati_liturgia():
         print(f"Errore Letture: {e}")
         dati["letture"] = "<p>Errore nel caricamento delle Letture del giorno.</p>"
 
-    # Salva il file JSON aggiornato
+    # Salva il file JSON
     os.makedirs('dati', exist_ok=True)
     with open('dati/oggi.json', 'w', encoding='utf-8') as f:
         json.dump(dati, f, ensure_ascii=False, indent=2)
