@@ -1,0 +1,7 @@
+{
+  "lodi": "<h3>Lodi Mattutine</h3><p>Testo delle Lodi del giorno in caricamento...</p>",
+  "vespri": "<h3>Vespri</h3><p>Testo dei Vespri del giorno in caricamento...</p>",
+  "compieta": "<h3>Compieta</h3><p>Testo della Compieta del giorno in caricamento...</p>",
+  "letture": "<h3>Letture della Messa</h3><p>Testo delle Letture del giorno in caricamento...</p>",
+  "audio_url": "https://www.lachiesa.it/liturgia/audio/oggi.mp3"
+}
