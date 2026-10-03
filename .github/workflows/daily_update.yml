@@ -1,27 +1,38 @@
-name: Aggiornamento Liturgia Giornaliera
+name: Aggiornamento Automatico Liturgia
 
 on:
   schedule:
-    - cron: '5 0 * * *'
-  workflow_dispatch:
+    # Tre tentativi ad orari strategici (03:00, 04:00 e 05:00 UTC)
+    # Corrispondono a circa le 04:00/05:00, 05:00/06:00 e 06:00/07:00 italiane
+    - cron: '0 3,4,5 * * *'
+  workflow_dispatch: # Consente l'avvio manuale
 
 jobs:
-  build:
+  update-liturgy:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
-      - name: Configura Python
+      - name: Checkout del codice
+        uses: actions/checkout@v3
+
+      - name: Configurazione Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.x'
-      - name: Installa dipendenze
-        run: pip install requests beautifulsoup4
-      - name: Esegui script di estrazione
-        run: python scripts/fetch_liturgia.py
-      - name: Salva modifiche su GitHub
+
+      - name: Installazione dipendenze
         run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4
+
+      - name: Esecuzione script di scraping
+        run: |
+          python script_liturgia.py
+
+      - name: Commit e Push dei file aggiornati
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add dati/oggi.json
-          git commit -m "Aggiornamento automatizzato liturgia del giorno" || exit 0
-          git push
+          git status
+          git diff-index --quiet HEAD || (git commit -m "Automated: Aggiornamento liturgia del giorno" && git push)
