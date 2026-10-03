@@ -1,17 +1,17 @@
 import os
 import json
 import requests
-from bs4 import BeautifulSoup
 from datetime import datetime
 
 def genera_dati_liturgia():
     headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'
     }
     
     oggi = datetime.now()
-    data_str = oggi.strftime("%Y-%m-%d")
-
+    data_iso = oggi.strftime("%Y-%m-%d") # YYYY-MM-DD per API
+    data_str = oggi.strftime("%Y%m%d")   # YYYYMMDD
+    
     dati = {
         "lodi": "",
         "vespri": "",
@@ -20,69 +20,70 @@ def genera_dati_liturgia():
         "audio_url": ""
     }
 
-    # Funzione per estrarre e pulire solo il testo vero e proprio
-    def pulisci_e_estrai_testo(raw_html):
-        if not raw_html:
-            return ""
-        soup = BeautifulSoup(raw_html, 'html.parser')
-        
-        # 1. Rimuove elementi grafici, script, form e liste di menu (elimina i punti neri a sinistra)
-        for elem in soup.find_all(['script', 'style', 'iframe', 'form', 'img', 'a', 'nav', 'header', 'footer', 'ul', 'ol', 'li']):
-            elem.decompose()
-            
-        # 2. Rimuove contenitori di navigazione residui
-        for menu in soup.find_all('div', class_=['top_menu', 'header', 'navbar', 'menu', 'breadcrumb', 'nav_menu']):
-            menu.decompose()
-            
-        # 3. Estrae il blocco di testo principale
-        contenuto = soup.find('div', id='content') or soup.find('div', class_='text') or soup.find('body')
-        
-        if contenuto:
-            # Elimina stili e classi per permettere alla tua app di gestire liberamente font e dimensioni
-            for tag in contenuto.find_all(True):
-                if 'style' in tag.attrs:
-                    del tag.attrs['style']
-                if 'class' in tag.attrs:
-                    del tag.attrs['class']
-                    
-            return str(contenuto)
-            
-        return ""
-
-    # 1. RECUPERO ORE LITURGICHE (Lodi, Vespri, Compieta)
-    ore_map = {
-        "lodi": "lodi",
-        "vespri": "vespri",
-        "compieta": "compieta"
-    }
-
-    for chiave, ora_name in ore_map.items():
-        url = f"https://www.ibreviary.com/m2/breviario.php?s={ora_name}&data={data_str}&lang=it"
-        try:
-            r = requests.get(url, headers=headers, timeout=12)
-            if r.status_code == 200:
-                testo = pulisci_e_estrai_testo(r.text)
-                dati[chiave] = testo if testo else f"<p>Testo per {chiave.capitalize()} non disponibile.</p>"
-            else:
-                dati[chiave] = f"<p>Impossibile caricare {chiave.capitalize()}.</p>"
-        except Exception as e:
-            print(f"Errore {chiave}: {e}")
-            dati[chiave] = f"<p>Errore nel caricamento di {chiave.capitalize()}.</p>"
-
-    # 2. RECUPERO LETTURE DELLA MESSA (URL corretto per la Messa)
-    url_messa = f"https://www.ibreviary.com/m2/messa.php?s=messa&data={data_str}&lang=it"
+    # 1. LETTURE DEL GIORNO (Via API REST Evangelizo / Liturgia)
     try:
-        r_messa = requests.get(url_messa, headers=headers, timeout=12)
-        if r_messa.status_code == 200:
-            testo_m = pulisci_e_estrai_testo(r_messa.text)
-            dati["letture"] = testo_m if testo_m else "<p>Letture del giorno non disponibili.</p>"
-        else:
-            dati["letture"] = "<p>Impossibile caricare le Letture della Messa.</p>"
+        # API ufficiale italiana per il testo delle letture
+        url_api_letture = f"https://api.evangelizo.org/v1/it/reading/{data_iso}"
+        r = requests.get(url_api_letture, headers=headers, timeout=10)
+        
+        if r.status_code == 200:
+            res = r.json()
+            html_letture = ""
+            for item in res.get("data", []):
+                titolo = item.get("title", "")
+                riferimento = item.get("source", "")
+                testo = item.get("text", "").replace("\n", "<br>")
+                
+                html_letture += f"<h3 style='color:#C05A3E; margin-top:15px;'>{titolo}</h3>"
+                if riferimento:
+                    html_letture += f"<p><em>{riferimento}</em></p>"
+                html_letture += f"<p style='margin-top:8px;'>{testo}</p><br>"
+            
+            dati["letture"] = html_letture
     except Exception as e:
-        print(f"Errore Letture: {e}")
-        dati["letture"] = "<p>Errore nel caricamento delle Letture del giorno.</p>"
+        print(f"Errore API Letture: {e}")
 
-    # Salva il file JSON
+    # Fallback Letture se l'API principale non risponde
+    if not dati["letture"]:
+        try:
+            r_alt = requests.get(f"https://www.lachiesa.it/liturgia/xml/liturgia.php?data={data_str}", headers=headers, timeout=10)
+            if r_alt.status_code == 200:
+                dati["letture"] = r_alt.text
+        except Exception as e:
+            print(f"Errore Fallback Letture: {e}")
+            dati["letture"] = "<p>Letture della Messa in aggiornamento.</p>"
+
+    # 2. AUDIO DEL VANGELO / LETTURE
+    # Feed audio diretto
+    dati["audio_url"] = f"https://www.lachiesa.it/liturgia/audio/{data_str}.mp3"
+
+    # 3. LITURGIA DELLE ORE (Lodi, Vespri, Compieta via Feed dati)
+    ore_keys = [("lodi", "lodi-mattutine"), ("vespri", "vespri"), ("compieta", "compieta")]
+    
+    for key, ora_param in ore_keys:
+        try:
+            # API / Endpoint leggero dedicato per le ore
+            url_ora = f"https://www.maranatha.it/Mobile/liturgiaore.asp?data={data_str}&ora={key}"
+            r_ora = requests.get(url_ora, headers=headers, timeout=8)
+            if r_ora.status_code == 200 and len(r_ora.text) > 200:
+                dati[key] = r_ora.text
+            else:
+                # Sorgente secondaria pulita
+                url_sec = f"https://www.chiesacattolica.it/la-liturgia-delle-ore/?data-liturgia={data_str}&ora={ora_param}"
+                r_sec = requests.get(url_sec, headers=headers, timeout=8)
+                if r_sec.status_code == 200:
+                    from bs4 import BeautifulSoup
+                    soup = BeautifulSoup(r_sec.text, 'html.parser')
+                    for tag in soup.find_all(['script', 'style', 'nav', 'header', 'footer', 'form']):
+                        tag.decompose()
+                    content = soup.find('div', class_='entry-content') or soup.find('article')
+                    if content:
+                        dati[key] = str(content)
+        except Exception as e:
+            print(f"Errore recupero {key}: {e}")
+            dati[key] = f"<p>Testo delle {key.capitalize()} non disponibile.</p>"
+
+    # Salva il file JSON pulito
     os.makedirs('dati', exist_ok=True)
     with open('dati/oggi.json', 'w', encoding='utf-8') as f:
         json.dump(dati, f, ensure_ascii=False, indent=2)
