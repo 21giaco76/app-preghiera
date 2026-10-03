@@ -28,7 +28,7 @@ jobs:
 
       - name: Esecuzione script di scraping
         run: |
-          python fetch_liturgia.py
+          python $(find . -name "fetch_liturgia.py" -not -path "*/.*")
 
       - name: Commit e Push dei file aggiornati
         run: |
