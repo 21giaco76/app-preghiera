@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
-  <!-- Caricamento configurazione e dati -->
+  <!-- Caricamento configurazione e dati fissi -->
   <script src="contenuti.js"></script>
 
   <style>
@@ -130,7 +130,7 @@
       margin-bottom: 8px;
     }
 
-    /* CONTROLLI FONT (A- / A+) */
+    /* CONTROLLI FONT */
     .font-controls {
       display: flex;
       justify-content: flex-end;
@@ -147,13 +147,12 @@
       cursor: pointer;
     }
 
-    /* TESTO DELLA LITURGIA */
+    /* TESTO LITURGIA */
     .liturgia-testo {
       font-size: 16px;
       line-height: 1.7;
       color: var(--text-main);
       text-align: left;
-      white-space: pre-wrap;
     }
 
     /* AUDIO PLAYER */
@@ -167,7 +166,7 @@
     }
     audio { width: 100%; max-width: 400px; }
 
-    /* BOTTOM NAVIGATION BAR */
+    /* BARRA DI NAVIGAZIONE IN BASSO */
     .nav-bar {
       position: fixed;
       bottom: 0;
@@ -261,10 +260,11 @@
       <img src="letture.jpg" class="card-img" alt="Letture">
       <h2>Letture della Messa</h2>
       
-      <!-- Lettore Audio Integrato -->
+      <!-- Lettore Audio per le Letture -->
       <div class="audio-player-box">
-        <audio id="player-letture" controls>
-          <source id="src-audio-letture" src="" type="audio/mpeg">
+        <p style="font-size: 12px; margin-bottom: 6px; color: var(--text-muted);">Ascolta le Letture del giorno:</p>
+        <audio id="audio-letture" controls>
+          Il tuo browser non supporta l'elemento audio.
         </audio>
       </div>
 
@@ -276,73 +276,110 @@
     </div>
   </div>
 
-  <!-- BOTTOM NAVIGATION BAR -->
-  <div class="nav-bar">
-    <button class="nav-item active" onclick="switchTab('lodi', 'LODI DEL GIORNO')">
-      <i class="fa-solid fa-sun"></i>
-      <span>LODI</span>
-    </button>
-    <button class="nav-item" onclick="switchTab('vespri', 'VESPRI DEL GIORNO')">
-      <i class="fa-solid fa-moon"></i>
-      <span>VESPRI</span>
-    </button>
-    <button class="nav-item" onclick="switchTab('compieta', 'COMPIETA')">
-      <i class="fa-solid fa-bed"></i>
-      <span>COMPIETA</span>
-    </button>
-    <button class="nav-item" onclick="switchTab('letture', 'LETTURE DEL GIORNO')">
-      <i class="fa-solid fa-book-open"></i>
-      <span>LETTURE</span>
-    </button>
+  <!-- SEZIONE PREGHIERE -->
+  <div id="sec-preghiere" class="content-section">
+    <div class="link-card">
+      <h2>Preghiera della Comunità</h2>
+      <div id="testo-preghiera-giorno" class="liturgia-testo">Caricamento della preghiera in corso...</div>
+    </div>
   </div>
+
+  <!-- NAVBAR IN BASSO -->
+  <nav class="nav-bar">
+    <button class="nav-item active" onclick="switchTab('sec-lodi', 'LODI DEL GIORNO', this)">
+      <i class="fa-solid fa-sun"></i>
+      <span>Lodi</span>
+    </button>
+    <button class="nav-item" onclick="switchTab('sec-vespri', 'VESPRI DEL GIORNO', this)">
+      <i class="fa-solid fa-moon"></i>
+      <span>Vespri</span>
+    </button>
+    <button class="nav-item" onclick="switchTab('sec-compieta', 'COMPIETA DEL GIORNO', this)">
+      <i class="fa-solid fa-bed"></i>
+      <span>Compieta</span>
+    </button>
+    <button class="nav-item" onclick="switchTab('sec-letture', 'LETTURE DEL GIORNO', this)">
+      <i class="fa-solid fa-book-bible"></i>
+      <span>Letture</span>
+    </button>
+    <button class="nav-item" onclick="switchTab('sec-preghiere', 'PREGHIERE CSCV', this)">
+      <i class="fa-solid fa-hands-praying"></i>
+      <span>Preghiere</span>
+    </button>
+  </nav>
 
 </div>
 
+<!-- SCRIPT DI GESTIONE APP -->
 <script>
-  let currentFontSize = 16;
-
-  // Modifica dimensione carattere (A- / A+)
-  function changeFontSize(delta) {
-    currentFontSize = Math.min(Math.max(12, currentFontSize + delta), 28);
-    const elementi = document.querySelectorAll('.liturgia-testo');
-    elementi.forEach(el => el.style.fontSize = currentFontSize + 'px');
-  }
-
-  // Cambio scheda nella navigazione
-  function switchTab(sezione, badgeText) {
+  // Cambia scheda di navigazione
+  function switchTab(sectionId, badgeText, btn) {
     document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
     document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-
-    document.getElementById('sec-' + sezione).classList.add('active');
+    
+    document.getElementById(sectionId).classList.add('active');
     document.getElementById('current-badge').innerText = badgeText;
+    btn.classList.add('active');
   }
 
-  // Caricamento dei testi e dell'audio dal file JSON generato su GitHub Pages
-  async function caricaDatiLiturgia() {
-    try {
-      const res = await fetch('dati/oggi.json');
-      if (!res.ok) throw new Error("File JSON non trovato");
+  // Modifica la dimensione del font
+  function changeFontSize(delta) {
+    const elementi = document.querySelectorAll('.liturgia-testo');
+    elementi.forEach(el => {
+      let style = window.getComputedStyle(el, null).getPropertyValue('font-size');
+      let currentSize = parseFloat(style);
+      el.style.fontSize = (currentSize + delta) + 'px';
+    });
+  }
+
+  // Carica la preghiera CSCV in base al giorno della settimana da contenuti.js
+  function caricaPreghieraSettimanale() {
+    if (typeof datiOrazione === 'undefined' || !datiOrazione.preghiereSettimanali) return;
+    
+    const giorni = ['domenica', 'lunedi', 'martedi', 'mercoledi', 'giovedi', 'venerdi', 'sabato'];
+    const oggi = giorni[new Date().getDay()];
+    
+    const preghieraOggi = datiOrazione.preghiereSettimanali.find(p => p.id === oggi);
+    
+    if (preghieraOggi) {
+      let html = `<h3>${preghieraOggi.titolo}</h3><br>`;
+      if (preghieraOggi.titoloPreghiera1) html += `<strong>${preghieraOggi.titoloPreghiera1}</strong><p>${preghieraOggi.testoPreghiera1}</p><br>`;
+      if (preghieraOggi.titoloPreghiera2) html += `<strong>${preghieraOggi.titoloPreghiera2}</strong><p>${preghieraOggi.testoPreghiera2}</p><br>`;
+      if (preghieraOggi.titoloPreghiera3) html += `<strong>${preghieraOggi.titoloPreghiera3}</strong><p>${preghieraOggi.testoPreghiera3}</p><br>`;
+      if (preghieraOggi.titoloPreghiera4) html += `<strong>${preghieraOggi.titoloPreghiera4}</strong><p>${preghieraOggi.testoPreghiera4}</p><br>`;
+      if (preghieraOggi.titoloPreghiera5) html += `<strong>${preghieraOggi.titoloPreghiera5}</strong><p>${preghieraOggi.testoPreghiera5}</p>`;
       
-      const dati = await res.json();
+      document.getElementById('testo-preghiera-giorno').innerHTML = html;
+    }
+  }
+
+  // Carica i dati dal file dati/oggi.json
+  async function caricaDatiDinamici() {
+    try {
+      const response = await fetch('dati/oggi.json?v=' + new Date().getTime());
+      if (!response.ok) throw new Error("File JSON non trovato");
+      
+      const dati = await response.json();
 
       if (dati.lodi) document.getElementById('testo-lodi').innerHTML = dati.lodi;
       if (dati.vespri) document.getElementById('testo-vespri').innerHTML = dati.vespri;
       if (dati.compieta) document.getElementById('testo-compieta').innerHTML = dati.compieta;
       if (dati.letture) document.getElementById('testo-letture').innerHTML = dati.letture;
 
-      if (dati.audio_url) {
-        const player = document.getElementById('player-letture');
-        document.getElementById('src-audio-letture').src = dati.audio_url;
-        player.load();
+      // Aggiorna l'audio
+      const lettoreAudio = document.getElementById('audio-letture');
+      if (dati.audio_url && lettoreAudio) {
+        lettoreAudio.src = dati.audio_url;
       }
-    } catch (err) {
-      console.warn("Dati in fase di aggiornamento o non ancora presenti:", err);
+    } catch (e) {
+      console.error("Errore nel caricamento dei dati dinamici:", e);
     }
   }
 
-  // Inizializzazione al caricamento della pagina
+  // Avvio al caricamento della pagina
   window.addEventListener('DOMContentLoaded', () => {
-    caricaDatiLiturgia();
+    caricaDatiDinamici();
+    caricaPreghieraSettimanale();
   });
 </script>
 
