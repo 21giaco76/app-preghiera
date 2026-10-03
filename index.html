@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="it">
-  <head>
-    <link rel="manifest" href="manifest.json">
+<head>
+  <link rel="manifest" href="manifest.json">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gesù è vivo e cammina insieme a noi.</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
-  <!-- Caricamento dinamico dei contenuti da GitHub Pages -->
-  <script src="https://21giaco76.github.io/app-preghiera/contenuti.js"></script>
+  <!-- Caricamento configurazione e dati -->
+  <script src="contenuti.js"></script>
 
   <style>
     :root {
@@ -39,7 +39,7 @@
       padding-bottom: 85px;
     }
 
-    /* TOP BAR ELEGANTE */
+    /* TOP BAR */
     .top-bar {
       display: flex;
       align-items: center;
@@ -104,6 +104,7 @@
       letter-spacing: 1.5px;
       text-transform: uppercase;
     }
+
     .content-section { display: none; padding: 15px 15px 20px; }
     .content-section.active { display: block !important; }
 
@@ -115,7 +116,6 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.03);
       border: 1px solid var(--border-color);
       margin-top: 10px;
-      overflow: hidden;
     }
     .card-img {
       width: 100%;
@@ -129,480 +129,222 @@
       color: #2C2623;
       margin-bottom: 8px;
     }
-    .link-card p {
-      font-size: 14px;
-      color: var(--text-muted);
-      margin-bottom: 20px;
-      line-height: 1.5;
-    }
-    .open-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      width: 100%;
-      background-color: var(--accent-terracotta);
-      color: white;
-      padding: 14px;
-      border-radius: 12px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 14px;
-      transition: background 0.2s;
-    }
-    .open-btn:hover { background-color: #a84c33; }
 
+    /* CONTROLLI FONT (A- / A+) */
+    .font-controls {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    .font-btn {
+      padding: 6px 14px;
+      font-weight: 700;
+      border-radius: 8px;
+      border: 1px solid var(--accent-terracotta);
+      background: var(--card-bg);
+      color: var(--accent-terracotta);
+      cursor: pointer;
+    }
+
+    /* TESTO DELLA LITURGIA */
+    .liturgia-testo {
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--text-main);
+      text-align: left;
+      white-space: pre-wrap;
+    }
+
+    /* AUDIO PLAYER */
     .audio-player-box {
-      margin-top: 20px;
+      margin-bottom: 20px;
       padding: 15px;
       background: #FAF8F5;
       border-radius: 14px;
       border: 1px solid var(--border-color);
-      text-align: left;
-    }
-
-    /* CATEGORIE AUDIO */
-    .audio-cat-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 14px;
-      padding: 16px 20px;
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      cursor: pointer;
-      font-weight: 600;
-      color: var(--text-main);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-    }
-    .audio-item-box {
-      background: #FAF8F5;
-      padding: 14px;
-      border-radius: 12px;
-      margin-bottom: 12px;
-      border: 1px solid var(--border-color);
-    }
-    .back-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: none;
-      border: none;
-      color: var(--accent-terracotta);
-      font-weight: 600;
-      font-size: 13px;
-      cursor: pointer;
-      margin-bottom: 15px;
-    }
-
-    /* ELENCO GIORNI PREGHIERE */
-    .days-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 10px;
-    }
-    .day-item-btn {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      padding: 16px 20px;
-      border-radius: 14px;
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--text-main);
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-      transition: all 0.2s;
-      text-align: left;
-    }
-    .day-item-btn:hover {
-      border-color: var(--accent-terracotta);
-      color: var(--accent-terracotta);
-    }
-    .day-item-btn i {
-      color: var(--accent-terracotta);
-      font-size: 14px;
-    }
-
-    /* DETTAGLIO PREGHIERA */
-    .prayer-detail-card {
-      display: none;
-      background: var(--card-bg);
-      border-radius: 18px;
-      padding: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-      border: 1px solid var(--border-color);
-      margin-top: 10px;
-    }
-    .prayer-detail-card img.prayer-img {
-      width: 100%;
-      height: auto;
-      border-radius: 12px;
-      margin: 12px 0 16px 0;
-      display: block;
-    }
-    .prayer-detail-card h2.main-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 22px;
-      color: var(--accent-terracotta);
-      margin-bottom: 20px;
       text-align: center;
     }
-    .sub-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 17px;
-      color: #2C2623;
-      margin: 20px 0 8px 0;
-      font-weight: 700;
-    }
-    .prayer-detail-card p {
-      font-size: 15px;
-      color: var(--text-main);
-      line-height: 1.6;
-      white-space: pre-line;
-      margin-bottom: 12px;
-    }
+    audio { width: 100%; max-width: 400px; }
 
-    .bottom-nav {
+    /* BOTTOM NAVIGATION BAR */
+    .nav-bar {
       position: fixed;
       bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
       width: 100%;
       max-width: 480px;
-      background: #FFFFFF;
+      background: var(--card-bg);
+      border-top: 1px solid var(--border-color);
       display: flex;
       justify-content: space-around;
-      align-items: center;
-      padding: 8px 5px 12px;
-      border-top: 1px solid var(--border-color);
-      box-shadow: 0 -5px 25px rgba(0,0,0,0.03);
+      padding: 10px 0;
+      z-index: 1000;
     }
     .nav-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      gap: 3px;
+      gap: 4px;
       background: none;
       border: none;
       color: var(--text-muted);
-      font-size: 8px;
+      font-size: 10px;
       font-weight: 600;
-      letter-spacing: 0.5px;
       cursor: pointer;
-      padding: 6px 8px;
-      border-radius: 10px;
-      text-decoration: none;
-      transition: all 0.2s ease;
     }
-    .nav-item i { font-size: 15px; }
-    .nav-item.active {
-      background-color: var(--accent-terracotta);
-      color: white;
-    }
+    .nav-item.active { color: var(--accent-terracotta); }
+    .nav-item i { font-size: 18px; }
   </style>
 </head>
 <body>
 
-  <div class="app-container">
-    
-    <!-- TOP BAR -->
-    <div class="top-bar">
-      <img id="top-logo-left" class="top-bar-logo" src="https://21giaco76.github.io/app-preghiera/logo.png" alt="Logo">
-      <span class="top-bar-title">CSCV</span>
-      <img id="top-logo-right" class="top-bar-logo" src="https://21giaco76.github.io/app-preghiera/logo.png" alt="Logo">
-    </div>
-
-    <header>
-      <h1>Gesù è vivo e cammina insieme a noi.</h1>
-      <div class="author">Padre Emiliano Tardif</div>
-      <div class="cross-icon"><i class="fa-solid fa-cross"></i></div>
-      <div class="badge" id="section-badge">Lodi del Giorno</div>
-    </header>
-
-    <!-- LODI (Attiva di default subito al caricamento HTML) -->
-    <main id="sec-lodi" class="content-section active">
-      <div class="link-card">
-        <img id="img-lodi" class="card-img" src="" alt="Lodi" onerror="this.style.display='none'">
-        <h2>Lodi Mattutine</h2>
-        <p>Leggi le Lodi direttamente sul sito della Liturgia delle Ore.</p>
-        <a id="btn-lodi" href="#" target="_blank" class="open-btn">
-          <span>Apri Lodi Mattutine</span>
-          <i class="fa-solid fa-arrow-up-right-from-square"></i>
-        </a>
-      </div>
-    </main>
-
-    <!-- VESPRI -->
-    <main id="sec-vespri" class="content-section">
-      <div class="link-card">
-        <img id="img-vespri" class="card-img" src="" alt="Vespri" onerror="this.style.display='none'">
-        <h2>Vespri della Sera</h2>
-        <p>Leggi i Vespri direttamente sul sito della Liturgia delle Ore.</p>
-        <a id="btn-vespri" href="#" target="_blank" class="open-btn">
-          <span>Apri Vespri della Sera</span>
-          <i class="fa-solid fa-arrow-up-right-from-square"></i>
-        </a>
-      </div>
-    </main>
-
-    <!-- COMPIETA -->
-    <main id="sec-compieta" class="content-section">
-      <div class="link-card">
-        <img id="img-compieta" class="card-img" src="" alt="Compieta" onerror="this.style.display='none'">
-        <h2>Compieta</h2>
-        <p>Leggi la Compieta prima del riposo notturno.</p>
-        <a id="btn-compieta" href="#" target="_blank" class="open-btn">
-          <span>Apri Compieta</span>
-          <i class="fa-solid fa-arrow-up-right-from-square"></i>
-        </a>
-      </div>
-    </main>
-
-    <!-- LETTURE -->
-    <main id="sec-letture" class="content-section">
-      <div class="link-card">
-        <img id="img-letture" class="card-img" src="" alt="Letture" onerror="this.style.display='none'">
-        <h2>Letture della Messa</h2>
-        <p>Consulta le letture e il Vangelo del giorno sul sito ufficiale.</p>
-        <a id="btn-letture" href="#" target="_blank" class="open-btn">
-          <span>Apri Letture del Giorno</span>
-          <i class="fa-solid fa-arrow-up-right-from-square"></i>
-        </a>
-      </div>
-    </main>
-
-    <!-- AUDIO -->
-    <main id="sec-audio" class="content-section">
-      <div id="audio-main-view">
-        <div id="audio-singoli-list"></div>
-
-        <div class="audio-cat-card" onclick="showRosarioSubmenu()">
-          <span><i class="fa-solid fa-layer-group" style="color:var(--accent-terracotta); margin-right:10px;"></i> Il Santo Rosario</span>
-          <i class="fa-solid fa-chevron-right" style="color:var(--accent-terracotta);"></i>
-        </div>
-      </div>
-
-      <div id="audio-rosario-view" style="display:none;">
-        <button class="back-btn" onclick="showAudioMainView()">
-          <i class="fa-solid fa-arrow-left"></i> Torna agli Audio
-        </button>
-        <h2 style="font-family:'Playfair Display', serif; font-size:20px; margin-bottom:15px; color:var(--accent-terracotta);">Il Santo Rosario - Misteri</h2>
-        <div id="rosario-misteri-list"></div>
-      </div>
-    </main>
-
-    <!-- PREGHIERE CSCV -->
-    <main id="sec-preghiere" class="content-section">
-      <div id="days-container" class="days-list"></div>
-
-      <div id="prayer-detail" class="prayer-detail-card">
-        <button class="back-btn" onclick="showDaysList()">
-          <i class="fa-solid fa-arrow-left"></i> Torna all'elenco giorni
-        </button>
-        
-        <h2 id="detail-title" class="main-title"></h2>
-        <h3 id="title-p1" class="sub-title"></h3>
-        <p id="text-p1"></p>
-        <img id="img-foto1" class="prayer-img" src="" alt="" onerror="this.style.display='none'">
-        
-        <h3 id="title-p2" class="sub-title"></h3>
-        <p id="text-p2"></p>
-        <img id="img-foto2" class="prayer-img" src="" alt="" onerror="this.style.display='none'">
-        
-        <h3 id="title-p3" class="sub-title"></h3>
-        <p id="text-p3"></p>
-        <h3 id="title-p4" class="sub-title"></h3>
-        <p id="text-p4"></p>
-        <h3 id="title-p5" class="sub-title"></h3>
-        <p id="text-p5"></p>
-      </div>
-    </main>
-
-    <!-- BOTTOM NAV -->
-    <nav class="bottom-nav">
-      <button class="nav-item active" onclick="switchTab('lodi', 'Lodi del Giorno', this)">
-        <i class="fa-solid fa-sun"></i>
-        <span>LODI</span>
-      </button>
-      <button class="nav-item" onclick="switchTab('vespri', 'Vespri della Sera', this)">
-        <i class="fa-solid fa-moon"></i>
-        <span>VESPRI</span>
-      </button>
-      <button class="nav-item" onclick="switchTab('compieta', 'Compieta', this)">
-        <i class="fa-solid fa-bed"></i>
-        <span>COMPIETA</span>
-      </button>
-      <button class="nav-item" onclick="switchTab('letture', 'Letture del Giorno', this)">
-        <i class="fa-solid fa-book-open"></i>
-        <span>LETTURE</span>
-      </button>
-      <button class="nav-item" onclick="switchTab('audio', 'Audio Guidati', this)">
-        <i class="fa-solid fa-headphones"></i>
-        <span>AUDIO</span>
-      </button>
-      <button class="nav-item" onclick="switchTab('preghiere', 'Preghiere CSCV', this)">
-        <i class="fa-solid fa-hands-praying"></i>
-        <span>PREGHIERE</span>
-      </button>
-    </nav>
+<div class="app-container">
+  
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <img src="logo.png" id="app-logo" class="top-bar-logo" alt="Logo">
+    <div class="top-bar-title">CSCV</div>
+    <img src="logo.png" class="top-bar-logo" style="opacity:0;" alt="">
   </div>
 
-  <script>
-    // Blocco riproduzione simultanea degli audio
-    function gestisciAudioUnico() {
-      const allAudio = document.querySelectorAll('audio');
-      allAudio.forEach(audio => {
-        audio.removeEventListener('play', handlePlay);
-        audio.addEventListener('play', handlePlay);
-      });
-    }
+  <header>
+    <h1>Gesù è vivo e cammina insieme a noi.</h1>
+    <div class="author">Padre Emiliano Tardif</div>
+    <div class="cross-icon"><i class="fa-solid fa-cross"></i></div>
+    <div class="badge" id="current-badge">LODI DEL GIORNO</div>
+  </header>
 
-    function handlePlay(e) {
-      const allAudio = document.querySelectorAll('audio');
-      allAudio.forEach(otherAudio => {
-        if (otherAudio !== e.target) {
-          otherAudio.pause();
-        }
-      });
-    }
+  <!-- SEZIONE LODI -->
+  <div id="sec-lodi" class="content-section active">
+    <div class="link-card">
+      <img src="lodi.jpg" class="card-img" alt="Lodi">
+      <h2>Lodi Mattutine</h2>
+      <div class="font-controls">
+        <button class="font-btn" onclick="changeFontSize(-2)">A -</button>
+        <button class="font-btn" onclick="changeFontSize(2)">A +</button>
+      </div>
+      <div id="testo-lodi" class="liturgia-testo">Caricamento delle Lodi in corso...</div>
+    </div>
+  </div>
 
-    function inizializzaApp() {
-      if (typeof datiOrazione !== 'undefined') {
-        
-        if (datiOrazione.logoUrl) {
-          const logoL = document.getElementById('top-logo-left');
-          const logoR = document.getElementById('top-logo-right');
-          if (logoL) logoL.src = datiOrazione.logoUrl;
-          if (logoR) logoR.src = datiOrazione.logoUrl;
-        }
+  <!-- SEZIONE VESPRI -->
+  <div id="sec-vespri" class="content-section">
+    <div class="link-card">
+      <img src="vespri.jpg" class="card-img" alt="Vespri">
+      <h2>Vespri</h2>
+      <div class="font-controls">
+        <button class="font-btn" onclick="changeFontSize(-2)">A -</button>
+        <button class="font-btn" onclick="changeFontSize(2)">A +</button>
+      </div>
+      <div id="testo-vespri" class="liturgia-testo">Caricamento dei Vespri in corso...</div>
+    </div>
+  </div>
 
-        if (datiOrazione.links) {
-          const btnLodi = document.getElementById('btn-lodi');
-          const btnVespri = document.getElementById('btn-vespri');
-          const btnCompieta = document.getElementById('btn-compieta');
-          const btnLetture = document.getElementById('btn-letture');
+  <!-- SEZIONE COMPIETA -->
+  <div id="sec-compieta" class="content-section">
+    <div class="link-card">
+      <img src="compieta.jpg" class="card-img" alt="Compieta">
+      <h2>Compieta</h2>
+      <div class="font-controls">
+        <button class="font-btn" onclick="changeFontSize(-2)">A -</button>
+        <button class="font-btn" onclick="changeFontSize(2)">A +</button>
+      </div>
+      <div id="testo-compieta" class="liturgia-testo">Caricamento della Compieta in corso...</div>
+    </div>
+  </div>
 
-          if (btnLodi) btnLodi.href = datiOrazione.links.lodi || '#';
-          if (btnVespri) btnVespri.href = datiOrazione.links.vespri || '#';
-          if (btnCompieta) btnCompieta.href = datiOrazione.links.compieta || '#';
-          if (btnLetture) btnLetture.href = datiOrazione.links.letture || '#';
-        }
+  <!-- SEZIONE LETTURE -->
+  <div id="sec-letture" class="content-section">
+    <div class="link-card">
+      <img src="letture.jpg" class="card-img" alt="Letture">
+      <h2>Letture della Messa</h2>
+      
+      <!-- Lettore Audio Integrato -->
+      <div class="audio-player-box">
+        <audio id="player-letture" controls>
+          <source id="src-audio-letture" src="" type="audio/mpeg">
+        </audio>
+      </div>
 
-        if (datiOrazione.fotoSezioni) {
-          const imgLodi = document.getElementById('img-lodi');
-          const imgVespri = document.getElementById('img-vespri');
-          const imgCompieta = document.getElementById('img-compieta');
-          const imgLetture = document.getElementById('img-letture');
+      <div class="font-controls">
+        <button class="font-btn" onclick="changeFontSize(-2)">A -</button>
+        <button class="font-btn" onclick="changeFontSize(2)">A +</button>
+      </div>
+      <div id="testo-letture" class="liturgia-testo">Caricamento delle Letture del giorno in corso...</div>
+    </div>
+  </div>
 
-          if (imgLodi && datiOrazione.fotoSezioni.lodi) { imgLodi.src = datiOrazione.fotoSezioni.lodi; imgLodi.style.display = 'block'; }
-          if (imgVespri && datiOrazione.fotoSezioni.vespri) { imgVespri.src = datiOrazione.fotoSezioni.vespri; imgVespri.style.display = 'block'; }
-          if (imgCompieta && datiOrazione.fotoSezioni.compieta) { imgCompieta.src = datiOrazione.fotoSezioni.compieta; imgCompieta.style.display = 'block'; }
-          if (imgLetture && datiOrazione.fotoSezioni.letture) { imgLetture.src = datiOrazione.fotoSezioni.letture; imgLetture.style.display = 'block'; }
-        }
+  <!-- BOTTOM NAVIGATION BAR -->
+  <div class="nav-bar">
+    <button class="nav-item active" onclick="switchTab('lodi', 'LODI DEL GIORNO')">
+      <i class="fa-solid fa-sun"></i>
+      <span>LODI</span>
+    </button>
+    <button class="nav-item" onclick="switchTab('vespri', 'VESPRI DEL GIORNO')">
+      <i class="fa-solid fa-moon"></i>
+      <span>VESPRI</span>
+    </button>
+    <button class="nav-item" onclick="switchTab('compieta', 'COMPIETA')">
+      <i class="fa-solid fa-bed"></i>
+      <span>COMPIETA</span>
+    </button>
+    <button class="nav-item" onclick="switchTab('letture', 'LETTURE DEL GIORNO')">
+      <i class="fa-solid fa-book-open"></i>
+      <span>LETTURE</span>
+    </button>
+  </div>
 
-        const singoliDiv = document.getElementById('audio-singoli-list');
-        if (singoliDiv) {
-          singoliDiv.innerHTML = '';
-          if (datiOrazione.coroncinaMisericordia) {
-            singoliDiv.innerHTML += `
-              <div class="audio-item-box">
-                <strong style="font-size:14px; color:#2C2623;">
-                  <i class="fa-solid fa-hands-praying" style="color:var(--accent-terracotta); margin-right:6px;"></i> 
-                  Coroncina della Divina Misericordia
-                </strong>
-                <audio controls src="${datiOrazione.coroncinaMisericordia}" style="margin-top:8px; width:100%;"></audio>
-              </div>`;
-          }
-        }
+</div>
 
-        const misteriDiv = document.getElementById('rosario-misteri-list');
-        if (datiOrazione.misteriRosario && misteriDiv) {
-          misteriDiv.innerHTML = '';
-          datiOrazione.misteriRosario.forEach(m => {
-            misteriDiv.innerHTML += `
-              <div class="audio-item-box">
-                <strong style="font-size:14px; color:#2C2623;"><i class="fa-solid fa-cross" style="color:var(--accent-terracotta); margin-right:6px;"></i> ${m.titolo}</strong>
-                <audio controls src="${m.url}" style="margin-top:8px; width:100%;"></audio>
-              </div>`;
-          });
-        }
+<script>
+  let currentFontSize = 16;
 
-        gestisciAudioUnico();
+  // Modifica dimensione carattere (A- / A+)
+  function changeFontSize(delta) {
+    currentFontSize = Math.min(Math.max(12, currentFontSize + delta), 28);
+    const elementi = document.querySelectorAll('.liturgia-testo');
+    elementi.forEach(el => el.style.fontSize = currentFontSize + 'px');
+  }
 
-        const daysContainer = document.getElementById('days-container');
-        if (datiOrazione.preghiereSettimanali && daysContainer) {
-          daysContainer.innerHTML = '';
-          datiOrazione.preghiereSettimanali.forEach(p => {
-            daysContainer.innerHTML += `
-              <button class="day-item-btn" onclick="openPrayer('${p.id}')">
-                <span>${p.titolo}</span>
-                <i class="fa-solid fa-chevron-right"></i>
-              </button>
-            `;
-          });
-        }
+  // Cambio scheda nella navigazione
+  function switchTab(sezione, badgeText) {
+    document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+
+    document.getElementById('sec-' + sezione).classList.add('active');
+    document.getElementById('current-badge').innerText = badgeText;
+  }
+
+  // Caricamento dei testi e dell'audio dal file JSON generato su GitHub Pages
+  async function caricaDatiLiturgia() {
+    try {
+      const res = await fetch('dati/oggi.json');
+      if (!res.ok) throw new Error("File JSON non trovato");
+      
+      const dati = await res.json();
+
+      if (dati.lodi) document.getElementById('testo-lodi').innerHTML = dati.lodi;
+      if (dati.vespri) document.getElementById('testo-vespri').innerHTML = dati.vespri;
+      if (dati.compieta) document.getElementById('testo-compieta').innerHTML = dati.compieta;
+      if (dati.letture) document.getElementById('testo-letture').innerHTML = dati.letture;
+
+      if (dati.audio_url) {
+        const player = document.getElementById('player-letture');
+        document.getElementById('src-audio-letture').src = dati.audio_url;
+        player.load();
       }
+    } catch (err) {
+      console.warn("Dati in fase di aggiornamento o non ancora presenti:", err);
     }
+  }
 
-    // Caricamento immediato
-    document.addEventListener("DOMContentLoaded", inizializzaApp);
+  // Inizializzazione al caricamento della pagina
+  window.addEventListener('DOMContentLoaded', () => {
+    caricaDatiLiturgia();
+  });
+</script>
 
-    function openPrayer(id) {
-      if (typeof datiOrazione === 'undefined' || !datiOrazione.preghiereSettimanali) return;
-      const preghiera = datiOrazione.preghiereSettimanali.find(p => p.id === id);
-      if (preghiera) {
-        document.getElementById('detail-title').innerText = preghiera.titolo || '';
-        document.getElementById('title-p1').innerText = preghiera.titoloPreghiera1 || '';
-        document.getElementById('text-p1').innerText = preghiera.testoPreghiera1 || '';
-        const img1 = document.getElementById('img-foto1');
-        if (preghiera.foto1) { img1.src = preghiera.foto1; img1.style.display = 'block'; } else { img1.style.display = 'none'; }
-
-        document.getElementById('title-p2').innerText = preghiera.titoloPreghiera2 || '';
-        document.getElementById('text-p2').innerText = preghiera.testoPreghiera2 || '';
-        const img2 = document.getElementById('img-foto2');
-        if (preghiera.foto2) { img2.src = preghiera.foto2; img2.style.display = 'block'; } else { img2.style.display = 'none'; }
-
-        document.getElementById('title-p3').innerText = preghiera.titoloPreghiera3 || '';
-        document.getElementById('text-p3').innerText = preghiera.testoPreghiera3 || '';
-        document.getElementById('title-p4').innerText = preghiera.titoloPreghiera4 || '';
-        document.getElementById('text-p4').innerText = preghiera.testoPreghiera4 || '';
-        document.getElementById('title-p5').innerText = preghiera.titoloPreghiera5 || '';
-        document.getElementById('text-p5').innerText = preghiera.testoPreghiera5 || preghiera.testoPreghiera || '';
-
-        document.getElementById('days-container').style.display = 'none';
-        document.getElementById('prayer-detail').style.display = 'block';
-      }
-    }
-
-    function showDaysList() {
-      document.getElementById('prayer-detail').style.display = 'none';
-      document.getElementById('days-container').style.display = 'flex';
-    }
-
-    function showRosarioSubmenu() {
-      document.getElementById('audio-main-view').style.display = 'none';
-      document.getElementById('audio-rosario-view').style.display = 'block';
-    }
-
-    function showAudioMainView() {
-      document.getElementById('audio-rosario-view').style.display = 'none';
-      document.getElementById('audio-main-view').style.display = 'block';
-    }
-
-    function switchTab(tabId, badgeText, btn) {
-      document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
-      document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
-      document.getElementById('sec-' + tabId).classList.add('active');
-      btn.classList.add('active');
-      document.getElementById('section-badge').innerText = badgeText;
-
-      if (tabId === 'preghiere') { showDaysList(); }
-      if (tabId === 'audio') { showAudioMainView(); }
-    }
-  </script>
 </body>
 </html>
