@@ -9,7 +9,9 @@ def genera_dati_liturgia():
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
     }
     
-    oggi_str = datetime.now().strftime("%Y%m%d")
+    # Formato data per lachiesa.it: AAAAMMGG
+    oggi = datetime.now()
+    data_path = oggi.strftime("%Y%m%d")
     
     dati = {
         "lodi": "",
@@ -19,53 +21,70 @@ def genera_dati_liturgia():
         "audio_url": ""
     }
 
-    def pulisci_html(soup_elem):
-        if not soup_elem:
-            return ""
-        # Rimuove link di condivisione o stampa
-        for tag in soup_elem.find_all(['script', 'style', 'iframe']):
-            tag.decompose()
-        return str(soup_elem)
-
-    def scarica_pagina(url):
+    def estrai_testo_pulito(url):
         try:
-            r = requests.get(url, headers=headers, timeout=12)
+            r = requests.get(url, headers=headers, timeout=10)
+            r.encoding = 'utf-8'
             if r.status_code == 200:
                 soup = BeautifulSoup(r.text, 'html.parser')
-                content = soup.find('div', class_='entry-content') or soup.find('article') or soup.find('main')
-                return soup, content
-        except Exception as e:
-            print(f"Errore download {url}: {e}")
-        return None, None
-
-    # 1. Lodi, Vespri, Compieta
-    for ora, key in [("lodi-mattutine", "lodi"), ("vespri", "vespri"), ("compieta", "compieta")]:
-        url = f"https://www.chiesacattolica.it/la-liturgia-delle-ore/?data-liturgia={oggi_str}&ora={ora}"
-        _, content = scarica_pagina(url)
-        if content:
-            dati[key] = pulisci_html(content)
-        else:
-            dati[key] = f"<p>Impossibile caricare {key} per la data odierna.</p>"
-
-    # 2. Letture del giorno + Audio mp3
-    url_letture = f"https://www.chiesacattolica.it/liturgia-del-giorno/?data-liturgia={oggi_str}"
-    soup_l, content_l = scarica_pagina(url_letture)
-    
-    if soup_l:
-        # Cerca il file audio
-        audio_tag = soup_l.find('audio')
-        if audio_tag and audio_tag.get('src'):
-            dati["audio_url"] = audio_tag['src']
-        else:
-            source_tag = soup_l.find('source')
-            if source_tag and source_tag.get('src'):
-                dati["audio_url"] = source_tag['src']
                 
-    if content_l:
-        dati["letture"] = pulisci_html(content_l)
-    else:
-        dati["letture"] = "<p>Impossibile caricare le Letture della Messa.</p>"
+                # Rimuove elementi grafici, menu e script
+                for tag in soup.find_all(['script', 'style', 'iframe', 'form', 'img', 'a', 'nav']):
+                    tag.decompose()
+                
+                # Cerca il blocco di testo principale
+                main_box = soup.find('div', id='content') or soup.find('body')
+                if main_box:
+                    return str(main_box)
+        except Exception as e:
+            print(f"Errore su {url}: {e}")
+        return ""
 
+    # 1. Recupero Letture della Messa e Audio MP3 da lachiesa.it
+    url_letture = f"https://www.lachiesa.it/liturgia/{data_path}.html"
+    try:
+        r = requests.get(url_letture, headers=headers, timeout=10)
+        r.encoding = 'utf-8'
+        if r.status_code == 200:
+            soup = BeautifulSoup(r.text, 'html.parser')
+            
+            # Cerca il file audio MP3
+            for a in soup.find_all('a', href=True):
+                if '.mp3' in a['href']:
+                    dati["audio_url"] = a['href'] if a['href'].startswith('http') else f"https://www.lachiesa.it{a['href']}"
+                    break
+            if not dati["audio_url"]:
+                audio_tag = soup.find('audio')
+                if audio_tag and audio_tag.get('src'):
+                    dati["audio_url"] = audio_tag['src']
+
+            # Pulisce e assegna il testo
+            for tag in soup.find_all(['script', 'style', 'iframe', 'form', 'nav']):
+                tag.decompose()
+            body_content = soup.find('body')
+            if body_content:
+                dati["letture"] = str(body_content)
+    except Exception as e:
+        print(f"Errore Letture: {e}")
+        dati["letture"] = "<p>Impossibile caricare le Letture del giorno.</p>"
+
+    # 2. Recupero Lodi, Vespri, Compieta da sorgente alternativa leggera
+    # Utilizziamo le pagine dedicate della Liturgia delle Ore
+    ore_urls = {
+        "lodi": f"https://www.lachiesa.it/liturgia/ore/{data_path}_lodi.html",
+        "vespri": f"https://www.lachiesa.it/liturgia/ore/{data_path}_vespri.html",
+        "compieta": f"https://www.lachiesa.it/liturgia/ore/{data_path}_compieta.html"
+    }
+
+    for chiave, url in ore_urls.items():
+        testo = estrai_testo_pulito(url)
+        if testo:
+            dati[chiave] = testo
+        else:
+            # Fallback se la pagina specifica dell'ora non è direttamente raggiungibile
+            dati[chiave] = f"<p>Testo delle {chiave.capitalize()} del giorno in aggiornamento.</p>"
+
+    # Salva il file JSON
     os.makedirs('dati', exist_ok=True)
     with open('dati/oggi.json', 'w', encoding='utf-8') as f:
         json.dump(dati, f, ensure_ascii=False, indent=2)
