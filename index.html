@@ -153,6 +153,12 @@
       padding: 10px 5px;
     }
 
+    /* Stili per il testo rosso liturgico */
+    .liturgia-testo-box .red-text {
+      color: var(--accent-terracotta);
+      font-weight: 600;
+    }
+
     /* AUDIO & PREGHIERE */
     .audio-cat-card, .day-item-btn {
       background: var(--card-bg);
@@ -340,6 +346,34 @@
       return rows;
     }
 
+    // Funzione per applicare automaticamente il colore rosso alle intestazioni liturgiche
+    function formattaRossoLiturgico(testo) {
+      if (!testo) return '';
+      
+      // Se il testo contiene già formattazione HTML, lo restituisce direttamente
+      if (testo.includes('<span') || testo.includes('<font') || testo.includes('<red>')) {
+        return testo.replace(/<red>/g, '<span class="red-text">').replace(/<\/red>/g, '</span>');
+      }
+
+      // Elenco parole/termini liturgici da evidenziare in rosso
+      const paroleRosse = [
+        'INNO', 'SALMODIA', 'LETTURA BREVE', 'RESPONSORIO BREVE', 
+        'CANTICO DI ZACCARIA', 'BENEDICTUS', 'CANTICO DELLA BEATA VERGINE', 
+        'MAGNIFICAT', 'CANTICO DI SIMEONE', 'NUNC DIMITTIS', 
+        'INVOCAZIONI', 'INTERCESSIONI', 'PADRE NOSTRO', 'ORAZIONE', 
+        'BENEDIZIONE', 'Ant. 1', 'Ant. 2', 'Ant. 3', 'Ant.', 
+        'R.', 'V.', 'Gloria al Padre e al Figlio'
+      ];
+
+      let testoFormattato = testo;
+      paroleRosse.forEach(parola => {
+        const regex = new RegExp('\\b(' + parola.replace('.', '\\.') + ')\\b', 'g');
+        testoFormattato = testoFormattato.replace(regex, '<span class="red-text">$1</span>');
+      });
+
+      return testoFormattato;
+    }
+
     // Carica i dati dal foglio e riempie Lodi, Vespri e Compieta
     async function caricaLiturgiaDaGoogleSheet() {
       try {
@@ -355,13 +389,14 @@
           const vespriTxt = dataRow[3] || "Testo dei Vespri non presente nel foglio.";
           const compietaTxt = dataRow[4] || "Testo di Compieta non presente nel foglio.";
 
-          document.getElementById('testo-lodi').innerText = lodiTxt;
-          document.getElementById('testo-vespri').innerText = vespriTxt;
-          document.getElementById('testo-compieta').innerText = compietaTxt;
+          // Inserisce il testo convertito in HTML e formattato
+          document.getElementById('testo-lodi').innerHTML = formattaRossoLiturgico(lodiTxt);
+          document.getElementById('testo-vespri').innerHTML = formattaRossoLiturgico(vespriTxt);
+          document.getElementById('testo-compieta').innerHTML = formattaRossoLiturgico(compietaTxt);
         }
       } catch (err) {
         console.error("Errore nel caricamento del foglio Google:", err);
-        document.getElementById('testo-lodi').innerText = "Impossibile caricare il testo. Verifica la connessione o il link del foglio.";
+        document.getElementById('testo-lodi').innerHTML = "Impossibile caricare il testo. Verifica la connessione o il link del foglio.";
       }
     }
 
