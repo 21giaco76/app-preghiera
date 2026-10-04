@@ -346,29 +346,26 @@
       return rows;
     }
 
-    // Funzione per applicare automaticamente il colore rosso alle intestazioni liturgiche
+    // Funzione per applicare il colore rosso (case-insensitive e con supporto tag <red>)
     function formattaRossoLiturgico(testo) {
       if (!testo) return '';
       
-      // Se il testo contiene già formattazione HTML, lo restituisce direttamente
-      if (testo.includes('<span') || testo.includes('<font') || testo.includes('<red>')) {
-        return testo.replace(/<red>/g, '<span class="red-text">').replace(/<\/red>/g, '</span>');
-      }
+      // Sostituisce eventuali tag <red>Frase da fare rossa</red>
+      let testoFormattato = testo.replace(/<red>/gi, '<span class="red-text">').replace(/<\/red>/gi, '</span>');
 
-      // Elenco parole/termini liturgici da evidenziare in rosso
+      // Parole e intestazioni liturgiche da trasformare in rosso (senza distinguere maiuscole/minuscole)
       const paroleRosse = [
-        'INNO', 'SALMODIA', 'LETTURA BREVE', 'RESPONSORIO BREVE', 
+        'INNO', 'SALMODIA', 'LETTURA BREVE', 'RESPONSORIO BREVE', 'RESPONSORIO',
         'CANTICO DI ZACCARIA', 'BENEDICTUS', 'CANTICO DELLA BEATA VERGINE', 
         'MAGNIFICAT', 'CANTICO DI SIMEONE', 'NUNC DIMITTIS', 
         'INVOCAZIONI', 'INTERCESSIONI', 'PADRE NOSTRO', 'ORAZIONE', 
-        'BENEDIZIONE', 'Ant. 1', 'Ant. 2', 'Ant. 3', 'Ant.', 
-        'R.', 'V.', 'Gloria al Padre e al Figlio'
+        'BENEDIZIONE', 'ANTIFONA MARIANA', 'ANTIFONA 1', 'ANTIFONA 2', 'ANTIFONA 3',
+        'ANTIFONA', 'ANT\\.', 'R\\.', 'V\\.', 'GLORIA AL PADRE'
       ];
 
-      let testoFormattato = testo;
       paroleRosse.forEach(parola => {
-        const regex = new RegExp('\\b(' + parola.replace('.', '\\.') + ')\\b', 'g');
-        testoFormattato = testoFormattato.replace(regex, '<span class="red-text">$1</span>');
+        const regex = new RegExp('(^|\\s|\\n)(' + parola + ')(\\s|:|\\n|\\.|$)', 'gi');
+        testoFormattato = testoFormattato.replace(regex, '$1<span class="red-text">$2</span>$3');
       });
 
       return testoFormattato;
