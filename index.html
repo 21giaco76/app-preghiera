@@ -146,6 +146,19 @@
       border: none;
     }
 
+    /* CITAZIONE HOME */
+    .home-quote-box {
+      background: #FAF8F5;
+      border-left: 3px solid var(--accent-terracotta);
+      padding: 14px;
+      border-radius: 8px;
+      margin: 15px 0;
+      text-align: italic;
+      font-family: 'Playfair Display', serif;
+      font-size: 14px;
+      color: var(--text-main);
+    }
+
     /* HOME BUTTONS GRID */
     .home-quick-nav {
       display: grid;
@@ -258,7 +271,11 @@
       <div class="link-card">
         <img class="card-img" src="lodi.jpg" alt="Benvenuto">
         <h2>Pace e Bene</h2>
-        <p>Benvenuto nell'applicazione di preghiera. Seleziona una delle voci della Liturgia delle Ore o ascolta le preghiere e gli audio guidati.</p>
+        <p>Benvenuto nell'applicazione ufficiale. Seleziona una delle voci della Liturgia delle Ore o ascolta le preghiere e gli audio guidati.</p>
+
+        <div class="home-quote-box">
+          "Gesù non è un ricordo del passato, ma una presenza viva del presente!"
+        </div>
 
         <div class="home-quick-nav">
           <div class="home-nav-btn" onclick="navigateToTab('lodi')">
@@ -358,7 +375,7 @@
       </div>
     </main>
 
-    <!-- BOTTOM NAV CON NUOVO TASTO HOME -->
+    <!-- BOTTOM NAV CON TASTO HOME -->
     <nav class="bottom-nav">
       <button class="nav-item active" id="nav-home" onclick="switchTab('home', 'Benvenuto', this)"><i class="fa-solid fa-house"></i><span>HOME</span></button>
       <button class="nav-item" id="nav-lodi" onclick="switchTab('lodi', 'Lodi del Giorno', this)"><i class="fa-solid fa-sun"></i><span>LODI</span></button>
@@ -385,7 +402,7 @@
       'preghiere': 'Preghiere CSCV'
     };
 
-    // Calcola con precisione la Settimana del Salterio (1, 2, 3 o 4)
+    // Calcola la Settimana del Salterio
     function getSettimanaSalterio() {
       const oggi = new Date();
       const dataRiferimento = new Date(2026, 8, 20); 
@@ -438,7 +455,7 @@
       return rows;
     }
 
-    // Funzione per applicare il colore rosso
+    // Funzione per applicare il colore rosso liturgico
     function formattaRossoLiturgico(testo) {
       if (!testo || testo.trim() === "Disponibile a breve") return testo;
       
@@ -499,10 +516,10 @@
       }
     }
 
-    function inizializzaApp() {
-      caricaLiturgiaDaGoogleSheet();
-
+    // CARICAMENTO CONTENUTI DA CONTENUTI.JS (AUDIO E PREGHIERE CSCV)
+    function caricaContenutiJS() {
       if (typeof datiOrazione !== 'undefined') {
+        // 1. Carica Coroncina Misericordia
         const singoliDiv = document.getElementById('audio-singoli-list');
         if (singoliDiv && datiOrazione.coroncinaMisericordia) {
           singoliDiv.innerHTML = `
@@ -512,8 +529,9 @@
             </div>`;
         }
 
+        // 2. Carica Misteri Rosario
         const misteriDiv = document.getElementById('rosario-misteri-list');
-        if (datiOrazione.misteriRosario && misteriDiv) {
+        if (misteriDiv && datiOrazione.misteriRosario) {
           misteriDiv.innerHTML = '';
           datiOrazione.misteriRosario.forEach(m => {
             misteriDiv.innerHTML += `
@@ -524,8 +542,9 @@
           });
         }
 
+        // 3. Carica Elenco Preghiere CSCV
         const daysContainer = document.getElementById('days-container');
-        if (datiOrazione.preghiereSettimanali && daysContainer) {
+        if (daysContainer && datiOrazione.preghiereSettimanali) {
           daysContainer.innerHTML = '';
           datiOrazione.preghiereSettimanali.forEach(p => {
             daysContainer.innerHTML += `
@@ -535,8 +554,14 @@
           });
         }
       }
+    }
 
-      // Mantiene la scheda attiva corrente anche dopo un refresh
+    function inizializzaApp() {
+      // Carica sia i fogli liturgici che contenuti.js
+      caricaLiturgiaDaGoogleSheet();
+      caricaContenutiJS();
+
+      // Mantiene la scheda attiva corrente dopo il refresh
       const currentHash = window.location.hash.replace('#', '');
       if (currentHash && document.getElementById('sec-' + currentHash)) {
         const targetBtn = document.getElementById('nav-' + currentHash);
@@ -547,29 +572,31 @@
     document.addEventListener("DOMContentLoaded", inizializzaApp);
 
     function openPrayer(id) {
-      const preghiera = datiOrazione.preghiereSettimanali.find(p => p.id === id);
-      if (preghiera) {
-        document.getElementById('detail-title').innerText = preghiera.titolo || '';
-        document.getElementById('title-p1').innerText = preghiera.titoloPreghiera1 || '';
-        document.getElementById('text-p1').innerText = preghiera.testoPreghiera1 || '';
-        const img1 = document.getElementById('img-foto1');
-        if (preghiera.foto1) { img1.src = preghiera.foto1; img1.style.display = 'block'; } else { img1.style.display = 'none'; }
+      if (typeof datiOrazione !== 'undefined' && datiOrazione.preghiereSettimanali) {
+        const preghiera = datiOrazione.preghiereSettimanali.find(p => p.id === id);
+        if (preghiera) {
+          document.getElementById('detail-title').innerText = preghiera.titolo || '';
+          document.getElementById('title-p1').innerText = preghiera.titoloPreghiera1 || '';
+          document.getElementById('text-p1').innerText = preghiera.testoPreghiera1 || '';
+          const img1 = document.getElementById('img-foto1');
+          if (preghiera.foto1) { img1.src = preghiera.foto1; img1.style.display = 'block'; } else { img1.style.display = 'none'; }
 
-        document.getElementById('title-p2').innerText = preghiera.titoloPreghiera2 || '';
-        document.getElementById('text-p2').innerText = preghiera.testoPreghiera2 || '';
-        const img2 = document.getElementById('img-foto2');
-        if (preghiera.foto2) { img2.src = preghiera.foto2; img2.style.display = 'block'; } else { img2.style.display = 'none'; }
+          document.getElementById('title-p2').innerText = preghiera.titoloPreghiera2 || '';
+          document.getElementById('text-p2').innerText = preghiera.testoPreghiera2 || '';
+          const img2 = document.getElementById('img-foto2');
+          if (preghiera.foto2) { img2.src = preghiera.foto2; img2.style.display = 'block'; } else { img2.style.display = 'none'; }
 
-        document.getElementById('title-p3').innerText = preghiera.titoloPreghiera3 || '';
-        document.getElementById('text-p3').innerText = preghiera.testoPreghiera3 || '';
-        document.getElementById('title-p4').innerText = preghiera.titoloPreghiera4 || '';
-        document.getElementById('text-p4').innerText = preghiera.testoPreghiera4 || '';
-        document.getElementById('title-p5').innerText = preghiera.titoloPreghiera5 || '';
-        document.getElementById('text-p5').innerText = preghiera.testoPreghiera5 || '';
+          document.getElementById('title-p3').innerText = preghiera.titoloPreghiera3 || '';
+          document.getElementById('text-p3').innerText = preghiera.testoPreghiera3 || '';
+          document.getElementById('title-p4').innerText = preghiera.titoloPreghiera4 || '';
+          document.getElementById('text-p4').innerText = preghiera.testoPreghiera4 || '';
+          document.getElementById('title-p5').innerText = preghiera.titoloPreghiera5 || '';
+          document.getElementById('text-p5').innerText = preghiera.testoPreghiera5 || '';
 
-        document.getElementById('days-container').style.display = 'none';
-        document.getElementById('prayer-detail').style.display = 'block';
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+          document.getElementById('days-container').style.display = 'none';
+          document.getElementById('prayer-detail').style.display = 'block';
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
       }
     }
 
@@ -610,7 +637,6 @@
       if (tabId === 'preghiere') showDaysList();
       if (tabId === 'audio') showAudioMainView();
 
-      // Riporta la vista in cima ad ogni cambio di scheda
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   </script>
