@@ -143,6 +143,16 @@
       font-size: 14px;
     }
 
+    /* CONTENITORE DEL TESTO DELLE ORE DA GOOGLE FOGLI */
+    .liturgia-testo-box {
+      text-align: left;
+      white-space: pre-wrap;
+      line-height: 1.7;
+      font-size: 15px;
+      color: #2C2623;
+      padding: 10px 5px;
+    }
+
     /* AUDIO & PREGHIERE */
     .audio-cat-card, .day-item-btn {
       background: var(--card-bg);
@@ -211,10 +221,7 @@
       <div class="link-card">
         <img class="card-img" src="lodi.jpg" alt="Lodi">
         <h2>Lodi Mattutine</h2>
-        <p>Leggi le Lodi complete di oggi sul sito ufficiale CEI.</p>
-        <a id="btn-lodi" href="https://www.chiesacattolica.it/la-liturgia-delle-ore/?ora=lodi-mattutine" target="_blank" class="open-btn">
-          <span>Apri Lodi Mattutine</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
-        </a>
+        <div id="testo-lodi" class="liturgia-testo-box">Caricamento delle Lodi dal foglio in corso...</div>
       </div>
     </main>
 
@@ -223,10 +230,7 @@
       <div class="link-card">
         <img class="card-img" src="vespri.jpg" alt="Vespri">
         <h2>Vespri della Sera</h2>
-        <p>Leggi i Vespri completi di oggi sul sito ufficiale CEI.</p>
-        <a id="btn-vespri" href="https://www.chiesacattolica.it/la-liturgia-delle-ore/?ora=vespri" target="_blank" class="open-btn">
-          <span>Apri Vespri della Sera</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
-        </a>
+        <div id="testo-vespri" class="liturgia-testo-box">Caricamento dei Vespri dal foglio in corso...</div>
       </div>
     </main>
 
@@ -235,10 +239,7 @@
       <div class="link-card">
         <img class="card-img" src="compieta.jpg" alt="Compieta">
         <h2>Compieta</h2>
-        <p>Leggi la Compieta completa prima del riposo notturno.</p>
-        <a id="btn-compieta" href="https://www.chiesacattolica.it/la-liturgia-delle-ore/?ora=compieta" target="_blank" class="open-btn">
-          <span>Apri Compieta</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
-        </a>
+        <div id="testo-compieta" class="liturgia-testo-box">Caricamento della Compieta dal foglio in corso...</div>
       </div>
     </main>
 
@@ -296,7 +297,79 @@
   </div>
 
   <script>
+    // LINK AL FOGLIO GOOGLE CSV
+    const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ7TkEPy5gLgUDVgfsaB_MlYvlkCmOZxK7xJvUuBLSgkltuLm0mVw6juakwvVpTdOMumgigW_M6ONtA/pub?output=csv";
+
+    // Parser CSV avanzato per gestire celle con righe multiple
+    function parseCSVData(csvText) {
+      const rows = [];
+      let currentRow = [];
+      let currentField = '';
+      let insideQuotes = false;
+
+      for (let i = 0; i < csvText.length; i++) {
+        const char = csvText[i];
+        const nextChar = csvText[i + 1];
+
+        if (char === '"') {
+          if (insideQuotes && nextChar === '"') {
+            currentField += '"';
+            i++;
+          } else {
+            insideQuotes = !insideQuotes;
+          }
+        } else if (char === ',' && !insideQuotes) {
+          currentRow.push(currentField);
+          currentField = '';
+        } else if ((char === '\r' || char === '\n') && !insideQuotes) {
+          if (char === '\r' && nextChar === '\n') { i++; }
+          currentRow.push(currentField);
+          if (currentRow.length > 0 && !(currentRow.length === 1 && currentRow[0] === '')) {
+            rows.push(currentRow);
+          }
+          currentRow = [];
+          currentField = '';
+        } else {
+          currentField += char;
+        }
+      }
+      if (currentField !== '' || currentRow.length > 0) {
+        currentRow.push(currentField);
+        rows.push(currentRow);
+      }
+      return rows;
+    }
+
+    // Carica i dati dal foglio e riempie Lodi, Vespri e Compieta
+    async function caricaLiturgiaDaGoogleSheet() {
+      try {
+        const response = await fetch(GOOGLE_SHEET_CSV_URL);
+        const text = await response.text();
+        const parsedRows = parseCSVData(text);
+
+        if (parsedRows.length > 1) {
+          // Prende la prima riga di dati inserita (Riga 2 del foglio)
+          const dataRow = parsedRows[1];
+
+          const lodiTxt = dataRow[2] || "Testo delle Lodi non presente nel foglio.";
+          const vespriTxt = dataRow[3] || "Testo dei Vespri non presente nel foglio.";
+          const compietaTxt = dataRow[4] || "Testo di Compieta non presente nel foglio.";
+
+          document.getElementById('testo-lodi').innerText = lodiTxt;
+          document.getElementById('testo-vespri').innerText = vespriTxt;
+          document.getElementById('testo-compieta').innerText = compietaTxt;
+        }
+      } catch (err) {
+        console.error("Errore nel caricamento del foglio Google:", err);
+        document.getElementById('testo-lodi').innerText = "Impossibile caricare il testo. Verifica la connessione o il link del foglio.";
+      }
+    }
+
     function inizializzaApp() {
+      // Carica i dati dal Foglio Google
+      caricaLiturgiaDaGoogleSheet();
+
+      // Carica i contenuti da contenuti.js se presenti
       if (typeof datiOrazione !== 'undefined') {
         const singoliDiv = document.getElementById('audio-singoli-list');
         if (singoliDiv && datiOrazione.coroncinaMisericordia) {
