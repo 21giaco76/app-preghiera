@@ -3,7 +3,7 @@ const datiOrazione = {
   logoUrl: "https://21giaco76.github.io/app-preghiera/logo.png",
 
   links: {
-    lodi: "https://www.chiesacattolica.it/la-liturgia-delle-ore/"
+    lodi: "https://www.chiesacattolica.it/la-liturgia-delle-ore/",
     vespri: "https://www.chiesacattolica.it/la-liturgia-delle-ore/?ora=vespri",
     compieta: "https://www.chiesacattolica.it/la-liturgia-delle-ore/?ora=compieta",
     letture: "https://www.vaticannews.va/it/vangelo-del-giorno-e-parola-del-giorno.html"
@@ -184,7 +184,7 @@ const datiOrazione = {
       foto2: "madonnina.jpg",
 
       titoloPreghiera3: "preghiera A nostra Signora del Sacro Cuore",
-      testoPreghiera3: "Ricordati Nostra Signora del Sacro Cuore delle meraviglie che Dio fece in Te. Te scelse come Madre del suo figlio. Te che lo seguisti fino alla croce. Te glorificò con lui ascoltando e accettando le tue preghiere per tutti gli uomini. Con grande confidenza nell'amore del Signore e nella Tua intercessione, veniamo con Te alla fonte del Suo cuore, da dove scaturiscono per la vita del mondo la speranza ed il perdono, la fedeltà e la salvezza. Nostra Signora del Sacro Cuore, tu conosci le nostre necessità, parla al Signore per noi e per tutti gli uomini. Aiutaci a vivere nel Suo amore, per esso riceviamo le grazie che chiediamo e quello che a noi è necessario. La Tua preghiera di madre è poderosa: che Dio risponda alla nostra speranza. Amen",
+      testoPreghiera3: "Ricordati Nostra Signora del Sacro Cuore delle meraviglie che Dio fece in Te. Te scelse come Madre del suo figlio. Te che lo seguisti fino alla croce. Te glorificò con lui ascoltando e accettando le tue preghiere per tutti gli uomini. Con grande confidenza nell'amore del Signore e nella Tua intercessione, veniamo con Te alla fonte del Suo cuore, da dove scaturiscono per la vita del mondo la speranza ed il perdono, la fedeltà e la salvezza. Nostra Signora del Sacro Cuore, tu conosci l'amore del Signore e nella Tua intercessione, veniamo con Te alla fonte del Suo cuore, da dove scaturiscono per la vita del mondo la speranza ed il perdono, la fedeltà e la salvezza. Nostra Signora del Sacro Cuore, tu conosci le nostre necessità, parla al Signore per noi e per tutti gli uomini. Aiutaci a vivere nel Suo amore, per esso riceviamo le grazie che chiediamo e quello che a noi è necessario. La Tua preghiera di madre è poderosa: che Dio risponda alla nostra speranza. Amen",
 
       titoloPreghiera4: "Preghiera Semplice",
       testoPreghiera4: "Oh Signore, fa di me un istrumento della tua pace:\nDove è odio, fa ch'io porti l'Amore.\nDove è offesa, ch'io porti il perdono.\nDove è discordia, ch'io porti l'Unione.\nDove è dubbio, ch'io porti la fede.\nDove è errore, ch'io porti la Verità.\nDove è disperazione, ch'io porti la Speranza.\nDove è tristezza, ch'io porti la Gioia.\nDove sono l'oscurità, ch'io porti la Luce.\nOh! Maestro, fa ch'io non cerchi tanto,\nad essere consolato quanto a consolare,\nad essere compreso, quanto a comprendere,\nad essere amato, quanto ad amare.\nPoichè: E’ dando che si receive,\nperdonando che si è perdonati,\nmorendo, che si risuscita a vita eterna.",
