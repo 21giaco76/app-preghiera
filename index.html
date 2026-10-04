@@ -306,13 +306,18 @@
     // LINK AL FOGLIO GOOGLE CSV
     const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ7TkEPy5gLgUDVgfsaB_MlYvlkCmOZxK7xJvUuBLSgkltuLm0mVw6juakwvVpTdOMumgigW_M6ONtA/pub?output=csv";
 
-    // Calcola la settimana del Salterio corrente (da 1 a 4)
+    // Calcola con precisione la Settimana del Salterio (1, 2, 3 o 4) basandosi sul calendario liturgico
     function getSettimanaSalterio() {
       const oggi = new Date();
-      const primoGennaio = new Date(oggi.getFullYear(), 0, 1);
-      const giorniTrascorsi = Math.floor((oggi - primoGennaio) / (24 * 60 * 60 * 1000));
-      const numeroSettimana = Math.ceil((giorniTrascorsi + primoGennaio.getDay() + 1) / 7);
-      return ((numeroSettimana - 1) % 4) + 1;
+      // Data di riferimento: Domenica 20 Settembre 2026 (Settimana 1 del Salterio)
+      const dataRiferimento = new Date(2026, 8, 20); 
+      
+      const diffMilli = oggi - dataRiferimento;
+      const diffGiorni = Math.floor(diffMilli / (1000 * 60 * 60 * 24));
+      const diffSettimane = Math.floor(diffGiorni / 7);
+      
+      let settimana = ((diffSettimane % 4) + 4) % 4 + 1;
+      return settimana;
     }
 
     // Parser CSV avanzato per gestire celle con righe multiple
