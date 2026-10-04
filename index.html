@@ -20,6 +20,7 @@
       --border-color: #E6E0D6;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     body {
       background-color: var(--bg-color);
       color: var(--text-main);
@@ -141,6 +142,34 @@
       text-decoration: none;
       font-weight: 600;
       font-size: 14px;
+      cursor: pointer;
+      border: none;
+    }
+
+    /* HOME BUTTONS GRID */
+    .home-quick-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    .home-nav-btn {
+      background: #FAF8F5;
+      border: 1px solid var(--border-color);
+      padding: 12px;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-main);
+      cursor: pointer;
+    }
+    .home-nav-btn i {
+      font-size: 18px;
+      color: var(--accent-terracotta);
     }
 
     /* CONTENITORE DEL TESTO DELLE ORE DA GOOGLE FOGLI */
@@ -194,14 +223,16 @@
     .bottom-nav {
       position: fixed; bottom: 0; width: 100%; max-width: 480px;
       background: #FFFFFF; display: flex; justify-content: space-around;
-      padding: 8px 5px 12px; border-top: 1px solid var(--border-color);
+      padding: 8px 3px 12px; border-top: 1px solid var(--border-color);
+      z-index: 1000;
     }
     .nav-item {
       display: flex; flex-direction: column; align-items: center; gap: 3px;
-      background: none; border: none; color: var(--text-muted); font-size: 8px;
-      font-weight: 600; cursor: pointer; padding: 6px 8px; border-radius: 10px;
+      background: none; border: none; color: var(--text-muted); font-size: 7.5px;
+      font-weight: 600; cursor: pointer; padding: 6px 4px; border-radius: 10px;
+      flex: 1;
     }
-    .nav-item i { font-size: 15px; }
+    .nav-item i { font-size: 14px; }
     .nav-item.active { background-color: var(--accent-terracotta); color: white; }
   </style>
 </head>
@@ -219,11 +250,47 @@
       <h1>Gesù è vivo e cammina insieme a noi.</h1>
       <div class="author">Padre Emiliano Tardif</div>
       <div class="cross-icon"><i class="fa-solid fa-cross"></i></div>
-      <div class="badge" id="section-badge">Lodi del Giorno</div>
+      <div class="badge" id="section-badge">Benvenuto</div>
     </header>
 
+    <!-- HOME SCHEDA DI BENVENUTO -->
+    <main id="sec-home" class="content-section active">
+      <div class="link-card">
+        <img class="card-img" src="lodi.jpg" alt="Benvenuto">
+        <h2>Pace e Bene</h2>
+        <p>Benvenuto nell'applicazione di preghiera. Seleziona una delle voci della Liturgia delle Ore o ascolta le preghiere e gli audio guidati.</p>
+
+        <div class="home-quick-nav">
+          <div class="home-nav-btn" onclick="navigateToTab('lodi')">
+            <i class="fa-solid fa-sun"></i>
+            <span>Lodi</span>
+          </div>
+          <div class="home-nav-btn" onclick="navigateToTab('vespri')">
+            <i class="fa-solid fa-moon"></i>
+            <span>Vespri</span>
+          </div>
+          <div class="home-nav-btn" onclick="navigateToTab('compieta')">
+            <i class="fa-solid fa-bed"></i>
+            <span>Compieta</span>
+          </div>
+          <div class="home-nav-btn" onclick="navigateToTab('letture')">
+            <i class="fa-solid fa-book-open"></i>
+            <span>Letture</span>
+          </div>
+          <div class="home-nav-btn" onclick="navigateToTab('audio')">
+            <i class="fa-solid fa-headphones"></i>
+            <span>Audio</span>
+          </div>
+          <div class="home-nav-btn" onclick="navigateToTab('preghiere')">
+            <i class="fa-solid fa-hands-praying"></i>
+            <span>Preghiere</span>
+          </div>
+        </div>
+      </div>
+    </main>
+
     <!-- LODI -->
-    <main id="sec-lodi" class="content-section active">
+    <main id="sec-lodi" class="content-section">
       <div class="link-card">
         <img class="card-img" src="lodi.jpg" alt="Lodi">
         <h2>Lodi Mattutine</h2>
@@ -291,14 +358,15 @@
       </div>
     </main>
 
-    <!-- BOTTOM NAV -->
+    <!-- BOTTOM NAV CON NUOVO TASTO HOME -->
     <nav class="bottom-nav">
-      <button class="nav-item active" onclick="switchTab('lodi', 'Lodi del Giorno', this)"><i class="fa-solid fa-sun"></i><span>LODI</span></button>
-      <button class="nav-item" onclick="switchTab('vespri', 'Vespri della Sera', this)"><i class="fa-solid fa-moon"></i><span>VESPRI</span></button>
-      <button class="nav-item" onclick="switchTab('compieta', 'Compieta', this)"><i class="fa-solid fa-bed"></i><span>COMPIETA</span></button>
-      <button class="nav-item" onclick="switchTab('letture', 'Letture del Giorno', this)"><i class="fa-solid fa-book-open"></i><span>LETTURE</span></button>
-      <button class="nav-item" onclick="switchTab('audio', 'Audio Guidati', this)"><i class="fa-solid fa-headphones"></i><span>AUDIO</span></button>
-      <button class="nav-item" onclick="switchTab('preghiere', 'Preghiere CSCV', this)"><i class="fa-solid fa-hands-praying"></i><span>PREGHIERE</span></button>
+      <button class="nav-item active" id="nav-home" onclick="switchTab('home', 'Benvenuto', this)"><i class="fa-solid fa-house"></i><span>HOME</span></button>
+      <button class="nav-item" id="nav-lodi" onclick="switchTab('lodi', 'Lodi del Giorno', this)"><i class="fa-solid fa-sun"></i><span>LODI</span></button>
+      <button class="nav-item" id="nav-vespri" onclick="switchTab('vespri', 'Vespri della Sera', this)"><i class="fa-solid fa-moon"></i><span>VESPRI</span></button>
+      <button class="nav-item" id="nav-compieta" onclick="switchTab('compieta', 'Compieta', this)"><i class="fa-solid fa-bed"></i><span>COMPIETA</span></button>
+      <button class="nav-item" id="nav-letture" onclick="switchTab('letture', 'Letture del Giorno', this)"><i class="fa-solid fa-book-open"></i><span>LETTURE</span></button>
+      <button class="nav-item" id="nav-audio" onclick="switchTab('audio', 'Audio Guidati', this)"><i class="fa-solid fa-headphones"></i><span>AUDIO</span></button>
+      <button class="nav-item" id="nav-preghiere" onclick="switchTab('preghiere', 'Preghiere CSCV', this)"><i class="fa-solid fa-hands-praying"></i><span>PREGHIERE</span></button>
     </nav>
   </div>
 
@@ -306,10 +374,20 @@
     // LINK AL FOGLIO GOOGLE CSV
     const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ7TkEPy5gLgUDVgfsaB_MlYvlkCmOZxK7xJvUuBLSgkltuLm0mVw6juakwvVpTdOMumgigW_M6ONtA/pub?output=csv";
 
-    // Calcola con precisione la Settimana del Salterio (1, 2, 3 o 4) basandosi sul calendario liturgico
+    // Mappa Titoli Badge per ciascun tab
+    const badgeMap = {
+      'home': 'Benvenuto',
+      'lodi': 'Lodi del Giorno',
+      'vespri': 'Vespri della Sera',
+      'compieta': 'Compieta',
+      'letture': 'Letture del Giorno',
+      'audio': 'Audio Guidati',
+      'preghiere': 'Preghiere CSCV'
+    };
+
+    // Calcola con precisione la Settimana del Salterio (1, 2, 3 o 4)
     function getSettimanaSalterio() {
       const oggi = new Date();
-      // Data di riferimento: Domenica 20 Settembre 2026 (Settimana 1 del Salterio)
       const dataRiferimento = new Date(2026, 8, 20); 
       
       const diffMilli = oggi - dataRiferimento;
@@ -320,7 +398,7 @@
       return settimana;
     }
 
-    // Parser CSV avanzato per gestire celle con righe multiple
+    // Parser CSV avanzato
     function parseCSVData(csvText) {
       const rows = [];
       let currentRow = [];
@@ -360,7 +438,7 @@
       return rows;
     }
 
-    // Funzione per applicare il colore rosso (case-insensitive e con supporto tag <red>)
+    // Funzione per applicare il colore rosso
     function formattaRossoLiturgico(testo) {
       if (!testo || testo.trim() === "Disponibile a breve") return testo;
       
@@ -383,7 +461,7 @@
       return testoFormattato;
     }
 
-    // Carica i dati dal foglio in base a SETTIMANA e GIORNO correnti
+    // Carica i dati dal foglio Google
     async function caricaLiturgiaDaGoogleSheet() {
       try {
         const response = await fetch(GOOGLE_SHEET_CSV_URL);
@@ -395,14 +473,12 @@
           const giorniNomi = ['domenica', 'lunedi', 'martedi', 'mercoledi', 'giovedi', 'venerdi', 'sabato'];
           const giornoOggi = giorniNomi[new Date().getDay()];
 
-          // Cerca la riga corrispondente alla settimana e al giorno di oggi
           const rigaTrovata = parsedRows.slice(1).find(r => {
             const setFoglio = r[0] ? r[0].trim() : '';
             const gioFoglio = r[1] ? r[1].trim().toLowerCase() : '';
             return setFoglio === settimanaOggi && gioFoglio === giornoOggi;
           });
 
-          // Se trova la riga ed è compilata estrae i testi, altrimenti mostra "Disponibile a breve"
           const lodiTxt = (rigaTrovata && rigaTrovata[2] && rigaTrovata[2].trim()) ? rigaTrovata[2] : "Disponibile a breve";
           const vespriTxt = (rigaTrovata && rigaTrovata[3] && rigaTrovata[3].trim()) ? rigaTrovata[3] : "Disponibile a breve";
           const compietaTxt = (rigaTrovata && rigaTrovata[4] && rigaTrovata[4].trim()) ? rigaTrovata[4] : "Disponibile a breve";
@@ -459,6 +535,13 @@
           });
         }
       }
+
+      // Mantiene la scheda attiva corrente anche dopo un refresh
+      const currentHash = window.location.hash.replace('#', '');
+      if (currentHash && document.getElementById('sec-' + currentHash)) {
+        const targetBtn = document.getElementById('nav-' + currentHash);
+        switchTab(currentHash, badgeMap[currentHash] || 'Benvenuto', targetBtn);
+      }
     }
 
     document.addEventListener("DOMContentLoaded", inizializzaApp);
@@ -486,33 +569,49 @@
 
         document.getElementById('days-container').style.display = 'none';
         document.getElementById('prayer-detail').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     }
 
     function showDaysList() {
       document.getElementById('prayer-detail').style.display = 'none';
       document.getElementById('days-container').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function showRosarioSubmenu() {
       document.getElementById('audio-main-view').style.display = 'none';
       document.getElementById('audio-rosario-view').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function showAudioMainView() {
       document.getElementById('audio-rosario-view').style.display = 'none';
       document.getElementById('audio-main-view').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function navigateToTab(tabId) {
+      const btn = document.getElementById('nav-' + tabId);
+      switchTab(tabId, badgeMap[tabId], btn);
     }
 
     function switchTab(tabId, badgeText, btn) {
       document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
       document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
-      document.getElementById('sec-' + tabId).classList.add('active');
-      btn.classList.add('active');
+      
+      const targetSec = document.getElementById('sec-' + tabId);
+      if (targetSec) targetSec.classList.add('active');
+      if (btn) btn.classList.add('active');
+      
       document.getElementById('section-badge').innerText = badgeText;
+      window.location.hash = tabId;
 
       if (tabId === 'preghiere') showDaysList();
       if (tabId === 'audio') showAudioMainView();
+
+      // Riporta la vista in cima ad ogni cambio di scheda
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   </script>
 </body>
