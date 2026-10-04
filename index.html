@@ -306,6 +306,15 @@
     // LINK AL FOGLIO GOOGLE CSV
     const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ7TkEPy5gLgUDVgfsaB_MlYvlkCmOZxK7xJvUuBLSgkltuLm0mVw6juakwvVpTdOMumgigW_M6ONtA/pub?output=csv";
 
+    // Calcola la settimana del Salterio corrente (da 1 a 4)
+    function getSettimanaSalterio() {
+      const oggi = new Date();
+      const primoGennaio = new Date(oggi.getFullYear(), 0, 1);
+      const giorniTrascorsi = Math.floor((oggi - primoGennaio) / (24 * 60 * 60 * 1000));
+      const numeroSettimana = Math.ceil((giorniTrascorsi + primoGennaio.getDay() + 1) / 7);
+      return ((numeroSettimana - 1) % 4) + 1;
+    }
+
     // Parser CSV avanzato per gestire celle con righe multiple
     function parseCSVData(csvText) {
       const rows = [];
@@ -348,12 +357,10 @@
 
     // Funzione per applicare il colore rosso (case-insensitive e con supporto tag <red>)
     function formattaRossoLiturgico(testo) {
-      if (!testo) return '';
+      if (!testo || testo.trim() === "Disponibile a breve") return testo;
       
-      // Sostituisce eventuali tag <red>Frase da fare rossa</red>
       let testoFormattato = testo.replace(/<red>/gi, '<span class="red-text">').replace(/<\/red>/gi, '</span>');
 
-      // Parole e intestazioni liturgiche da trasformare in rosso (senza distinguere maiuscole/minuscole)
       const paroleRosse = [
         'INNO', 'SALMODIA', 'LETTURA BREVE', 'RESPONSORIO BREVE', 'RESPONSORIO',
         'CANTICO DI ZACCARIA', 'BENEDICTUS', 'CANTICO DELLA BEATA VERGINE', 
@@ -371,7 +378,7 @@
       return testoFormattato;
     }
 
-    // Carica i dati dal foglio e riempie Lodi, Vespri e Compieta
+    // Carica i dati dal foglio in base a SETTIMANA e GIORNO correnti
     async function caricaLiturgiaDaGoogleSheet() {
       try {
         const response = await fetch(GOOGLE_SHEET_CSV_URL);
@@ -379,29 +386,41 @@
         const parsedRows = parseCSVData(text);
 
         if (parsedRows.length > 1) {
-          // Prende la prima riga di dati inserita (Riga 2 del foglio)
-          const dataRow = parsedRows[1];
+          const settimanaOggi = getSettimanaSalterio().toString();
+          const giorniNomi = ['domenica', 'lunedi', 'martedi', 'mercoledi', 'giovedi', 'venerdi', 'sabato'];
+          const giornoOggi = giorniNomi[new Date().getDay()];
 
-          const lodiTxt = dataRow[2] || "Testo delle Lodi non presente nel foglio.";
-          const vespriTxt = dataRow[3] || "Testo dei Vespri non presente nel foglio.";
-          const compietaTxt = dataRow[4] || "Testo di Compieta non presente nel foglio.";
+          // Cerca la riga corrispondente alla settimana e al giorno di oggi
+          const rigaTrovata = parsedRows.slice(1).find(r => {
+            const setFoglio = r[0] ? r[0].trim() : '';
+            const gioFoglio = r[1] ? r[1].trim().toLowerCase() : '';
+            return setFoglio === settimanaOggi && gioFoglio === giornoOggi;
+          });
 
-          // Inserisce il testo convertito in HTML e formattato
+          // Se trova la riga ed è compilata estrae i testi, altrimenti mostra "Disponibile a breve"
+          const lodiTxt = (rigaTrovata && rigaTrovata[2] && rigaTrovata[2].trim()) ? rigaTrovata[2] : "Disponibile a breve";
+          const vespriTxt = (rigaTrovata && rigaTrovata[3] && rigaTrovata[3].trim()) ? rigaTrovata[3] : "Disponibile a breve";
+          const compietaTxt = (rigaTrovata && rigaTrovata[4] && rigaTrovata[4].trim()) ? rigaTrovata[4] : "Disponibile a breve";
+
           document.getElementById('testo-lodi').innerHTML = formattaRossoLiturgico(lodiTxt);
           document.getElementById('testo-vespri').innerHTML = formattaRossoLiturgico(vespriTxt);
           document.getElementById('testo-compieta').innerHTML = formattaRossoLiturgico(compietaTxt);
+        } else {
+          document.getElementById('testo-lodi').innerText = "Disponibile a breve";
+          document.getElementById('testo-vespri').innerText = "Disponibile a breve";
+          document.getElementById('testo-compieta').innerText = "Disponibile a breve";
         }
       } catch (err) {
         console.error("Errore nel caricamento del foglio Google:", err);
-        document.getElementById('testo-lodi').innerHTML = "Impossibile caricare il testo. Verifica la connessione o il link del foglio.";
+        document.getElementById('testo-lodi').innerText = "Disponibile a breve";
+        document.getElementById('testo-vespri').innerText = "Disponibile a breve";
+        document.getElementById('testo-compieta').innerText = "Disponibile a breve";
       }
     }
 
     function inizializzaApp() {
-      // Carica i dati dal Foglio Google
       caricaLiturgiaDaGoogleSheet();
 
-      // Carica i contenuti da contenuti.js se presenti
       if (typeof datiOrazione !== 'undefined') {
         const singoliDiv = document.getElementById('audio-singoli-list');
         if (singoliDiv && datiOrazione.coroncinaMisericordia) {
