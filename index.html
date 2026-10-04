@@ -128,6 +128,7 @@
       font-size: 14px;
       color: var(--text-muted);
       margin-bottom: 20px;
+      line-height: 1.5;
     }
     .open-btn {
       display: inline-flex;
@@ -153,7 +154,7 @@
       padding: 14px;
       border-radius: 8px;
       margin: 15px 0;
-      text-align: italic;
+      font-style: italic;
       font-family: 'Playfair Display', serif;
       font-size: 14px;
       color: var(--text-main);
@@ -270,8 +271,8 @@
     <main id="sec-home" class="content-section active">
       <div class="link-card">
         <img class="card-img" src="lodi.jpg" alt="Benvenuto">
-        <h2>Pace e Bene</h2>
-        <p>Benvenuto nell'applicazione ufficiale. Seleziona una delle voci della Liturgia delle Ore o ascolta le preghiere e gli audio guidati.</p>
+        <h2>Benvenuti Fratelli</h2>
+        <p>Benvenuti nell'applicazione ufficiale della comunità Servi di Cristo Vivo Casaemmaus Messina.</p>
 
         <div class="home-quote-box">
           "Gesù non è un ricordo del passato, ma una presenza viva del presente!"
@@ -391,7 +392,7 @@
     // LINK AL FOGLIO GOOGLE CSV
     const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ7TkEPy5gLgUDVgfsaB_MlYvlkCmOZxK7xJvUuBLSgkltuLm0mVw6juakwvVpTdOMumgigW_M6ONtA/pub?output=csv";
 
-    // Mappa Titoli Badge per ciascun tab
+    // Mappa Titoli Badge
     const badgeMap = {
       'home': 'Benvenuto',
       'lodi': 'Lodi del Giorno',
@@ -516,7 +517,7 @@
       }
     }
 
-    // CARICAMENTO CONTENUTI DA CONTENUTI.JS (AUDIO E PREGHIERE CSCV)
+    // CARICAMENTO SICURO DA CONTENUTI.JS
     function caricaContenutiJS() {
       if (typeof datiOrazione !== 'undefined') {
         // 1. Carica Coroncina Misericordia
@@ -553,15 +554,16 @@
               </button>`;
           });
         }
+      } else {
+        // Se datiOrazione non è ancora pronto, riprova dopo 300ms
+        setTimeout(caricaContenutiJS, 300);
       }
     }
 
     function inizializzaApp() {
-      // Carica sia i fogli liturgici che contenuti.js
       caricaLiturgiaDaGoogleSheet();
       caricaContenutiJS();
 
-      // Mantiene la scheda attiva corrente dopo il refresh
       const currentHash = window.location.hash.replace('#', '');
       if (currentHash && document.getElementById('sec-' + currentHash)) {
         const targetBtn = document.getElementById('nav-' + currentHash);
