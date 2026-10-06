@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gesù è vivo e cammina insieme a noi.</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <script src="contenuti.js"></script>
@@ -198,6 +198,57 @@
       font-weight: 600;
     }
 
+    /* STILI DEDICATI CATECHESI (TEXT IN CORSIVO, TITOLI IN GRASSETTO DIRITTI) */
+    .catechesi-testo-box {
+      text-align: left;
+      line-height: 1.7;
+      font-size: 15px;
+      color: #2C2623;
+      padding: 10px 5px;
+      font-style: italic; /* TESTO STANDARD IN CORSIVO */
+    }
+    .catechesi-testo-box strong {
+      font-style: normal;
+      font-weight: 700;
+    }
+    .catechesi-h3 {
+      font-size: 18px;
+      font-weight: 700;
+      font-style: normal;
+      color: var(--accent-terracotta);
+      font-family: 'Playfair Display', serif;
+      margin: 18px 0 8px 0;
+    }
+    .catechesi-h4 {
+      font-size: 16px;
+      font-weight: 700;
+      font-style: normal;
+      color: #2C2623;
+      margin: 14px 0 6px 0;
+    }
+    .catechesi-hr {
+      border: 0;
+      height: 1px;
+      background: var(--border-color);
+      margin: 15px 0;
+    }
+    .catechesi-testo-box ul {
+      margin: 10px 0 10px 18px;
+      padding-left: 5px;
+    }
+    .catechesi-testo-box li {
+      margin-bottom: 6px;
+    }
+
+    #catechesi-detail-title {
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--accent-terracotta);
+      font-family: 'Playfair Display', serif;
+      text-align: center;
+      margin-bottom: 6px;
+    }
+
     .audio-cat-card, .day-item-btn {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
@@ -337,9 +388,9 @@
       <div id="catechesi-list-container">Caricamento catechesi dal foglio...</div>
       <div id="catechesi-detail" class="prayer-detail-card">
         <button class="back-btn" onclick="showCatechesiList()"><i class="fa-solid fa-arrow-left"></i> Torna alla lista Catechesi</button>
-        <h2 id="catechesi-detail-title" style="color:var(--accent-terracotta); font-family:'Playfair Display'; text-align:center; margin-bottom:6px;"></h2>
+        <h2 id="catechesi-detail-title"></h2>
         <div id="catechesi-detail-subtitle" style="text-align:center; font-style:italic; color:var(--text-muted); font-size:14px; margin-bottom:15px;"></div>
-        <div id="catechesi-detail-text" class="liturgia-testo-box"></div>
+        <div id="catechesi-detail-text" class="catechesi-testo-box"></div>
       </div>
     </main>
 
@@ -387,10 +438,7 @@
   </div>
 
   <script>
-    // LINK FOGLIO 1 (LITURGIA DELLE ORE)
     const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ7TkEPy5gLgUDVgfsaB_MlYvlkCmOZxK7xJvUuBLSgkltuLm0mVw6juakwvVpTdOMumgigW_M6ONtA/pub?output=csv";
-
-    // LINK FOGLIO 2 (CATECHESI)
     const GOOGLE_SHEET_CATECHESI_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ7TkEPy5gLgUDVgfsaB_MlYvlkCmOZxK7xJvUuBLSgkltuLm0mVw6juakwvVpTdOMumgigW_M6ONtA/pub?gid=514329846&single=true&output=csv";
 
     const badgeMap = {
@@ -475,6 +523,54 @@
       return testoFormattato;
     }
 
+    // CONVERTE MARKDOWN IN HTML (TITOLI ### E ####, LINEE ---, GRASSETTI E PUNTI ELENCO)
+    function formattaTestoCatechesi(testo) {
+      if (!testo) return '';
+      
+      const righe = testo.split('\n');
+      let htmlRisultato = '';
+      let inLista = false;
+
+      righe.forEach(riga => {
+        let rigaTrim = riga.trim();
+
+        if (rigaTrim === '---') {
+          if (inLista) { htmlRisultato += '</ul>'; inLista = false; }
+          htmlRisultato += '<hr class="catechesi-hr">';
+        } else if (rigaTrim.startsWith('#### ')) {
+          if (inLista) { htmlRisultato += '</ul>'; inLista = false; }
+          let titoloH4 = rigaTrim.replace('#### ', '');
+          htmlRisultato += `<div class="catechesi-h4">${titoloH4}</div>`;
+        } else if (rigaTrim.startsWith('### ')) {
+          if (inLista) { htmlRisultato += '</ul>'; inLista = false; }
+          let titoloH3 = rigaTrim.replace('### ', '');
+          htmlRisultato += `<div class="catechesi-h3">${titoloH3}</div>`;
+        } else if (rigaTrim.startsWith('* ') || rigaTrim.startsWith('- ')) {
+          if (!inLista) {
+            htmlRisultato += '<ul>';
+            inLista = true;
+          }
+          let testoLi = rigaTrim.substring(2);
+          htmlRisultato += `<li>${testoLi}</li>`;
+        } else {
+          if (inLista) {
+            htmlRisultato += '</ul>';
+            inLista = false;
+          }
+          if (rigaTrim !== '') {
+            htmlRisultato += `<p style="margin-bottom:10px;">${rigaTrim}</p>`;
+          }
+        }
+      });
+
+      if (inLista) {
+        htmlRisultato += '</ul>';
+      }
+
+      // Converte **grassetto**
+      return htmlRisultato.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    }
+
     async function caricaLiturgiaDaGoogleSheet() {
       try {
         const response = await fetch(GOOGLE_SHEET_CSV_URL);
@@ -512,7 +608,6 @@
       }
     }
 
-    // CARICAMENTO CATECHESI DAL FOGLIO 2
     async function caricaCatechesiDaGoogleSheet() {
       const container = document.getElementById('catechesi-list-container');
       try {
@@ -554,7 +649,7 @@
       if (item) {
         document.getElementById('catechesi-detail-title').innerText = item.titolo;
         document.getElementById('catechesi-detail-subtitle').innerText = item.sottotitolo;
-        document.getElementById('catechesi-detail-text').innerText = item.testo;
+        document.getElementById('catechesi-detail-text').innerHTML = formattaTestoCatechesi(item.testo);
 
         document.getElementById('catechesi-list-container').style.display = 'none';
         document.getElementById('catechesi-detail').style.display = 'block';
@@ -576,7 +671,6 @@
         return;
       }
 
-      // 1. Coroncina Misericordia
       const singoliDiv = document.getElementById('audio-singoli-list');
       if (singoliDiv && datiOrazione.coroncinaMisericordia) {
         singoliDiv.innerHTML = `
@@ -586,7 +680,6 @@
           </div>`;
       }
 
-      // 2. Misteri Rosario
       const misteriDiv = document.getElementById('rosario-misteri-list');
       if (misteriDiv && datiOrazione.misteriRosario) {
         misteriDiv.innerHTML = '';
@@ -599,7 +692,6 @@
         });
       }
 
-      // 3. Preghiere CSCV
       const daysContainer = document.getElementById('days-container');
       if (daysContainer && datiOrazione.preghiereSettimanali) {
         daysContainer.innerHTML = '';
