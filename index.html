@@ -147,7 +147,6 @@
       border: none;
     }
 
-    /* CITAZIONE HOME */
     .home-quote-box {
       background: #FAF8F5;
       border-left: 3px solid var(--accent-terracotta);
@@ -160,7 +159,6 @@
       color: var(--text-main);
     }
 
-    /* HOME BUTTONS GRID */
     .home-quick-nav {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -186,7 +184,6 @@
       color: var(--accent-terracotta);
     }
 
-    /* CONTENITORE DEL TESTO DELLE ORE DA GOOGLE FOGLI */
     .liturgia-testo-box {
       text-align: left;
       white-space: pre-wrap;
@@ -196,13 +193,11 @@
       padding: 10px 5px;
     }
 
-    /* Stili per il testo rosso liturgico */
     .liturgia-testo-box .red-text {
       color: var(--accent-terracotta);
       font-weight: 600;
     }
 
-    /* AUDIO & PREGHIERE */
     .audio-cat-card, .day-item-btn {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
@@ -215,6 +210,14 @@
       cursor: pointer;
       font-weight: 600;
       width: 100%;
+      text-align: left;
+    }
+    .day-item-btn span.subtitle {
+      display: block;
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 400;
+      margin-top: 3px;
     }
     .audio-item-box {
       background: #FAF8F5;
@@ -237,16 +240,16 @@
     .bottom-nav {
       position: fixed; bottom: 0; width: 100%; max-width: 480px;
       background: #FFFFFF; display: flex; justify-content: space-around;
-      padding: 8px 3px 12px; border-top: 1px solid var(--border-color);
+      padding: 8px 2px 12px; border-top: 1px solid var(--border-color);
       z-index: 1000;
     }
     .nav-item {
       display: flex; flex-direction: column; align-items: center; gap: 3px;
-      background: none; border: none; color: var(--text-muted); font-size: 7.5px;
-      font-weight: 600; cursor: pointer; padding: 6px 4px; border-radius: 10px;
+      background: none; border: none; color: var(--text-muted); font-size: 7px;
+      font-weight: 600; cursor: pointer; padding: 6px 2px; border-radius: 10px;
       flex: 1;
     }
-    .nav-item i { font-size: 14px; }
+    .nav-item i { font-size: 13px; }
     .nav-item.active { background-color: var(--accent-terracotta); color: white; }
   </style>
 </head>
@@ -279,30 +282,13 @@
         </div>
 
         <div class="home-quick-nav">
-          <div class="home-nav-btn" onclick="navigateToTab('lodi')">
-            <i class="fa-solid fa-sun"></i>
-            <span>Lodi</span>
-          </div>
-          <div class="home-nav-btn" onclick="navigateToTab('vespri')">
-            <i class="fa-solid fa-moon"></i>
-            <span>Vespri</span>
-          </div>
-          <div class="home-nav-btn" onclick="navigateToTab('compieta')">
-            <i class="fa-solid fa-bed"></i>
-            <span>Compieta</span>
-          </div>
-          <div class="home-nav-btn" onclick="navigateToTab('letture')">
-            <i class="fa-solid fa-book-open"></i>
-            <span>Letture</span>
-          </div>
-          <div class="home-nav-btn" onclick="navigateToTab('audio')">
-            <i class="fa-solid fa-headphones"></i>
-            <span>Audio</span>
-          </div>
-          <div class="home-nav-btn" onclick="navigateToTab('preghiere')">
-            <i class="fa-solid fa-hands-praying"></i>
-            <span>Preghiere</span>
-          </div>
+          <div class="home-nav-btn" onclick="navigateToTab('lodi')"><i class="fa-solid fa-sun"></i><span>Lodi</span></div>
+          <div class="home-nav-btn" onclick="navigateToTab('vespri')"><i class="fa-solid fa-moon"></i><span>Vespri</span></div>
+          <div class="home-nav-btn" onclick="navigateToTab('compieta')"><i class="fa-solid fa-bed"></i><span>Compieta</span></div>
+          <div class="home-nav-btn" onclick="navigateToTab('letture')"><i class="fa-solid fa-book-open"></i><span>Letture</span></div>
+          <div class="home-nav-btn" onclick="navigateToTab('catechesi')"><i class="fa-solid fa-graduation-cap"></i><span>Catechesi</span></div>
+          <div class="home-nav-btn" onclick="navigateToTab('audio')"><i class="fa-solid fa-headphones"></i><span>Audio</span></div>
+          <div class="home-nav-btn" onclick="navigateToTab('preghiere')"><i class="fa-solid fa-hands-praying"></i><span>Preghiere</span></div>
         </div>
       </div>
     </main>
@@ -346,10 +332,21 @@
       </div>
     </main>
 
+    <!-- CATECHESI -->
+    <main id="sec-catechesi" class="content-section">
+      <div id="catechesi-list-container">Caricamento catechesi dal foglio...</div>
+      <div id="catechesi-detail" class="prayer-detail-card">
+        <button class="back-btn" onclick="showCatechesiList()"><i class="fa-solid fa-arrow-left"></i> Torna alla lista Catechesi</button>
+        <h2 id="catechesi-detail-title" style="color:var(--accent-terracotta); font-family:'Playfair Display'; text-align:center; margin-bottom:6px;"></h2>
+        <div id="catechesi-detail-subtitle" style="text-align:center; font-style:italic; color:var(--text-muted); font-size:14px; margin-bottom:15px;"></div>
+        <div id="catechesi-detail-text" class="liturgia-testo-box"></div>
+      </div>
+    </main>
+
     <!-- AUDIO GUIDATI -->
     <main id="sec-audio" class="content-section">
       <div id="audio-main-view">
-        <div id="audio-singoli-list"></div>
+        <div id="audio-singoli-list">Caricamento audio in corso...</div>
         <div class="audio-cat-card" onclick="showRosarioSubmenu()">
           <span><i class="fa-solid fa-layer-group" style="color:var(--accent-terracotta); margin-right:10px;"></i> Il Santo Rosario</span>
           <i class="fa-solid fa-chevron-right" style="color:var(--accent-terracotta);"></i>
@@ -358,13 +355,13 @@
       <div id="audio-rosario-view" style="display:none;">
         <button class="back-btn" onclick="showAudioMainView()"><i class="fa-solid fa-arrow-left"></i> Torna agli Audio</button>
         <h2 style="font-family:'Playfair Display', serif; font-size:20px; margin-bottom:15px; color:var(--accent-terracotta);">Il Santo Rosario</h2>
-        <div id="rosario-misteri-list"></div>
+        <div id="rosario-misteri-list">Caricamento misteri in corso...</div>
       </div>
     </main>
 
     <!-- PREGHIERE CSCV -->
     <main id="sec-preghiere" class="content-section">
-      <div id="days-container"></div>
+      <div id="days-container">Caricamento preghiere in corso...</div>
       <div id="prayer-detail" class="prayer-detail-card">
         <button class="back-btn" onclick="showDaysList()"><i class="fa-solid fa-arrow-left"></i> Torna all'elenco giorni</button>
         <h2 id="detail-title" style="color:var(--accent-terracotta); font-family:'Playfair Display'; text-align:center; margin-bottom:15px;"></h2>
@@ -376,47 +373,48 @@
       </div>
     </main>
 
-    <!-- BOTTOM NAV CON TASTO HOME -->
+    <!-- BOTTOM NAV CON TASTI -->
     <nav class="bottom-nav">
       <button class="nav-item active" id="nav-home" onclick="switchTab('home', 'Benvenuto', this)"><i class="fa-solid fa-house"></i><span>HOME</span></button>
       <button class="nav-item" id="nav-lodi" onclick="switchTab('lodi', 'Lodi del Giorno', this)"><i class="fa-solid fa-sun"></i><span>LODI</span></button>
       <button class="nav-item" id="nav-vespri" onclick="switchTab('vespri', 'Vespri della Sera', this)"><i class="fa-solid fa-moon"></i><span>VESPRI</span></button>
       <button class="nav-item" id="nav-compieta" onclick="switchTab('compieta', 'Compieta', this)"><i class="fa-solid fa-bed"></i><span>COMPIETA</span></button>
-      <button class="nav-item" id="nav-letture" onclick="switchTab('letture', 'Letture del Giorno', this)"><i class="fa-solid fa-book-open"></i><span>LETTURE</span></button>
+      <button class="nav-item" id="nav-letture" onclick="switchTab('letture', 'Letture Messa', this)"><i class="fa-solid fa-book-open"></i><span>LETTURE</span></button>
+      <button class="nav-item" id="nav-catechesi" onclick="switchTab('catechesi', 'Catechesi', this)"><i class="fa-solid fa-graduation-cap"></i><span>CATECHESI</span></button>
       <button class="nav-item" id="nav-audio" onclick="switchTab('audio', 'Audio Guidati', this)"><i class="fa-solid fa-headphones"></i><span>AUDIO</span></button>
       <button class="nav-item" id="nav-preghiere" onclick="switchTab('preghiere', 'Preghiere CSCV', this)"><i class="fa-solid fa-hands-praying"></i><span>PREGHIERE</span></button>
     </nav>
   </div>
 
   <script>
-    // LINK AL FOGLIO GOOGLE CSV
+    // LINK FOGLIO 1 (LITURGIA DELLE ORE)
     const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ7TkEPy5gLgUDVgfsaB_MlYvlkCmOZxK7xJvUuBLSgkltuLm0mVw6juakwvVpTdOMumgigW_M6ONtA/pub?output=csv";
 
-    // Mappa Titoli Badge
+    // LINK FOGLIO 2 (CATECHESI)
+    const GOOGLE_SHEET_CATECHESI_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ7TkEPy5gLgUDVgfsaB_MlYvlkCmOZxK7xJvUuBLSgkltuLm0mVw6juakwvVpTdOMumgigW_M6ONtA/pub?gid=514329846&single=true&output=csv";
+
     const badgeMap = {
       'home': 'Benvenuto',
       'lodi': 'Lodi del Giorno',
       'vespri': 'Vespri della Sera',
       'compieta': 'Compieta',
-      'letture': 'Letture del Giorno',
+      'letture': 'Letture della Messa',
+      'catechesi': 'Catechesi',
       'audio': 'Audio Guidati',
       'preghiere': 'Preghiere CSCV'
     };
 
-    // Calcola la Settimana del Salterio
+    let elencoCatechesiGlobal = [];
+
     function getSettimanaSalterio() {
       const oggi = new Date();
       const dataRiferimento = new Date(2026, 8, 20); 
-      
       const diffMilli = oggi - dataRiferimento;
       const diffGiorni = Math.floor(diffMilli / (1000 * 60 * 60 * 24));
       const diffSettimane = Math.floor(diffGiorni / 7);
-      
-      let settimana = ((diffSettimane % 4) + 4) % 4 + 1;
-      return settimana;
+      return ((diffSettimane % 4) + 4) % 4 + 1;
     }
 
-    // Parser CSV avanzato
     function parseCSVData(csvText) {
       const rows = [];
       let currentRow = [];
@@ -456,10 +454,8 @@
       return rows;
     }
 
-    // Funzione per applicare il colore rosso liturgico
     function formattaRossoLiturgico(testo) {
       if (!testo || testo.trim() === "Disponibile a breve") return testo;
-      
       let testoFormattato = testo.replace(/<red>/gi, '<span class="red-text">').replace(/<\/red>/gi, '</span>');
 
       const paroleRosse = [
@@ -479,7 +475,6 @@
       return testoFormattato;
     }
 
-    // Carica i dati dal foglio Google
     async function caricaLiturgiaDaGoogleSheet() {
       try {
         const response = await fetch(GOOGLE_SHEET_CSV_URL);
@@ -517,51 +512,109 @@
       }
     }
 
-    // CARICAMENTO SICURO DA CONTENUTI.JS
-    function caricaContenutiJS() {
-      if (typeof datiOrazione !== 'undefined') {
-        // 1. Carica Coroncina Misericordia
-        const singoliDiv = document.getElementById('audio-singoli-list');
-        if (singoliDiv && datiOrazione.coroncinaMisericordia) {
-          singoliDiv.innerHTML = `
-            <div class="audio-item-box">
-              <strong><i class="fa-solid fa-hands-praying" style="color:var(--accent-terracotta);"></i> Coroncina della Divina Misericordia</strong>
-              <audio controls src="${datiOrazione.coroncinaMisericordia}" style="margin-top:8px; width:100%;"></audio>
-            </div>`;
-        }
+    // CARICAMENTO CATECHESI DAL FOGLIO 2
+    async function caricaCatechesiDaGoogleSheet() {
+      const container = document.getElementById('catechesi-list-container');
+      try {
+        const response = await fetch(GOOGLE_SHEET_CATECHESI_CSV_URL);
+        const text = await response.text();
+        const parsedRows = parseCSVData(text);
 
-        // 2. Carica Misteri Rosario
-        const misteriDiv = document.getElementById('rosario-misteri-list');
-        if (misteriDiv && datiOrazione.misteriRosario) {
-          misteriDiv.innerHTML = '';
-          datiOrazione.misteriRosario.forEach(m => {
-            misteriDiv.innerHTML += `
-              <div class="audio-item-box">
-                <strong><i class="fa-solid fa-cross" style="color:var(--accent-terracotta);"></i> ${m.titolo}</strong>
-                <audio controls src="${m.url}" style="margin-top:8px; width:100%;"></audio>
-              </div>`;
-          });
-        }
+        if (parsedRows.length > 1) {
+          elencoCatechesiGlobal = [];
+          container.innerHTML = '';
 
-        // 3. Carica Elenco Preghiere CSCV
-        const daysContainer = document.getElementById('days-container');
-        if (daysContainer && datiOrazione.preghiereSettimanali) {
-          daysContainer.innerHTML = '';
-          datiOrazione.preghiereSettimanali.forEach(p => {
-            daysContainer.innerHTML += `
-              <button class="day-item-btn" onclick="openPrayer('${p.id}')">
-                <span>${p.titolo}</span><i class="fa-solid fa-chevron-right"></i>
+          parsedRows.slice(1).forEach((r, index) => {
+            const titolo = r[0] ? r[0].trim() : `Catechesi ${index + 1}`;
+            const sottotitolo = r[1] ? r[1].trim() : '';
+            const testo = r[2] ? r[2].trim() : 'Testo non ancora disponibile.';
+
+            elencoCatechesiGlobal.push({ titolo, sottotitolo, testo });
+
+            container.innerHTML += `
+              <button class="day-item-btn" onclick="openCatechesi(${index})">
+                <div>
+                  <span>${titolo}</span>
+                  ${sottotitolo ? `<span class="subtitle">${sottotitolo}</span>` : ''}
+                </div>
+                <i class="fa-solid fa-chevron-right" style="color:var(--accent-terracotta);"></i>
               </button>`;
           });
+        } else {
+          container.innerHTML = "<div style='padding:15px; text-align:center;'>Nessuna catechesi presente nel Foglio 2.</div>";
         }
-      } else {
-        // Se datiOrazione non è ancora pronto, riprova dopo 300ms
-        setTimeout(caricaContenutiJS, 300);
+      } catch (err) {
+        console.error("Errore caricamento catechesi:", err);
+        container.innerHTML = "<div style='padding:15px; text-align:center;'>Errore di caricamento delle Catechesi.</div>";
+      }
+    }
+
+    function openCatechesi(index) {
+      const item = elencoCatechesiGlobal[index];
+      if (item) {
+        document.getElementById('catechesi-detail-title').innerText = item.titolo;
+        document.getElementById('catechesi-detail-subtitle').innerText = item.sottotitolo;
+        document.getElementById('catechesi-detail-text').innerText = item.testo;
+
+        document.getElementById('catechesi-list-container').style.display = 'none';
+        document.getElementById('catechesi-detail').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function showCatechesiList() {
+      document.getElementById('catechesi-detail').style.display = 'none';
+      document.getElementById('catechesi-list-container').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function caricaContenutiJS() {
+      if (typeof datiOrazione === 'undefined') {
+        const errorMsg = "<div style='color:red; padding:10px;'>Impossibile trovare 'contenuti.js'. Verifica che esista su GitHub.</div>";
+        document.getElementById('audio-singoli-list').innerHTML = errorMsg;
+        document.getElementById('days-container').innerHTML = errorMsg;
+        return;
+      }
+
+      // 1. Coroncina Misericordia
+      const singoliDiv = document.getElementById('audio-singoli-list');
+      if (singoliDiv && datiOrazione.coroncinaMisericordia) {
+        singoliDiv.innerHTML = `
+          <div class="audio-item-box">
+            <strong><i class="fa-solid fa-hands-praying" style="color:var(--accent-terracotta);"></i> Coroncina della Divina Misericordia</strong>
+            <audio controls src="${datiOrazione.coroncinaMisericordia}" style="margin-top:8px; width:100%;"></audio>
+          </div>`;
+      }
+
+      // 2. Misteri Rosario
+      const misteriDiv = document.getElementById('rosario-misteri-list');
+      if (misteriDiv && datiOrazione.misteriRosario) {
+        misteriDiv.innerHTML = '';
+        datiOrazione.misteriRosario.forEach(m => {
+          misteriDiv.innerHTML += `
+            <div class="audio-item-box">
+              <strong><i class="fa-solid fa-cross" style="color:var(--accent-terracotta);"></i> ${m.titolo}</strong>
+              <audio controls src="${m.url}" style="margin-top:8px; width:100%;"></audio>
+            </div>`;
+        });
+      }
+
+      // 3. Preghiere CSCV
+      const daysContainer = document.getElementById('days-container');
+      if (daysContainer && datiOrazione.preghiereSettimanali) {
+        daysContainer.innerHTML = '';
+        datiOrazione.preghiereSettimanali.forEach(p => {
+          daysContainer.innerHTML += `
+            <button class="day-item-btn" onclick="openPrayer('${p.id}')">
+              <span>${p.titolo}</span><i class="fa-solid fa-chevron-right" style="color:var(--accent-terracotta);"></i>
+            </button>`;
+        });
       }
     }
 
     function inizializzaApp() {
       caricaLiturgiaDaGoogleSheet();
+      caricaCatechesiDaGoogleSheet();
       caricaContenutiJS();
 
       const currentHash = window.location.hash.replace('#', '');
@@ -637,6 +690,7 @@
       window.location.hash = tabId;
 
       if (tabId === 'preghiere') showDaysList();
+      if (tabId === 'catechesi') showCatechesiList();
       if (tabId === 'audio') showAudioMainView();
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
