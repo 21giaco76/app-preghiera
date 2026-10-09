@@ -8,6 +8,21 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
+  <!-- INTEGRAZIONE ONESIGNAL PER NOTIFICHE PUSH -->
+  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+  <script>
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    OneSignalDeferred.push(async function(OneSignal) {
+      await OneSignal.init({
+        appId: "f5fbfaa1-7138-48b8-a103-1a71b298913a",
+        safari_web_id: "",
+        notifyButton: {
+          enable: true,
+        },
+      });
+    });
+  </script>
+
   <script src="contenuti.js"></script>
 
   <style>
@@ -198,14 +213,13 @@
       font-weight: 600;
     }
 
-    /* STILI DEDICATI CATECHESI (TEXT IN CORSIVO, TITOLI IN GRASSETTO DIRITTI) */
     .catechesi-testo-box {
       text-align: left;
       line-height: 1.7;
       font-size: 15px;
       color: #2C2623;
       padding: 10px 5px;
-      font-style: italic; /* TESTO STANDARD IN CORSIVO */
+      font-style: italic;
     }
     .catechesi-testo-box strong {
       font-style: normal;
@@ -523,7 +537,6 @@
       return testoFormattato;
     }
 
-    // CONVERTE MARKDOWN IN HTML (TITOLI ### E ####, LINEE ---, GRASSETTI E PUNTI ELENCO)
     function formattaTestoCatechesi(testo) {
       if (!testo) return '';
       
@@ -567,7 +580,6 @@
         htmlRisultato += '</ul>';
       }
 
-      // Converte **grassetto**
       return htmlRisultato.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
     }
 
