@@ -360,10 +360,11 @@
     animation: fadeInScale 1.5s ease-out forwards;
   }
   .splash-logo {
-    width: 100px;
-    height: 100px;
+    width: 80vw;    /* 80% della larghezza dello schermo */
+    max-width: 350px; /* Evita che diventi enorme su tablet o PC */
+    height: auto;
     object-fit: contain;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
   }
   .splash-title {
     font-size: 22px;
