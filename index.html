@@ -383,7 +383,7 @@
   <!-- SCHERMATA DI CARICAMENTO INIZIALE (SPLASH SCREEN) -->
 <div id="splash-screen">
   <div class="splash-content">
-    <img src="icon-192.png" alt="Logo CSCV" class="splash-logo">
+    <img src="logo.png" alt="Logo CSCV" class="splash-logo">
     <h1 class="splash-title">App di preghiera della CSCV</h1>
   </div>
 </div>
@@ -868,5 +868,18 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   </script>
+  <script>
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      const splash = document.getElementById('splash-screen');
+      if (splash) {
+        splash.style.opacity = '0'; // Fa partire la dissolvenza
+        setTimeout(function() {
+          splash.style.display = 'none'; // Rimuove lo splash screen dopo la dissolvenza
+        }, 800);
+      }
+    }, 5000); // 5000 millisecondi = 5 secondi di durata
+  });
+</script>
 </body>
 </html>
