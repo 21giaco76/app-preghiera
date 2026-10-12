@@ -875,17 +875,31 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   </script>
-  <script>
+<script>
   window.addEventListener('load', function() {
-    setTimeout(function() {
-      const splash = document.getElementById('splash-screen');
+    const splash = document.getElementById('splash-screen');
+    const logoImg = splash ? splash.querySelector('img') : null;
+
+    function showSplashAndStartTimer() {
       if (splash) {
-        splash.style.opacity = '0'; // Fa partire la dissolvenza
+        splash.classList.add('visible'); // Mostra lo splash screen appena il logo è pronto
+        
+        // Timer di 5 secondi prima della dissolvenza in uscita
         setTimeout(function() {
-          splash.style.display = 'none'; // Rimuove lo splash screen dopo la dissolvenza
-        }, 800);
+          splash.style.opacity = '0'; 
+          setTimeout(function() {
+            splash.style.display = 'none'; 
+          }, 800);
+        }, 5000); 
       }
-    }, 5000); // 5000 millisecondi = 5 secondi di durata
+    }
+
+    if (logoImg && !logoImg.complete) {
+      logoImg.onload = showSplashAndStartTimer;
+      logoImg.onerror = showSplashAndStartTimer;
+    } else {
+      showSplashAndStartTimer();
+    }
   });
 </script>
 </body>
