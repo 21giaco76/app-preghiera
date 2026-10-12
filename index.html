@@ -20,7 +20,7 @@
       notifyButton: {
         enable: true,
         size: 'small',
-        position: 'bottom-left', // Lasciamo bottom-left come base ma la spostiamo noi via CSS
+        position: 'bottom-left',
         showCredit: false
       }
     });
@@ -29,18 +29,16 @@
 
 <!-- CSS PERSONALIZZATO PER SPOSTARE LA CAMPANELLA TUTTA A SINISTRA -->
 <style>
-  /* Sovrascrive il contenitore principale della campanella OneSignal */
   #onesignal-bell-container.onesignal-bell-container-bottom-left,
   #onesignal-bell-container,
   .onesignal-bell-launcher {
-    bottom: 35px !important;  /* Mantiene l'altezza corretta sopra la barra dei menu */
-    left: 8px !important;     /* Spostata tutta a sinistra sul bordo esterno */
-    transform: scale(0.7) !important; /* Leggermente più piccola per stare perfettamente nel bordo */
+    bottom: 35px !important;
+    left: 8px !important;
+    transform: scale(0.7) !important;
     transform-origin: bottom left !important;
     z-index: 999999 !important;
   }
 
-  /* Forza le dimensioni del pulsante interno */
   #onesignal-bell-container .onesignal-bell-launcher-button {
     width: 40px !important;
     height: 40px !important;
@@ -103,6 +101,15 @@
       letter-spacing: 2px;
       color: var(--accent-terracotta);
       text-align: center;
+    }
+
+    .settings-btn {
+      background: none;
+      border: none;
+      font-size: 20px;
+      color: var(--accent-terracotta);
+      cursor: pointer;
+      padding: 4px 8px;
     }
 
     header {
@@ -340,7 +347,48 @@
     }
     .nav-item i { font-size: 13px; }
     .nav-item.active { background-color: var(--accent-terracotta); color: white; }
+
+    /* MENU NASCOSTO E OVERLAY */
+    #menu-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.4); z-index: 999998; display: none;
+    }
+    #menu-overlay.active { display: block; }
+
+    #side-menu {
+      position: fixed; top: 0; right: -300px; width: 280px; height: 100%;
+      background-color: var(--bg-color); box-shadow: -4px 0 15px rgba(0,0,0,0.15);
+      z-index: 999999; transition: right 0.3s ease-in-out;
+      display: flex; flex-direction: column; padding: 20px; box-sizing: border-box;
+    }
+    #side-menu.open { right: 0; }
+
+    .menu-header {
+      display: flex; justify-content: space-between; align-items: center;
+      border-bottom: 2px solid var(--accent-terracotta); padding-bottom: 12px; margin-bottom: 20px;
+    }
+    .menu-header h2 {
+      color: var(--accent-terracotta); font-family: 'Playfair Display', serif; font-size: 20px; margin: 0;
+    }
+    .close-menu-btn {
+      background: none; border: none; font-size: 20px; cursor: pointer; color: var(--accent-terracotta);
+    }
+    .menu-section { margin-bottom: 25px; }
+    .menu-section h3 {
+      font-size: 15px; color: var(--accent-terracotta); font-family: 'Playfair Display', serif; margin-bottom: 10px;
+    }
+    .lang-options { display: flex; flex-direction: column; gap: 8px; }
+    .lang-btn {
+      background-color: #fff; border: 1px solid var(--border-color); padding: 10px 12px;
+      text-align: left; border-radius: 10px; cursor: pointer; font-size: 14px;
+      color: var(--text-main); font-weight: 500; transition: all 0.2s;
+    }
+    .lang-btn.active, .lang-btn:hover {
+      background-color: var(--accent-terracotta); color: #fff; border-color: var(--accent-terracotta);
+    }
+    .menu-info-text { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
   </style>
+
 <style>
   #splash-screen {
     position: fixed;
@@ -384,16 +432,41 @@
   </div>
 </div>
 
+  <!-- OVERLAY E MENU NASCOSTO -->
+  <div id="menu-overlay" onclick="toggleMenu()"></div>
+  <div id="side-menu">
+    <div class="menu-header">
+      <h2 id="menu-title-text">Impostazioni</h2>
+      <button class="close-menu-btn" onclick="toggleMenu()">✕</button>
+    </div>
+
+    <div class="menu-section">
+      <h3 id="lang-heading">🌐 Seleziona Lingua</h3>
+      <div class="lang-options">
+        <button class="lang-btn active" id="btn-lang-it" onclick="changeLanguage('it')">🇮🇹 Italiano</button>
+        <button class="lang-btn" id="btn-lang-es" onclick="changeLanguage('es')">🇩🇴 Español (Santo Domingo)</button>
+        <button class="lang-btn" id="btn-lang-en" onclick="changeLanguage('en')">🇬🇧 English</button>
+      </div>
+    </div>
+
+    <div class="menu-section">
+      <h3 id="info-heading">Padre Emiliano Tardif</h3>
+      <p class="menu-info-text" id="info-text">
+        Comunità Servi di Cristo Vivo. Fondata con l'ispirazione di Padre Emiliano Tardif per portare la guarigione e l'amore di Gesù in tutto il mondo.
+      </p>
+    </div>
+  </div>
+
   <div class="app-container">
     
     <div class="top-bar">
       <img id="top-logo-left" class="top-bar-logo" src="logo.png" alt="Logo">
       <span class="top-bar-title">CSCV</span>
-      <img id="top-logo-right" class="top-bar-logo" src="logo.png" alt="Logo">
+      <button class="settings-btn" onclick="toggleMenu()" aria-label="Impostazioni"><i class="fa-solid fa-gear"></i></button>
     </div>
 
     <header>
-      <h1>Gesù è vivo e cammina insieme a noi.</h1>
+      <h1 id="header-main-title">Gesù è vivo e cammina insieme a noi.</h1>
       <div class="author">Padre Emiliano Tardif</div>
       <div class="cross-icon"><i class="fa-solid fa-cross"></i></div>
       <div class="badge" id="section-badge">Benvenuto</div>
@@ -403,21 +476,21 @@
     <main id="sec-home" class="content-section active">
       <div class="link-card">
         <img class="card-img" src="lodi.jpg" alt="Benvenuto">
-        <h2>Benvenuti Fratelli</h2>
-        <p>Benvenuti nell'applicazione ufficiale della comunità Servi di Cristo Vivo Casaemmaus Messina.</p>
+        <h2 id="home-welcome-title">Benvenuti Fratelli</h2>
+        <p id="home-welcome-desc">Benvenuti nell'applicazione ufficiale della comunità Servi di Cristo Vivo Casaemmaus Messina.</p>
 
-        <div class="home-quote-box">
+        <div class="home-quote-box" id="home-quote">
           "Gesù non è un ricordo del passato, ma una presenza viva del presente!"
         </div>
 
         <div class="home-quick-nav">
-          <div class="home-nav-btn" onclick="navigateToTab('lodi')"><i class="fa-solid fa-sun"></i><span>Lodi</span></div>
-          <div class="home-nav-btn" onclick="navigateToTab('vespri')"><i class="fa-solid fa-moon"></i><span>Vespri</span></div>
-          <div class="home-nav-btn" onclick="navigateToTab('compieta')"><i class="fa-solid fa-bed"></i><span>Compieta</span></div>
-          <div class="home-nav-btn" onclick="navigateToTab('letture')"><i class="fa-solid fa-book-open"></i><span>Letture</span></div>
-          <div class="home-nav-btn" onclick="navigateToTab('catechesi')"><i class="fa-solid fa-graduation-cap"></i><span>Catechesi</span></div>
-          <div class="home-nav-btn" onclick="navigateToTab('audio')"><i class="fa-solid fa-headphones"></i><span>Audio</span></div>
-          <div class="home-nav-btn" onclick="navigateToTab('preghiere')"><i class="fa-solid fa-hands-praying"></i><span>Preghiere</span></div>
+          <div class="home-nav-btn" onclick="navigateToTab('lodi')"><i class="fa-solid fa-sun"></i><span id="qnav-lodi">Lodi</span></div>
+          <div class="home-nav-btn" onclick="navigateToTab('vespri')"><i class="fa-solid fa-moon"></i><span id="qnav-vespri">Vespri</span></div>
+          <div class="home-nav-btn" onclick="navigateToTab('compieta')"><i class="fa-solid fa-bed"></i><span id="qnav-compieta">Compieta</span></div>
+          <div class="home-nav-btn" onclick="navigateToTab('letture')"><i class="fa-solid fa-book-open"></i><span id="qnav-letture">Letture</span></div>
+          <div class="home-nav-btn" onclick="navigateToTab('catechesi')"><i class="fa-solid fa-graduation-cap"></i><span id="qnav-catechesi">Catechesi</span></div>
+          <div class="home-nav-btn" onclick="navigateToTab('audio')"><i class="fa-solid fa-headphones"></i><span id="qnav-audio">Audio</span></div>
+          <div class="home-nav-btn" onclick="navigateToTab('preghiere')"><i class="fa-solid fa-hands-praying"></i><span id="qnav-preghiere">Preghiere</span></div>
         </div>
       </div>
     </main>
@@ -426,7 +499,7 @@
     <main id="sec-lodi" class="content-section">
       <div class="link-card">
         <img class="card-img" src="lodi.jpg" alt="Lodi">
-        <h2>Lodi Mattutine</h2>
+        <h2 id="lodi-title">Lodi Mattutine</h2>
         <div id="testo-lodi" class="liturgia-testo-box">Caricamento delle Lodi dal foglio in corso...</div>
       </div>
     </main>
@@ -435,7 +508,7 @@
     <main id="sec-vespri" class="content-section">
       <div class="link-card">
         <img class="card-img" src="vespri.jpg" alt="Vespri">
-        <h2>Vespri della Sera</h2>
+        <h2 id="vespri-title">Vespri della Sera</h2>
         <div id="testo-vespri" class="liturgia-testo-box">Caricamento dei Vespri dal foglio in corso...</div>
       </div>
     </main>
@@ -444,7 +517,7 @@
     <main id="sec-compieta" class="content-section">
       <div class="link-card">
         <img class="card-img" src="compieta.jpg" alt="Compieta">
-        <h2>Compieta</h2>
+        <h2 id="compieta-title">Compieta</h2>
         <div id="testo-compieta" class="liturgia-testo-box">Caricamento della Compieta dal foglio in corso...</div>
       </div>
     </main>
@@ -453,10 +526,10 @@
     <main id="sec-letture" class="content-section">
       <div class="link-card">
         <img class="card-img" src="letture.jpg" alt="Letture">
-        <h2>Letture della Messa</h2>
-        <p>Consulta le letture e il Vangelo del giorno con audio ufficiale.</p>
+        <h2 id="letture-title">Letture della Messa</h2>
+        <p id="letture-desc">Consulta le letture e il Vangelo del giorno con audio ufficiale.</p>
         <a id="btn-letture" href="https://www.chiesacattolica.it/liturgia-del-giorno" target="_blank" class="open-btn">
-          <span>Apri Letture del Giorno</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          <span id="btn-letture-text">Apri Letture del Giorno</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
         </a>
       </div>
     </main>
@@ -465,7 +538,7 @@
     <main id="sec-catechesi" class="content-section">
       <div id="catechesi-list-container">Caricamento catechesi dal foglio...</div>
       <div id="catechesi-detail" class="prayer-detail-card">
-        <button class="back-btn" onclick="showCatechesiList()"><i class="fa-solid fa-arrow-left"></i> Torna alla lista Catechesi</button>
+        <button class="back-btn" onclick="showCatechesiList()"><i class="fa-solid fa-arrow-left"></i> <span id="back-catechesi-text">Torna alla lista Catechesi</span></button>
         <h2 id="catechesi-detail-title"></h2>
         <div id="catechesi-detail-subtitle" style="text-align:center; font-style:italic; color:var(--text-muted); font-size:14px; margin-bottom:15px;"></div>
         <div id="catechesi-detail-text" class="catechesi-testo-box"></div>
@@ -477,13 +550,13 @@
       <div id="audio-main-view">
         <div id="audio-singoli-list">Caricamento audio in corso...</div>
         <div class="audio-cat-card" onclick="showRosarioSubmenu()">
-          <span><i class="fa-solid fa-layer-group" style="color:var(--accent-terracotta); margin-right:10px;"></i> Il Santo Rosario</span>
+          <span><i class="fa-solid fa-layer-group" style="color:var(--accent-terracotta); margin-right:10px;"></i> <span id="rosario-card-title">Il Santo Rosario</span></span>
           <i class="fa-solid fa-chevron-right" style="color:var(--accent-terracotta);"></i>
         </div>
       </div>
       <div id="audio-rosario-view" style="display:none;">
-        <button class="back-btn" onclick="showAudioMainView()"><i class="fa-solid fa-arrow-left"></i> Torna agli Audio</button>
-        <h2 style="font-family:'Playfair Display', serif; font-size:20px; margin-bottom:15px; color:var(--accent-terracotta);">Il Santo Rosario</h2>
+        <button class="back-btn" onclick="showAudioMainView()"><i class="fa-solid fa-arrow-left"></i> <span id="back-audio-text">Torna agli Audio</span></button>
+        <h2 id="rosario-view-title" style="font-family:'Playfair Display', serif; font-size:20px; margin-bottom:15px; color:var(--accent-terracotta);">Il Santo Rosario</h2>
         <div id="rosario-misteri-list">Caricamento misteri in corso...</div>
       </div>
     </main>
@@ -492,7 +565,7 @@
     <main id="sec-preghiere" class="content-section">
       <div id="days-container">Caricamento preghiere in corso...</div>
       <div id="prayer-detail" class="prayer-detail-card">
-        <button class="back-btn" onclick="showDaysList()"><i class="fa-solid fa-arrow-left"></i> Torna all'elenco giorni</button>
+        <button class="back-btn" onclick="showDaysList()"><i class="fa-solid fa-arrow-left"></i> <span id="back-prayers-text">Torna all'elenco giorni</span></button>
         <h2 id="detail-title" style="color:var(--accent-terracotta); font-family:'Playfair Display'; text-align:center; margin-bottom:15px;"></h2>
         <h3 id="title-p1"></h3><p id="text-p1"></p><img id="img-foto1" src="" alt="" onerror="this.style.display='none'">
         <h3 id="title-p2"></h3><p id="text-p2"></p><img id="img-foto2" src="" alt="" onerror="this.style.display='none'">
@@ -504,14 +577,14 @@
 
     <!-- BOTTOM NAV CON TASTI -->
     <nav class="bottom-nav">
-      <button class="nav-item active" id="nav-home" onclick="switchTab('home', 'Benvenuto', this)"><i class="fa-solid fa-house"></i><span>HOME</span></button>
-      <button class="nav-item" id="nav-lodi" onclick="switchTab('lodi', 'Lodi del Giorno', this)"><i class="fa-solid fa-sun"></i><span>LODI</span></button>
-      <button class="nav-item" id="nav-vespri" onclick="switchTab('vespri', 'Vespri della Sera', this)"><i class="fa-solid fa-moon"></i><span>VESPRI</span></button>
-      <button class="nav-item" id="nav-compieta" onclick="switchTab('compieta', 'Compieta', this)"><i class="fa-solid fa-bed"></i><span>COMPIETA</span></button>
-      <button class="nav-item" id="nav-letture" onclick="switchTab('letture', 'Letture Messa', this)"><i class="fa-solid fa-book-open"></i><span>LETTURE</span></button>
-      <button class="nav-item" id="nav-catechesi" onclick="switchTab('catechesi', 'Catechesi', this)"><i class="fa-solid fa-graduation-cap"></i><span>CATECHESI</span></button>
-      <button class="nav-item" id="nav-audio" onclick="switchTab('audio', 'Audio Guidati', this)"><i class="fa-solid fa-headphones"></i><span>AUDIO</span></button>
-      <button class="nav-item" id="nav-preghiere" onclick="switchTab('preghiere', 'Preghiere CSCV', this)"><i class="fa-solid fa-hands-praying"></i><span>PREGHIERE</span></button>
+      <button class="nav-item active" id="nav-home" onclick="switchTab('home', badgeMap[currentLang]['home'], this)"><i class="fa-solid fa-house"></i><span id="bnav-home">HOME</span></button>
+      <button class="nav-item" id="nav-lodi" onclick="switchTab('lodi', badgeMap[currentLang]['lodi'], this)"><i class="fa-solid fa-sun"></i><span id="bnav-lodi">LODI</span></button>
+      <button class="nav-item" id="nav-vespri" onclick="switchTab('vespri', badgeMap[currentLang]['vespri'], this)"><i class="fa-solid fa-moon"></i><span id="bnav-vespri">VESPRI</span></button>
+      <button class="nav-item" id="nav-compieta" onclick="switchTab('compieta', badgeMap[currentLang]['compieta'], this)"><i class="fa-solid fa-bed"></i><span id="bnav-compieta">COMPIETA</span></button>
+      <button class="nav-item" id="nav-letture" onclick="switchTab('letture', badgeMap[currentLang]['letture'], this)"><i class="fa-solid fa-book-open"></i><span id="bnav-letture">LETTURE</span></button>
+      <button class="nav-item" id="nav-catechesi" onclick="switchTab('catechesi', badgeMap[currentLang]['catechesi'], this)"><i class="fa-solid fa-graduation-cap"></i><span id="bnav-catechesi">CATECHESI</span></button>
+      <button class="nav-item" id="nav-audio" onclick="switchTab('audio', badgeMap[currentLang]['audio'], this)"><i class="fa-solid fa-headphones"></i><span id="bnav-audio">AUDIO</span></button>
+      <button class="nav-item" id="nav-preghiere" onclick="switchTab('preghiere', badgeMap[currentLang]['preghiere'], this)"><i class="fa-solid fa-hands-praying"></i><span id="bnav-preghiere">PREGHIERE</span></button>
     </nav>
   </div>
 
@@ -519,18 +592,145 @@
     const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ7TkEPy5gLgUDVgfsaB_MlYvlkCmOZxK7xJvUuBLSgkltuLm0mVw6juakwvVpTdOMumgigW_M6ONtA/pub?output=csv";
     const GOOGLE_SHEET_CATECHESI_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ7TkEPy5gLgUDVgfsaB_MlYvlkCmOZxK7xJvUuBLSgkltuLm0mVw6juakwvVpTdOMumgigW_M6ONtA/pub?gid=514329846&single=true&output=csv";
 
+    let currentLang = 'it';
+
+    const translations = {
+      it: {
+        menuTitle: "Impostazioni",
+        langHeading: "🌐 Seleziona Lingua",
+        infoHeading: "Padre Emiliano Tardif",
+        infoText: "Comunità Servi di Cristo Vivo. Fondata con l'ispirazione di Padre Emiliano Tardif per portare la guarigione e l'amore di Gesù in tutto il mondo.",
+        headerTitle: "Gesù è vivo e cammina insieme a noi.",
+        welcomeTitle: "Benvenuti Fratelli",
+        welcomeDesc: "Benvenuti nell'applicazione ufficiale della comunità Servi di Cristo Vivo Casaemmaus Messina.",
+        quote: "\"Gesù non è un ricordo del passato, ma una presenza viva del presente!\"",
+        lodiTitle: "Lodi Mattutine",
+        vespriTitle: "Vespri della Sera",
+        compietaTitle: "Compieta",
+        lettureTitle: "Letture della Messa",
+        lettureDesc: "Consulta le letture e il Vangelo del giorno con audio ufficiale.",
+        btnLetture: "Apri Letture del Giorno",
+        rosarioTitle: "Il Santo Rosario",
+        backCatechesi: "Torna alla lista Catechesi",
+        backAudio: "Torna agli Audio",
+        backPrayers: "Torna all'elenco giorni",
+        nav: { home: "HOME", lodi: "LODI", vespri: "VESPRI", compieta: "COMPIETA", letture: "LETTURE", catechesi: "CATECHESI", audio: "AUDIO", preghiere: "PREGHIERE" }
+      },
+      es: {
+        menuTitle: "Configuración",
+        langHeading: "🌐 Seleccionar Idioma",
+        infoHeading: "Padre Emiliano Tardif",
+        infoText: "Comunidad Siervos de Cristo Vivo. Fundada bajo la inspiración del Padre Emiliano Tardif para llevar la sanación y el amor de Jesús a todo el mundo.",
+        headerTitle: "Jesús está vivo y camina con nosotros.",
+        welcomeTitle: "Bienvenidos Hermanos",
+        welcomeDesc: "Bienvenidos a la aplicación oficial de la comunidad Siervos de Cristo Vivo Casaemmaus Messina.",
+        quote: "\"¡Jesús no es un recuerdo del pasado, sino una presencia viva del presente!\"",
+        lodiTitle: "Laudes Matutinas",
+        vespriTitle: "Vísperas de la Tarde",
+        compietaTitle: "Completa",
+        lettureTitle: "Lecturas de la Misa",
+        lettureDesc: "Consulta las lecturas y el Evangelio del día con audio oficial.",
+        btnLetture: "Abrir Lecturas del Día",
+        rosarioTitle: "El Santo Rosario",
+        backCatechesi: "Volver a la lista de Catequesis",
+        backAudio: "Volver a los Audios",
+        backPrayers: "Volver a la lista de días",
+        nav: { home: "INICIO", lodi: "LAUDES", vespri: "VÍSPERAS", compieta: "COMPLETA", letture: "LECTURAS", catechesi: "CATEQUESIS", audio: "AUDIO", preghiere: "ORACIONES" }
+      },
+      en: {
+        menuTitle: "Settings",
+        langHeading: "🌐 Select Language",
+        infoHeading: "Father Emiliano Tardif",
+        infoText: "Servants of Christ Alive Community. Founded with the inspiration of Father Emiliano Tardif to bring Jesus' healing and love to the whole world.",
+        headerTitle: "Jesus is alive and walks with us.",
+        welcomeTitle: "Welcome Brothers",
+        welcomeDesc: "Welcome to the official application of the Servants of Christ Alive Casaemmaus Messina community.",
+        quote: "\"Jesus is not a memory of the past, but a living presence of the present!\"",
+        lodiTitle: "Morning Lauds",
+        vespriTitle: "Evening Vespers",
+        compietaTitle: "Compline",
+        lettureTitle: "Mass Readings",
+        lettureDesc: "Read the daily scriptures and Gospel with official audio.",
+        btnLetture: "Open Daily Readings",
+        rosarioTitle: "The Holy Rosary",
+        backCatechesi: "Back to Catechesis list",
+        backAudio: "Back to Audios",
+        backPrayers: "Back to days list",
+        nav: { home: "HOME", lodi: "LAUDS", vespri: "VESPERS", compieta: "COMPLINE", letture: "READINGS", catechesi: "CATECHESIS", audio: "AUDIO", preghiere: "PRAYERS" }
+      }
+    };
+
     const badgeMap = {
-      'home': 'Benvenuto',
-      'lodi': 'Lodi del Giorno',
-      'vespri': 'Vespri della Sera',
-      'compieta': 'Compieta',
-      'letture': 'Letture della Messa',
-      'catechesi': 'Catechesi',
-      'audio': 'Audio Guidati',
-      'preghiere': 'Preghiere CSCV'
+      it: { 'home': 'Benvenuto', 'lodi': 'Lodi del Giorno', 'vespri': 'Vespri della Sera', 'compieta': 'Compieta', 'letture': 'Letture della Messa', 'catechesi': 'Catechesi', 'audio': 'Audio Guidati', 'preghiere': 'Preghiere CSCV' },
+      es: { 'home': 'Bienvenido', 'lodi': 'Laudes del Día', 'vespri': 'Vísperas de la Tarde', 'compieta': 'Completa', 'letture': 'Lecturas de la Misa', 'catechesi': 'Catequesis', 'audio': 'Audio Guiado', 'preghiere': 'Oraciones CSCV' },
+      en: { 'home': 'Welcome', 'lodi': 'Daily Lauds', 'vespri': 'Evening Vespers', 'compieta': 'Compline', 'letture': 'Mass Readings', 'catechesi': 'Catechesis', 'audio': 'Guided Audio', 'preghiere': 'CSCV Prayers' }
     };
 
     let elencoCatechesiGlobal = [];
+
+    function toggleMenu() {
+      const menu = document.getElementById('side-menu');
+      const overlay = document.getElementById('menu-overlay');
+      menu.classList.toggle('open');
+      overlay.classList.toggle('active');
+    }
+
+    function changeLanguage(lang) {
+      if (!translations[lang]) return;
+      currentLang = lang;
+      localStorage.setItem('app_lang', lang);
+
+      const t = translations[lang];
+
+      document.getElementById('menu-title-text').innerText = t.menuTitle;
+      document.getElementById('lang-heading').innerText = t.langHeading;
+      document.getElementById('info-heading').innerText = t.infoHeading;
+      document.getElementById('info-text').innerText = t.infoText;
+      document.getElementById('header-main-title').innerText = t.headerTitle;
+
+      document.getElementById('home-welcome-title').innerText = t.welcomeTitle;
+      document.getElementById('home-welcome-desc').innerText = t.welcomeDesc;
+      document.getElementById('home-quote').innerText = t.quote;
+
+      document.getElementById('lodi-title').innerText = t.lodiTitle;
+      document.getElementById('vespri-title').innerText = t.vespriTitle;
+      document.getElementById('compieta-title').innerText = t.compietaTitle;
+      document.getElementById('letture-title').innerText = t.lettureTitle;
+      document.getElementById('letture-desc').innerText = t.lettureDesc;
+      document.getElementById('btn-letture-text').innerText = t.btnLetture;
+
+      document.getElementById('qnav-lodi').innerText = t.nav.lodi;
+      document.getElementById('qnav-vespri').innerText = t.nav.vespri;
+      document.getElementById('qnav-compieta').innerText = t.nav.compieta;
+      document.getElementById('qnav-letture').innerText = t.nav.letture;
+      document.getElementById('qnav-catechesi').innerText = t.nav.catechesi;
+      document.getElementById('qnav-audio').innerText = t.nav.audio;
+      document.getElementById('qnav-preghiere').innerText = t.nav.preghiere;
+
+      document.getElementById('bnav-home').innerText = t.nav.home;
+      document.getElementById('bnav-lodi').innerText = t.nav.lodi;
+      document.getElementById('bnav-vespri').innerText = t.nav.vespri;
+      document.getElementById('bnav-compieta').innerText = t.nav.compieta;
+      document.getElementById('bnav-letture').innerText = t.nav.letture;
+      document.getElementById('bnav-catechesi').innerText = t.nav.catechesi;
+      document.getElementById('bnav-audio').innerText = t.nav.audio;
+      document.getElementById('bnav-preghiere').innerText = t.nav.preghiere;
+
+      document.getElementById('rosario-card-title').innerText = t.rosarioTitle;
+      document.getElementById('rosario-view-title').innerText = t.rosarioTitle;
+      document.getElementById('back-catechesi-text').innerText = t.backCatechesi;
+      document.getElementById('back-audio-text').innerText = t.backAudio;
+      document.getElementById('back-prayers-text').innerText = t.backPrayers;
+
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('btn-lang-' + lang).classList.add('active');
+
+      const activeSection = document.querySelector('.content-section.active');
+      if (activeSection) {
+        const activeTabId = activeSection.id.replace('sec-', '');
+        document.getElementById('section-badge').innerText = badgeMap[lang][activeTabId] || badgeMap[lang]['home'];
+      }
+    }
 
     function getSettimanaSalterio() {
       const oggi = new Date();
@@ -785,10 +985,15 @@
       caricaCatechesiDaGoogleSheet();
       caricaContenutiJS();
 
+      const savedLang = localStorage.getItem('app_lang');
+      if (savedLang && translations[savedLang]) {
+        changeLanguage(savedLang);
+      }
+
       const currentHash = window.location.hash.replace('#', '');
       if (currentHash && document.getElementById('sec-' + currentHash)) {
         const targetBtn = document.getElementById('nav-' + currentHash);
-        switchTab(currentHash, badgeMap[currentHash] || 'Benvenuto', targetBtn);
+        switchTab(currentHash, badgeMap[currentLang][currentHash] || badgeMap[currentLang]['home'], targetBtn);
       }
     }
 
@@ -843,7 +1048,7 @@
 
     function navigateToTab(tabId) {
       const btn = document.getElementById('nav-' + tabId);
-      switchTab(tabId, badgeMap[tabId], btn);
+      switchTab(tabId, badgeMap[currentLang][tabId], btn);
     }
 
     function switchTab(tabId, badgeText, btn) {
@@ -872,9 +1077,9 @@
         splash.style.opacity = '0';
         setTimeout(function() {
           splash.style.display = 'none';
-        }, 800); // Tempo della dissolvenza
+        }, 800);
       }
-    }, 3000); // 3000 millisecondi = 3 secondi di durata dello splash screen
+    }, 3000);
   });
 </script>
 </body>
