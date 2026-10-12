@@ -27,14 +27,23 @@
   });
 </script>
 
-<!-- CSS PERSONALIZZATO PER SPOSTARE LA CAMPANELLA -->
+<!-- CSS PERSONALIZZATO PER SPOSTARE E RIDURRE LA CAMPANELLA PERMANENTEMENTE -->
 <style>
-  #onesignal-bell-container.onesignal-bell-container-bottom-left {
-    /* Spostiamo la campanella verso destra e la solleviamo sopra la barra di navigazione */
-    bottom: 80px !important; /* Più alto, così esce dalla barra dei menu */
-    left: 20px !important;   /* Spostata leggermente verso destra */
-    transform: scale(0.8);   /* Leggermente ridotta per occupare meno spazio */
-    transform-origin: bottom left;
+  /* Sovrascrive il contenitore principale della campanella OneSignal */
+  #onesignal-bell-container.onesignal-bell-container-bottom-left,
+  #onesignal-bell-container,
+  .onesignal-bell-launcher {
+    bottom: 80px !important; /* Mantiene la campanella sopra la barra dei menu */
+    left: 20px !important;   /* Spostata a sinistra sopra i tasti */
+    transform: scale(0.75) !important; /* Dimensione ridotta permanente */
+    transform-origin: bottom left !important;
+    z-index: 999999 !important;
+  }
+
+  /* Forza le dimensioni anche dell'icona interna della campanella */
+  #onesignal-bell-container .onesignal-bell-launcher-button {
+    width: 45px !important;
+    height: 45px !important;
   }
 </style>
 
