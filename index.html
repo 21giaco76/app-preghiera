@@ -19,22 +19,24 @@
       serviceWorkerParam: { scope: "/app-preghiera/" },
       notifyButton: {
         enable: true,
-        size: 'small', // Dimensione ridotta al minimo
-        position: 'bottom-left', // Posizionata a sinistra per non coprire il menu principale
-        showCredit: false, // Rimuove scritte aggiuntive per occupare meno spazio
-        offset: {
-          bottom: '20px',
-          left: '15px'
-        },
-        text: {
-          'tip.state.unsubscribed': 'Iscriviti alle notifiche',
-          'tip.state.subscribed': 'Sei iscritto alle notifiche',
-          'tip.state.blocked': 'Hai bloccato le notifiche'
-        }
+        size: 'small',
+        position: 'bottom-left', // Lasciamo bottom-left come base ma la spostiamo noi via CSS
+        showCredit: false
       }
     });
   });
 </script>
+
+<!-- CSS PERSONALIZZATO PER SPOSTARE LA CAMPANELLA -->
+<style>
+  #onesignal-bell-container.onesignal-bell-container-bottom-left {
+    /* Spostiamo la campanella verso destra e la solleviamo sopra la barra di navigazione */
+    bottom: 80px !important; /* Più alto, così esce dalla barra dei menu */
+    left: 20px !important;   /* Spostata leggermente verso destra */
+    transform: scale(0.8);   /* Leggermente ridotta per occupare meno spazio */
+    transform-origin: bottom left;
+  }
+</style>
 
   <script src="contenuti.js"></script>
 
