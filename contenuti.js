@@ -18,179 +18,392 @@ const datiOrazione = {
 
   coroncinaMisericordia: "https://21giaco76.github.io/app-preghiera/coroncina.mp3",
 
-  misteriRosario: [
-    { 
-      titolo: "Misteri Gaudiosi (Lunedì e Sabato)", 
-      url: "https://archive.org/download/misteri-della-gioia-lunedi-e-sabato/misteri-della-gioia-lunedi-e-sabato.mp3" 
-    },
-    { 
-      titolo: "Misteri Luminosi (Giovedì)", 
-      url: "https://archive.org/download/misteri-luce-giovedi/misteri-luce-giovedi.mp3" 
-    },
-    { 
-      titolo: "Misteri Dolorosi (Martedì e Venerdì)", 
-      url: "https://archive.org/download/misteri-dolorosi-martedi-e-venerdi/misteri-dolorosi-martedi-e-venerdi.mp3" 
-    },
-    { 
-      titolo: "Misteri Gloriosi (Mercoledì e Domenica)", 
-      url: "https://archive.org/download/misteri-gloriosi-mercoledi-e-domenica/misteri-gloriosi-mercoledi-e-domenica.mp3" 
-    }
-  ],
+  misteriRosario: {
+    it: [
+      { titolo: "Misteri Gaudiosi (Lunedì e Sabato)", url: "https://archive.org/download/misteri-della-gioia-lunedi-e-sabato/misteri-della-gioia-lunedi-e-sabato.mp3" },
+      { titolo: "Misteri Luminosi (Giovedì)", url: "https://archive.org/download/misteri-luce-giovedi/misteri-luce-giovedi.mp3" },
+      { titolo: "Misteri Dolorosi (Martedì e Venerdì)", url: "https://archive.org/download/misteri-dolorosi-martedi-e-venerdi/misteri-dolorosi-martedi-e-venerdi.mp3" },
+      { titolo: "Misteri Gloriosi (Mercoledì e Domenica)", url: "https://archive.org/download/misteri-gloriosi-mercoledi-e-domenica/misteri-gloriosi-mercoledi-e-domenica.mp3" }
+    ],
+    es: [
+      { titolo: "Misterios Gozosos (Lunes y Sábado)", url: "https://archive.org/download/misteri-della-gioia-lunedi-e-sabato/misteri-della-gioia-lunedi-e-sabato.mp3" },
+      { titolo: "Misterios Luminosos (Jueves)", url: "https://archive.org/download/misteri-luce-giovedi/misteri-luce-giovedi.mp3" },
+      { titolo: "Misterios Dolorosos (Martes y Viernes)", url: "https://archive.org/download/misteri-dolorosi-martedi-e-venerdi/misteri-dolorosi-martedi-e-venerdi.mp3" },
+      { titolo: "Misterios Gloriosos (Miércoles y Domingo)", url: "https://archive.org/download/misteri-gloriosi-mercoledi-e-domenica/misteri-gloriosi-mercoledi-e-domenica.mp3" }
+    ],
+    en: [
+      { titolo: "Joyful Mysteries (Monday & Saturday)", url: "https://archive.org/download/misteri-della-gioia-lunedi-e-sabato/misteri-della-gioia-lunedi-e-sabato.mp3" },
+      { titolo: "Luminous Mysteries (Thursday)", url: "https://archive.org/download/misteri-luce-giovedi/misteri-luce-giovedi.mp3" },
+      { titolo: "Sorrowful Mysteries (Tuesday & Friday)", url: "https://archive.org/download/misteri-dolorosi-martedi-e-venerdi/misteri-dolorosi-martedi-e-venerdi.mp3" },
+      { titolo: "Glorious Mysteries (Wednesday & Sunday)", url: "https://archive.org/download/misteri-gloriosi-mercoledi-e-domenica/misteri-gloriosi-mercoledi-e-domenica.mp3" }
+    ]
+  },
 
-  preghiereSettimanali: [
-    {
-      id: "lunedi",
-      giorno: "Lunedì",
-      titolo: "Preghiera del Lunedì della CSCV",
+  preghiereSettimanali: {
+    it: [
+      {
+        id: "lunedi",
+        giorno: "Lunedì",
+        titolo: "Preghiera del Lunedì della CSCV",
+        titoloPreghiera1: "CONSACRAZIONE AL CUORE DI GESÙ",
+        testoPreghiera1: "Ti salutiamo, Cuore ammirabile di Gesù. Ti lodiamo, Ti benediciamo, Ti glorifichiamo, Ti ringraziamo, Ti offriamo il nostro cuore, Te lo consegniamo e lo consacriamo a Te. Ricevilo e possiedilo intero; purificalo, illuminalo e santificalo, affinchè Tu viva e regni in esso perpetuamente.",
+        foto1: "cascdg.jpg",
+        titoloPreghiera2: "LUNEDI’ - Culto di amore",
+        testoPreghiera2: "Signore nostro Gesù Cristo, insegnaci ad essere mansueti e umili di cuore per amare i nostri fratelli come Tu ci ami ed a trasformare tutta la nostra vita in una continua offerta agli altri. Ti chiediamo, oggi, di vivere intensamente questa consegna al servizio della nostra comunità. In unione con la Vergine nostra madre, Ti preghiamo in modo speciale per il Papa, i Vescovi, i Sacerdoti, i Diaconi, i Missionari, che hanno la vocazione di unire tutti gli uomini nell’amore. Cuore di Gesù, pieno di bontà e di amore, abbi pietà di noi.",
+        foto2: "madonnina.jpg",
+        titoloPreghiera3: "Preghiera a Nostra Signora del Sacro Cuore",
+        testoPreghiera3: "Ricordati Nostra Signora del Sacro Cuore delle meraviglie che Dio fece in Te. Te scelse come Madre del suo figlio. Te che lo seguisti fino alla croce. Te glorificò con lui ascoltando e accettando le tue preghiere per tutti gli uomini. Con grande confidenza nell'amore del Signore e nella Tua intercessione, veniamo con Te alla fonte del Suo cuore, da dove scaturiscono per la vita del mondo la speranza ed il perdono, la fedeltà e la salvezza. Nostra Signora del Sacro Cuore, tu conosci le nostre necessità, parla al Signore per noi e per tutti gli uomini. Aiutaci a vivere nel Suo amore, per esso riceviamo le grazie che chiediamo e quello che a noi è necessario. La Tua preghiera di madre è poderosa: che Dio risponda alla nostra speranza. Amen",
+        titoloPreghiera4: "Preghiera Semplice",
+        testoPreghiera4: "Oh Signore, fa di me un istrumento della tua pace:\nDove è odio, fa ch'io porti l'Amore.\nDove è offesa, ch'io porti il perdono.\nDove è discordia, ch'io porti l'Unione.\nDove è dubbio, ch'io porti la fede.\nDove è errore, ch'io porti la Verità.\nDove è disperazione, ch'io porti la Speranza.\nDove è tristezza, ch'io porti la Gioia.\nDove sono le tenebre, ch'io porti la Luce.\nOh! Maestro, fa ch'io non cerchi tanto,\nad essere consolato quanto a consolare,\nad essere compreso, quanto a comprendere,\nad essere amato, quanto ad amare.\nPoichè: E’ dando che si riceve,\nperdonando che si è perdonati,\nmorendo, che si risuscita a vita eterna.",
+        titoloPreghiera5: "Preghiera dell'ammalato",
+        testoPreghiera5: "Signore Gesù, credo che sei vivo e risorto.\nTu sei la pienezza della vita,\nTu, Signore, sei la salute dei malati.\nOggi ti voglio presentare tutti i miei mali.\nAbbi compassione delle sofferenze del mio corpo, del mio cuore e della mia anima.\nAbbi compassione di me, benedicimi e fa, Signore, che possa riacquistare la salute.\nChe cresca la mia fede e che mi apra alle meraviglie del tuo amore, perché sia anche testimone della tua potenza e della tua compassione.\nGuariscimi, Signore.\nGuariscimi nel corpo, guariscimi nel cuore, guariscimi nell'anima.\nDammi la vita, la vita in abbondanza.\nServo di Dio P. E. Tardif."
+      },
+      {
+        id: "martedi",
+        giorno: "Martedì",
+        titolo: "Preghiera del Martedì della CSCV",
+        titoloPreghiera1: "CONSACRAZIONE AL CUORE DI GESÙ",
+        testoPreghiera1: "Ti salutiamo, Cuore ammirabile di Gesù. Ti lodiamo, Ti benediciamo, Ti glorifichiamo, Ti ringraziamo, Ti offriamo il nostro cuore, Te lo consegniamo e lo consacriamo a Te. Ricevilo e possiedilo intero; purificalo, illuminalo e santificalo, affinchè Tu viva e regni in esso perpetuamente.",
+        foto1: "cascdg.jpg",
+        titoloPreghiera2: "MARTEDÌ - Culto di riconoscenza",
+        testoPreghiera2: "Signore nostro Gesù Cristo, uniti a Te vogliamo dar grazie al Padre per il dono della fede e per i tanti favori che a noi elargisci ogni giorno. Dà a noi la semplicità del bambino per riconoscere le meraviglie che Dio fece in noi e a vivere nella gioia dei salvati. Desideriamo, oggi, rinnovare la nostra fedeltà ai voti battesimali. Come la Vergine nel Suo Magnificat, e in unione ad Essa, desideriamo cantare la gloria di Dio per mezzo del nostro apostolato. Ti preghiamo per tutti quelli che lavorano al servizio della Chiesa, perché perseverino nella loro missione di inviati di Dio. Cuore di Gesù, dalla cui pienezza tutti abbiamo ricevuto, abbi pietà di noi.",
+        foto2: "madonnina.jpg",
+        titoloPreghiera3: "Preghiera a Nostra Signora del Sacro Cuore",
+        testoPreghiera3: "Ricordati Nostra Signora del Sacro Cuore delle meraviglie che Dio fece in Te. Te scelse come Madre del suo figlio. Te che lo seguisti fino alla croce. Te glorificò con lui ascoltando e accettando le tue preghiere per tutti gli uomini. Con grande confidenza nell'amore del Signore e nella Tua intercessione, veniamo con Te alla fonte del Suo cuore, da dove scaturiscono per la vita del mondo la speranza ed il perdono, la fedeltà e la salvezza. Nostra Signora del Sacro Cuore, tu conosci le nostre necessità, parla al Signore per noi e per tutti gli uomini. Aiutaci a vivere nel Suo amore, per esso riceviamo le grazie che chiediamo e quello che a noi è necessario. La Tua preghiera di madre è poderosa: che Dio risponda alla nostra speranza. Amen",
+        titoloPreghiera4: "Preghiera Semplice",
+        testoPreghiera4: "Oh Signore, fa di me un istrumento della tua pace:\nDove è odio, fa ch'io porti l'Amore.\nWhere è offesa, ch'io porti il perdono.\nDove è discordia, ch'io porti l'Unione.\nDove è dubbio, ch'io porti la fede.\nDove è errore, ch'io porti la Verità.\nDove è disperazione, ch'io porti la Speranza.\nDove è tristezza, ch'io porti la Gioia.\nDove sono le tenebre, ch'io porti la Luce.\nOh! Maestro, fa ch'io non cerchi tanto,\nad essere consolato quanto a consolare,\nad essere compreso, quanto a comprendere,\nad essere amato, quanto ad amare.\nPoichè: E’ dando che si receive,\nperdonando che si è perdonati,\nmorendo, che si risuscita a vita eterna.",
+        titoloPreghiera5: "Preghiera dell'ammalato",
+        testoPreghiera5: "Signore Gesù, credo che sei vivo e risorto.\nTu sei la pienezza della vita,\nTu, Signore, sei la salute dei malati.\nOggi ti voglio presentare tutti i miei mali.\nAbbi compassione delle sofferenze del mio corpo, del mio cuore e della mia anima.\nAbbi compassione di me, benedicimi e fa, Signore, che possa riacquistare la salute.\nChe cresca la mia fede e che mi apra alle meraviglie del tuo amore, perché sia anche testimone della tua potenza e della tua compassione.\nGuariscimi, Signore.\nGuariscimi nel corpo, guariscimi nel cuore, guariscimi nell'anima.\nDammi la vita, la vita in abbondanza.\nServo di Dio P. E. Tardif."
+      },
+      {
+        id: "mercoledi",
+        giorno: "Mercoledì",
+        titolo: "Preghiera del Mercoledì della CSCV",
+        titoloPreghiera1: "CONSACRAZIONE AL CUORE DI GESÙ",
+        testoPreghiera1: "Ti salutiamo, Cuore ammirabile di Gesù. Ti lodiamo, Ti benediciamo, Ti glorifichiamo, Ti ringraziamo, Ti offriamo il nostro cuore, Te lo consegniamo e lo consacriamo a Te. Ricevilo e possiedilo intero; purificalo, illuminalo e santificalo, affinchè Tu viva e regni in esso perpetuamente.",
+        foto1: "cascdg.jpg",
+        titoloPreghiera2: "MERCOLEDÌ - Culto di speranza",
+        testoPreghiera2: "Signore nostro Gesù Cristo, Tu sei la via, la verità, la vita. Insegnaci a portare a tutti gli uomini un messaggio di speranza, principalmente a coloro che cercano un segno, un significato nella loro vita e a quelli che soffrono in condizioni di vita inumana. Ti chiediamo, oggi, di accettare con pazienza le sofferenze morali e fisiche che si presentano per purificare la nostra anima e andare avanti nel cammino della santità. In unione alla Vergine dei dolori Ti chiediamo per i moribondi, i malati, e per gli oppressi, perché abbiano la forza nello spirito e sappiano trasformare i loro dolori in strumento di liberazione. Cuore di Gesù, salvezza di quelli che in Te sperano, abbi pietà di noi.",
+        foto2: "madonnina.jpg",
+        titoloPreghiera3: "Preghiera a Nostra Signora del Sacro Cuore",
+        testoPreghiera3: "Ricordati Nostra Signora del Sacro Cuore delle meraviglie che Dio fece in Te. Te scelse come Madre del suo figlio. Te che lo seguisti fino alla croce. Te glorificò con lui ascoltando e accettando le tue preghiere per tutti gli uomini. Con grande confidenza nell'amore del Signore e nella Tua intercessione, veniamo con Te alla fonte del Suo cuore, da dove scaturiscono per la vita del mondo la speranza ed il perdono, la fedeltà e la salvezza. Nostra Signora del Sacro Cuore, tu conosci le nostre necessità, parla al Signore per noi e per tutti gli uomini. Aiutaci a vivere nel Suo amore, per esso riceviamo le grazie che chiediamo e quello che a noi è necessario. La Tua preghiera di madre è poderosa: che Dio risponda alla nostra speranza. Amen",
+        titoloPreghiera4: "Preghiera Semplice",
+        testoPreghiera4: "Oh Signore, fa di me un istrumento della tua pace:\nDove è odio, fa ch'io porti l'Amore.\nDove è offesa, ch'io porti il perdono.\nDove è discordia, ch'io porti l'Unione.\nDove è dubbio, ch'io porti la fede.\nDove è errore, ch'io porti la Verità.\nDove è disperazione, ch'io porti la Speranza.\nDove è tristezza, ch'io porti la Gioia.\nDove sono le tenebre, ch'io porti la Luce.\nOh! Maestro, fa ch'io non cerchi tanto,\nad essere consolato quanto a consolare,\nad essere compreso, quanto a comprendere,\nad essere amato, quanto ad amare.\nPoichè: E’ dando che si receive,\nperdonando che si è perdonati,\nmorendo, che si risuscita a vita eterna.",
+        titoloPreghiera5: "Preghiera dell'ammalato",
+        testoPreghiera5: "Signore Gesù, credo che sei vivo e risorto.\nTu sei la pienezza della vita,\nTu, Signore, sei la salute dei malati.\nOggi ti voglio presentare tutti i miei mali.\nAbbi compassione delle sofferenze del mio corpo, del mio cuore e della mia anima.\nAbbi compassione di me, benedicimi e fa, Signore, che possa riacquistare la salute.\nChe cresca la mia fede e che mi apra alle meraviglie del tuo amore, perché sia anche testimone della tua potenza e della tua compassione.\nGuariscimi, Signore.\nGuariscimi nel corpo, guariscimi nel cuore, guariscimi nell'anima.\nDammi la vita, la vita in abbondanza.\nServo di Dio P. E. Tardif."
+      },
+      {
+        id: "giovedi",
+        giorno: "Giovedì",
+        titolo: "Preghiera del Giovedì della CSCV",
+        titoloPreghiera1: "CONSACRAZIONE AL CUORE DI GESÙ",
+        testoPreghiera1: "Ti salutiamo, Cuore ammirabile di Gesù. Ti lodiamo, Ti benediciamo, Ti glorifichiamo, Ti ringraziamo, Ti offriamo il nostro cuore, Te lo consegniamo e lo consacriamo a Te. Ricevilo e possiedilo intero; purificalo, illuminalo e santificalo, affinchè Tu viva e regni in esso perpetuamente.",
+        foto1: "cascdg.jpg",
+        titoloPreghiera2: "GIOVEDÌ - Culto di Preghiera",
+        testoPreghiera2: "Signore nostro Gesù Cristo, ricordando il Tuo invito a pregare senza interruzione, noi ci uniamo alla Tua preghiera sacerdotale per offrirti questo giorno con le sue gioie e con le sue pene le fatiche e il riposo, trasformalo tutto in una continua preghiera al nostro Padre del cielo. Ti chiediamo, oggi, di fortificare la nostra fede per comunicarla a quelli che pongono la fiducia nella vanità del mondo disprezzando il valore della preghiera. Come la Vergine nel cenacolo, Ti esprimiamo la nostra confidenza, e in unione ad essa, Ti preghiamo per la grande famiglia cristiana, perché sappia apprezzare meglio il valore della preghiera. Cuore di Gesù, ricco di grazia per tutti quelli che Ti invocano, abbi pietà di noi.",
+        foto2: "madonnina.jpg",
+        titoloPreghiera3: "Preghiera a Nostra Signora del Sacro Cuore",
+        testoPreghiera3: "Ricordati Nostra Signora del Sacro Cuore delle meraviglie che Dio fece in Te. Te scelse come Madre del suo figlio. Te che lo seguisti fino alla croce. Te glorificò con lui ascoltando e accettando le tue preghiere per tutti gli uomini. Con grande confidenza nell'amore del Signore e nella Tua intercessione, veniamo con Te alla fonte del Suo cuore, da dove scaturiscono per la vita del mondo la speranza ed il perdono, la fedeltà e la salvezza. Nostra Signora del Sacro Cuore, tu conosci le nostre necessità, parla al Signore per noi e per tutti gli uomini. Aiutaci a vivere nel Suo amore, per esso riceviamo le grazie che chiediamo e quello che a noi è necessario. La Tua preghiera di madre è poderosa: che Dio risponda alla nostra speranza. Amen",
+        titoloPreghiera4: "Preghiera Semplice",
+        testoPreghiera4: "Oh Signore, fa di me un istrumento della tua pace:\nDove è odio, fa ch'io porti l'Amore.\nDove è offesa, ch'io porti il perdono.\nDove è discordia, ch'io porti l'Unione.\nDove è dubbio, ch'io porti la fede.\nDove è errore, ch'io porti la Verità.\nDove è disperazione, ch'io porti la Speranza.\nDove è tristezza, ch'io porti la Gioia.\nDove sono le tenebre, ch'io porti la Luce.\nOh! Maestro, fa ch'io non cerchi tanto,\nad essere consolato quanto a consolare,\nad essere compreso, quanto a comprendere,\nad essere amato, quanto ad amare.\nPoichè: E’ dando che si receive,\nperdonando che si è perdonati,\nmorendo, che si risuscita a vita eterna.",
+        titoloPreghiera5: "Preghiera dell'ammalato",
+        testoPreghiera5: "Signore Gesù, credo che sei vivo e risorto.\nTu sei la pienezza della vita,\nTu, Signore, sei la salute dei malati.\nOggi ti voglio presentare tutti i miei mali.\nAbbi compassione delle sofferenze del mio corpo, del mio cuore e della mia anima.\nAbbi compassione di me, benedicimi e fa, Signore, che possa riacquistare la salute.\nChe cresca la mia fede e che mi apra alle meraviglie del tuo amore, perché sia anche testimone della tua potenza e della tua compassione.\nGuariscimi, Signore.\nGuariscimi nel corpo, guariscimi nel cuore, guariscimi nell'anima.\nDammi la vita, la vita in abbondanza.\nServo di Dio P. E. Tardif."
+      },
+      {
+        id: "venerdi",
+        giorno: "Venerdì",
+        titolo: "Preghiera del Venerdì della CSCV",
+        titoloPreghiera1: "CONSACRAZIONE AL CUORE DI GESÙ",
+        testoPreghiera1: "Ti salutiamo, Cuore ammirabile di Gesù. Ti lodiamo, Ti benediciamo, Ti glorifichiamo, Ti ringraziamo, Ti offriamo il nostro cuore, Te lo consegniamo e lo consacriamo a Te. Ricevilo e possiedilo intero; purificalo, illuminalo e santificalo, affinchè Tu viva e regni in esso perpetuamente.",
+        foto1: "cascdg.jpg",
+        titoloPreghiera2: "VENERDÌ - Culto di giustizia",
+        testoPreghiera2: "Signore nostro Gesù Cristo, contemplando il Tuo cuore aperto per il colpo di lancia, desideriamo completare nella nostra carne quello che manca alla Tua Passione. Dà a noi il coraggio di riparare alle nostre stesse ingiustizie ed a quelli dei nostri fratelli.Ti chiediamo, oggi, di riconoscere le ingiustizie che si commettono nella nostra comunità e intercedere per la liberazione di tutti i figli di Dio. In unione a nostra Signora del Sacro Cuore, Ti preghiamo per noi peccatori perché possiamo uscire dal nostro egoismo e cercare la felicità dei nostri fratelli. Cuore di Gesù, asilo di giustizia e di amore, abbi pietà di noi.",
+        foto2: "madonnina.jpg",
+        titoloPreghiera3: "Preghiera a Nostra Signora del Sacro Cuore",
+        testoPreghiera3: "Ricordati Nostra Signora del Sacro Cuore delle meraviglie che Dio fece in Te. Te scelse come Madre del suo figlio. Te che lo seguisti fino alla croce. Te glorificò con lui ascoltando e accettando le tue preghiere per tutti gli uomini. Con grande confidenza nell'amore del Signore e nella Tua intercessione, veniamo con Te alla fonte del Suo cuore, da dove scaturiscono per la vita del mondo la speranza ed il perdono, la fedeltà e la salvezza. Nostra Signora del Sacro Cuore, tu conosci le nostre necessità, parla al Signore per noi e per tutti gli uomini. Aiutaci a vivere nel Suo amore, per esso riceviamo le grazie che chiediamo e quello che a noi è necessario. La Tua preghiera di madre è poderosa: che Dio risponda alla nostra speranza. Amen",
+        titoloPreghiera4: "Preghiera Semplice",
+        testoPreghiera4: "Oh Signore, fa di me un istrumento della tua pace:\nDove è odio, fa ch'io porti l'Amore.\nDove è offesa, ch'io porti il perdono.\nDove è discordia, ch'io porti l'Unione.\nDove è dubbio, ch'io porti la fede.\nDove è errore, ch'io porti la Verità.\nDove è disperazione, ch'io porti la Speranza.\nDove è tristezza, ch'io porti la Gioia.\nDove sono le tenebre, ch'io porti la Luce.\nOh! Maestro, fa ch'io non cerchi tanto,\nad essere consolato quanto a consolare,\nad essere compreso, quanto a comprendere,\nad essere amato, quanto ad amare.\nPoichè: E’ dando che si receive,\nperdonando che si è perdonati,\nmorendo, che si risuscita a vita eterna.",
+        titoloPreghiera5: "Preghiera dell'ammalato",
+        testoPreghiera5: "Signore Gesù, credo che sei vivo e risorto.\nTu sei la pienezza della vita,\nTu, Signore, sei la salute dei malati.\nOggi ti voglio presentare tutti i miei mali.\nAbbi compassione delle sofferenze del mio corpo, del mio cuore e della mia anima.\nAbbi compassione di me, benedicimi e fa, Signore, che possa riacquistare la salute.\nChe cresca la mia fede e che mi apra alle meraviglie del tuo amore, perché sia anche testimone della tua potenza e della tua compassione.\nGuariscimi, Signore.\nGuariscimi nel corpo, guariscimi nel cuore, guariscimi nell'anima.\nDammi la vita, la vita in abbondanza.\nServo di Dio P. E. Tardif."
+      },
+      {
+        id: "sabato",
+        giorno: "Sabato",
+        titolo: "Preghiera del Sabato della CSCV",
+        titoloPreghiera1: "CONSACRAZIONE AL CUORE DI GESÙ",
+        testoPreghiera1: "Ti salutiamo, Cuore ammirabile di Gesù. Ti lodiamo, Ti benediciamo, Ti glorifichiamo, Ti ringraziamo, Ti offriamo il nostro cuore, Te lo consegniamo e lo consacriamo a Te. Ricevilo e possiedilo intero; purificalo, illuminalo e santificalo, affinchè Tu viva e regni in esso perpetuamente.",
+        foto1: "cascdg.jpg",
+        titoloPreghiera2: "SABATO - Culto di unione",
+        testoPreghiera2: "Signore nostro Gesù Cristo, facciamo nostra la Tua preghiera al Padre perché siamo uno e perché il mondo riconosca che Dio stà in mezzo alla nostra comunità. Aiutaci a fortificare l'unione tra noi. Ti chiediamo, oggi, che cessino tutti i rancori e possiamo rinconciliarci con i nostri fratelli per mezzo di veritieri gesti di amicizia. In unione con la Vergine Madre, ti preghiamo per la comunità cristiana, perché si viva come fratelli in unione al Tuo Amore. Cuore di Gesù, pace e rinconciliazione nostra, abbi pietà di noi.",
+        foto2: "madonnina.jpg",
+        titoloPreghiera3: "Preghiera a Nostra Signora del Sacro Cuore",
+        testoPreghiera3: "Ricordati Nostra Signora del Sacro Cuore delle meraviglie che Dio fece in Te. Te scelse come Madre del suo figlio. Te che lo seguisti fino alla croce. Te glorificò con lui ascoltando e accettando le tue preghiere per tutti gli uomini. Con grande confidenza nell'amore del Signore e nella Tua intercessione, veniamo con Te alla fonte del Suo cuore, da dove scaturiscono per la vita del mondo la speranza ed il perdono, la fedeltà e la salvezza. Nostra Signora del Sacro Cuore, tu conosci le nostre necessità, parla al Signore per noi e per tutti gli uomini. Aiutaci a vivere nel Suo amore, per esso riceviamo le grazie che chiediamo e quello che a noi è necessario. La Tua preghiera di madre è poderosa: che Dio risponda alla nostra speranza. Amen",
+        titoloPreghiera4: "Preghiera Semplice",
+        testoPreghiera4: "Oh Signore, fa di me un istrumento della tua pace:\nDove è odio, fa ch'io porti l'Amore.\nDove è offesa, ch'io porti il perdono.\nDove è discordia, ch'io porti l'Unione.\nDove è dubbio, ch'io porti la fede.\nDove è errore, ch'io porti la Verità.\nDove è disperazione, ch'io porti la Speranza.\nDove è tristezza, ch'io porti la Gioia.\nDove sono le tenebre, ch'io porti la Luce.\nOh! Maestro, fa ch'io non cerchi tanto,\nad essere consolato quanto a consolare,\nad essere compreso, quanto a comprendere,\nad essere amato, quanto ad amare.\nPoichè: E’ dando che si receive,\nperdonando che si è perdonati,\nmorendo, che si risuscita a vita eterna.",
+        titoloPreghiera5: "Preghiera dell'ammalato",
+        testoPreghiera5: "Signore Gesù, credo che sei vivo e risorto.\nTu sei la pienezza della vita,\nTu, Signore, sei la salute dei malati.\nOggi ti voglio presentare tutti i miei mali.\nAbbi compassione delle sofferenze del mio corpo, del mio cuore e della mia anima.\nAbbi compassione di me, benedicimi e fa, Signore, che possa riacquistare la salute.\nChe cresca la mia fede e che mi apra alle meraviglie del tuo amore, perché sia anche testimone della tua potenza e della tua compassione.\nGuariscimi, Signore.\nGuariscimi nel corpo, guariscimi nel cuore, guariscimi nell'anima.\nDammi la vita, la vita in abbondanza.\nServo di Dio P. E. Tardif."
+      },
+      {
+        id: "domenica",
+        giorno: "Domenica",
+        titolo: "Preghiera della Domenica della CSCV",
+        titoloPreghiera1: "CONSACRAZIONE AL CUORE DI GESÙ",
+        testoPreghiera1: "Ti salutiamo, Cuore ammirabile di Gesù. Ti lodiamo, Ti benediciamo, Ti glorifichiamo, Ti ringraziamo, Ti offriamo il nostro cuore, Te lo consegniamo e lo consacriamo a Te. Ricevilo e possiedilo intero; purificalo, illuminalo e santificalo, affinchè Tu viva e regni in esso perpetuamente.",
+        foto1: "cascdg.jpg",
+        titoloPreghiera2: "DOMENICA - Culto di adorazione",
+        testoPreghiera2: "Signore nostro Gesù Cristo, in unione con Te, desideriamo adorare Dio, nostro Padre. In nome di tutta la creazione chiediamo, oggi, di manifestare pubblicamente la nostra adorazione filiale, specialmente durante l'assemblea della nostra comunità. In unione a Maria santissima, Ti preghiamo soprattutto per quelli che non conoscono Dio, nostro Padre, e per quelli che si sono dimenticati del Suo amore. Cuore di Gesù, tempio santo di Dio abbi pietà di noi.",
+        foto2: "madonnina.jpg",
+        titoloPreghiera3: "Preghiera a Nostra Signora del Sacro Cuore",
+        testoPreghiera3: "Ricordati Nostra Signora del Sacro Cuore delle meraviglie che Dio fece in Te. Te scelse come Madre del suo figlio. Te che lo seguisti fino alla croce. Te glorificò con lui ascoltando e accettando le tue preghiere per tutti gli uomini. Con grande confidenza nell'amore del Signore e nella Tua intercessione, veniamo con Te alla fonte del Suo cuore, da dove scaturiscono per la vita del mondo la speranza ed il perdono, la fedeltà e la salvezza. Nostra Signora del Sacro Cuore, tu conosci le nostre necessità, parla al Signore per noi e per tutti gli uomini. Aiutaci a vivere nel Suo amore, per esso riceviamo le grazie che chiediamo e quello che a noi è necessario. La Tua preghiera di madre è poderosa: che Dio risponda alla nostra speranza. Amen",
+        titoloPreghiera4: "Preghiera Semplice",
+        testoPreghiera4: "Oh Signore, fa di me un istrumento della tua pace:\nDove è odio, fa ch'io porti l'Amore.\nDove è offesa, ch'io porti il perdono.\nDove è discordia, ch'io porti l'Unione.\nDove è dubbio, ch'io porti la fede.\nDove è errore, ch'io porti la Verità.\nDove è disperazione, ch'io porti la Speranza.\nDove è tristezza, ch'io porti la Gioia.\nDove sono l'oscurità, ch'io porti la Luce.\nOh! Maestro, fa ch'io non cerchi tanto,\nad essere consolato quanto a consolare,\nad essere compreso, quanto a comprendere,\nad essere amato, quanto ad amare.\nPoichè: E’ dando che si receive,\nperdonando che si è perdonati,\nmorendo, che si risuscita a vita eterna.",
+        titoloPreghiera5: "Preghiera dell'ammalato",
+        testoPreghiera5: "Signore Gesù, credo che sei vivo e risorto.\nTu sei la pienezza della vita,\nTu, Signore, sei la salute dei malati.\nOggi ti voglio presentare tutti i miei mali.\nAbbi compassione delle sofferenze del mio corpo, del mio cuore e della mia anima.\nAbbi compassione di me, benedicimi e fa, Signore, che possa riacquistare la salute.\nChe cresca la mia fede e che mi apra alle meraviglie del tuo amore, perché sia anche testimone della tua potenza e della tua compassione.\nGuariscimi, Signore.\nGuariscimi nel corpo, guariscimi nel cuore, guariscimi nell'anima.\nDammi la vita, la vita in abbondanza.\nServo di Dio P. E. Tardif."
+      }
+    ],
 
-      titoloPreghiera1: "CONSACRAZIONE AL CUORE DI GESÙ",
-      testoPreghiera1: "Ti salutiamo, Cuore ammirabile di Gesù. Ti lodiamo, Ti benediciamo, Ti glorifichiamo, Ti ringraziamo, Ti offriamo il nostro cuore, Te lo consegniamo e lo consacriamo a Te. Ricevilo e possiedilo intero; purificalo, illuminalo e santificalo, affinchè Tu viva e regni in esso perpetuamente.",
-      foto1: "cascdg.jpg",
+    es: [
+      {
+        id: "lunedi",
+        giorno: "Lunes",
+        titolo: "Oración del Lunes de la CSCV",
+        titoloPreghiera1: "CONSAGRACIÓN AL CORAZÓN DE JESÚS",
+        testoPreghiera1: "Te saludamos, Corazón admirable de Jesús. Te alabamos, Te bendecimos, Te glorificamos, Te damos gracias, Te ofrecemos nuestro corazón, Te lo entregamos y consagramos a Ti. Recíbelo y poséelo por entero; purifícalo, ilumínalo y santifícalo, para que Vivas y reines en él perpetuamente.",
+        foto1: "cascdg.jpg",
+        titoloPreghiera2: "LUNES - Culto de amor",
+        testoPreghiera2: "Señor nuestro Jesucristo, enséñanos a ser mansos y humildes de corazón para amar a nuestros hermanos como Tú nos amas y transformar toda nuestra vida en una entrega continua a los demás. Te pedimos, hoy, vivir intensamente esta entrega al servicio de nuestra comunidad. En unión con la Virgen nuestra madre, Te pedimos especialmente por el Papa, los Obispos, Sacerdotes, Diáconos y Misioneros, que tienen la vocación de unir a todos los hombres en el amor. Corazón de Jesús, lleno de bondad y de amor, ten piedad de nosotros.",
+        foto2: "madonnina.jpg",
+        titoloPreghiera3: "Oración a Nuestra Señora del Sagrado Corazón",
+        testoPreghiera3: "Acuérdate, Nuestra Señora del Sagrado Corazón, de las maravillas que Dios hizo en Ti. Te escogió como Madre de su Hijo. Tú que lo seguiste hasta la cruz. Te glorificó con Él escuchando y aceptando tus oraciones por todos los hombres. Con gran confianza en el amor del Señor y en Tu intercesión, venimos contigo a la fuente de Su corazón, de donde brotan para la vida del mundo la esperanza y el perdón, la fidelidad y la salvación. Nuestra Señora del Sagrado Corazón, tú conoces nuestras necesidades; habla al Señor por nosotros y por todos los hombres. Ayúdanos a vivir en Su amor, para que por él recibamos las gracias que pedimos y lo que nos es necesario. Tu oración de madre es poderosa: que Dios responda a nuestra esperanza. Amén.",
+        titoloPreghiera4: "Oración Simple",
+        testoPreghiera4: "Señor, hazme un instrumento de tu paz:\ndonde haya odio, lleve yo el amor;\ndonde haya ofensa, lleve yo el perdón;\ndonde haya discordia, lleve yo la unión;\ndonde haya duda, lleve yo la fe;\ndonde haya error, lleve yo la verdad;\ndonde haya desesperación, lleve yo la esperanza;\ndonde haya tristeza, lleve yo la alegría;\ndonde haya tinieblas, lleve yo la luz.\nOh Maestro, haz que yo no busque tanto\nser consolado como consolar,\nser comprendido como comprender,\nser amado como amar.\nPorque dando es como se recibe,\nperdonando es como se es perdonado,\ny muriendo es como se resucita a la vida eterna.",
+        titoloPreghiera5: "Oración por los enfermos",
+        testoPreghiera5: "Señor Jesús, creo que estás vivo y resucitado.\nTú eres la plenitud de la vida,\nTú, Señor, eres la salud de los enfermos.\nHoy te quiero presentar todos mis males.\nTen compasión de los sufrimientos de mi cuerpo, de mi corazón y de mi alma.\nTen compasión de mí, bendíceme y haz, Señor, que pueda recobrar la salud.\nQue crezca mi fe y que me abra a las maravillas de tu amor, para que sea también testigo de tu poder y de tu compasión.\nSáname, Señor.\nSáname en el cuerpo, sáname en el corazón, sáname en el alma.\nDame la vida, la vida en abundancia.\nSiervo de Dios P. Emiliano Tardif."
+      },
+      {
+        id: "martedi",
+        giorno: "Martes",
+        titolo: "Oración del Martes de la CSCV",
+        titoloPreghiera1: "CONSAGRACIÓN AL CORAZÓN DE JESÚS",
+        testoPreghiera1: "Te saludamos, Corazón admirable de Jesús. Te alabamos, Te bendecimos, Te glorifichiamo, Te damos gracias, Te ofrecemos nuestro corazón, Te lo entregamos y consagramos a Ti. Recíbelo y poséelo por entero; purifícalo, ilumínalo y santifícalo, para que Vivas y reines en él perpetuamente.",
+        foto1: "cascdg.jpg",
+        titoloPreghiera2: "MARTES - Culto de agradecimiento",
+        testoPreghiera2: "Señor nuestro Jesucristo, unidos a Ti queremos dar gracias al Padre por el don de la fe y por los tantos favores que nos concedes cada día. Danos la sencillez del niño para reconocer las maravillas que Dios hizo en nosotros y vivir en la alegría de los salvados. Deseamos, hoy, renovar nuestra fidelidad a los votos bautismales. Como la Virgen en su Magnificat, y en unión con Ella, deseamos cantar la gloria de Dios por medio de nuestro apostolado. Te pedimos por todos los que trabajan al servicio de la Iglesia, para que perseveren en su misión de enviados de Dios. Corazón de Jesús, de cuya plenitud todos hemos recibido, ten piedad de nosotros.",
+        foto2: "madonnina.jpg",
+        titoloPreghiera3: "Oración a Nuestra Señora del Sagrado Corazón",
+        testoPreghiera3: "Acuérdate, Nuestra Señora del Sagrado Corazón, de las maravillas que Dios hizo en Ti. Te escogió como Madre de su Hijo. Tú que lo seguiste hasta la cruz. Te glorificó con Él escuchando y aceptando tus oraciones por todos los hombres. Con gran confianza en el amor del Señor y en Tu intercesión, venimos contigo a la fuente de Su corazón, de donde brotan para la vida del mundo la esperanza y el perdón, la fidelidad y la salvación. Nuestra Señora del Sagrado Corazón, tú conoces nuestras necesidades; habla al Señor por nosotros y por todos los hombres. Ayúdanos a vivir en Su amor, para que por él recibamos las gracias que pedimos y lo que nos es necesario. Tu oración de madre es poderosa: que Dios responda a nuestra esperanza. Amén.",
+        titoloPreghiera4: "Oración Simple",
+        testoPreghiera4: "Señor, hazme un instrumento de tu paz:\ndonde haya odio, lleve yo el amor;\ndonde haya ofensa, lleve yo el perdón;\ndonde haya discordia, lleve yo la unión;\ndonde haya duda, lleve yo la fe;\ndonde haya error, lleve yo la verdad;\ndonde haya desesperación, lleve yo la esperanza;\ndonde haya tristeza, lleve yo la alegría;\ndonde haya tinieblas, lleve yo la luz.\nOh Maestro, haz que yo no busque tanto\nser consolado como consolar,\nser comprendido como comprender,\nser amado como amar.\nPorque dando es como se recibe,\nperdonando es como se es perdonado,\ny muriendo es como se resucita a la vida eterna.",
+        titoloPreghiera5: "Oración por los enfermos",
+        testoPreghiera5: "Señor Jesús, creo que estás vivo y resucitado.\nTú eres la plenitud de la vida,\nTú, Señor, eres la salud de los enfermos.\nHoy te quiero presentar todos mis males.\nTen compasión de los sufrimientos de mi cuerpo, de mi corazón y de mi alma.\nTen compasión de mí, bendíceme y haz, Señor, que pueda recobrar la salud.\nQue crezca mi fe y que me abra a las maravillas de tu amor, para que sea también testigo de tu poder y de tu compasión.\nSáname, Señor.\nSáname en el cuerpo, sáname en el corazón, sáname en el alma.\nDame la vida, la vida en abundancia.\nSiervo de Dios P. Emiliano Tardif."
+      },
+      {
+        id: "mercoledi",
+        giorno: "Miércoles",
+        titolo: "Oración del Miércoles de la CSCV",
+        titoloPreghiera1: "CONSAGRACIÓN AL CORAZÓN DE JESÚS",
+        testoPreghiera1: "Te saludamos, Corazón admirable de Jesús. Te alabamos, Te bendecimos, Te glorificamos, Te damos gracias, Te ofrecemos nuestro corazón, Te lo entregamos y consagramos a Ti. Recíbelo y poséelo por entero; purifícalo, ilumínalo y santifícalo, para que Vivas y reines en él perpetuamente.",
+        foto1: "cascdg.jpg",
+        titoloPreghiera2: "MIÉRCOLES - Culto de esperanza",
+        testoPreghiera2: "Señor nuestro Jesucristo, Tú eres el camino, la verdad y la vida. Enséñanos a llevar a todos los hombres un mensaje de esperanza, principalmente a aquellos que buscan una señal, un sentido a su vida y a los que sufren en condiciones inhumanas. Te pedimos, hoy, aceptar con paciencia los sufrimientos morales y físicos para purificar nuestra alma y avanzar en el camino de la santidad. En unión con la Virgen de los Dolores, Te pedimos por los moribundos, los enfermos y los oprimidos, para que tengan fuerza en el espíritu y sepan transformar sus dolores en instrumento de liberación. Corazón de Jesús, salvación de los que en Ti esperan, ten piedad de nosotros.",
+        foto2: "madonnina.jpg",
+        titoloPreghiera3: "Oración a Nuestra Señora del Sagrado Corazón",
+        testoPreghiera3: "Acuérdate, Nuestra Señora del Sagrado Corazón, de las maravillas que Dios hizo en Ti. Te escogió como Madre de su Hijo. Tú que lo seguiste hasta la cruz. Te glorificó con Él escuchando y aceptando tus oraciones por todos los hombres. Con gran confianza en el amor del Señor y en Tu intercesión, venimos contigo a la fuente de Su corazón, de donde brotan para la vida del mundo la esperanza y el perdón, la fidelidad y la salvación. Nuestra Señora del Sagrado Corazón, tú conoces nuestras necesidades; habla al Señor por nosotros y por todos los hombres. Ayúdanos a vivir en Su amor, para que por él recibamos las gracias que pedimos y lo que nos es necesario. Tu oración de madre es poderosa: que Dios responda a nuestra esperanza. Amén.",
+        titoloPreghiera4: "Oración Simple",
+        testoPreghiera4: "Señor, hazme un instrumento de tu paz:\ndonde haya odio, lleve yo el amor;\ndonde haya ofensa, lleve yo el perdón;\ndonde haya discordia, lleve yo la unión;\ndonde haya duda, lleve yo la fe;\ndonde haya error, lleve yo la verdad;\ndonde haya desesperación, lleve yo la esperanza;\ndonde haya tristeza, lleve yo la alegría;\ndonde haya tinieblas, lleve yo la luz.\nOh Maestro, haz que yo no busque tanto\nser consolado como consolar,\nser comprendido como comprender,\nser amado como amar.\nPorque dando es como se recibe,\nperdonando es como se es perdonado,\ny muriendo es como se resucita a la vida eterna.",
+        titoloPreghiera5: "Oración por los enfermos",
+        testoPreghiera5: "Señor Jesús, creo que estás vivo y resucitado.\nTú eres la plenitud de la vida,\nTú, Señor, eres la salud de los enfermos.\nHoy te quiero presentar todos mis males.\nTen compasión de los sufrimientos de mi cuerpo, de mi corazón y de mi alma.\nTen compasión de mí, bendíceme y haz, Señor, que pueda recobrar la salud.\nQue crezca mi fe y que me abra a las maravillas de tu amor, para que sea también testigo de tu poder y de tu compasión.\nSáname, Señor.\nSáname en el cuerpo, sáname en el corazón, sáname en el alma.\nDame la vida, la vida en abundancia.\nSiervo de Dios P. Emiliano Tardif."
+      },
+      {
+        id: "giovedi",
+        giorno: "Jueves",
+        titolo: "Oración del Jueves de la CSCV",
+        titoloPreghiera1: "CONSAGRACIÓN AL CORAZÓN DE JESÚS",
+        testoPreghiera1: "Te saludamos, Corazón admirable de Jesús. Te alabamos, Te bendecimos, Te glorificamos, Te damos gracias, Te ofrecemos nuestro corazón, Te lo entregamos y consagramos a Ti. Recíbelo y poséelo por entero; purifícalo, ilumínalo y santifícalo, para que Vivas y reines en él perpetuamente.",
+        foto1: "cascdg.jpg",
+        titoloPreghiera2: "JUEVES - Culto de Oración",
+        testoPreghiera2: "Señor nuestro Jesucristo, recordando Tu invitación a orar sin cesar, nos unimos a Tu oración sacerdotal para ofrecerte este día con sus alegrías y sus penas, los trabajos y el descanso, transformándolo todo en una continua oración a nuestro Padre del cielo. Te pedimos, hoy, fortalecer nuestra fe para comunicarla a quienes ponen su confianza en la vanidad del mundo despreciando el valor de la oración. Como la Virgen en el cenáculo, Te expresamos nuestra confianza y, en unión con Ella, Te pedimos por la gran familia cristiana, para que sepa apreciar mejor el valor de la oración. Corazón de Jesús, rico en gracia para todos los que Te invocan, ten piedad de nosotros.",
+        foto2: "madonnina.jpg",
+        titoloPreghiera3: "Oración a Nuestra Señora del Sagrado Corazón",
+        testoPreghiera3: "Acuérdate, Nuestra Señora del Sagrado Corazón, de las maravillas que Dios hizo en Ti. Te escogió como Madre de su Hijo. Tú que lo seguiste hasta la cruz. Te glorificó con Él escuchando y aceptando tus oraciones por todos los hombres. Con gran confianza en el amor del Señor y en Tu intercesión, venimos contigo a la fuente de Su corazón, de donde brotan para la vida del mundo la esperanza y el perdón, la fidelidad y la salvación. Nuestra Señora del Sagrado Corazón, tú conoces nuestras necesidades; habla al Señor por nosotros y por todos los hombres. Ayúdanos a vivir en Su amor, para que por él recibamos las gracias que pedimos y lo que nos es necesario. Tu oración de madre es poderosa: que Dios responda a nuestra esperanza. Amén.",
+        titoloPreghiera4: "Oración Simple",
+        testoPreghiera4: "Señor, hazme un instrumento de tu paz:\ndonde haya odio, lleve yo el amor;\ndonde haya ofensa, lleve yo el perdón;\ndonde haya discordia, lleve yo la unión;\ndonde haya duda, lleve yo la fe;\ndonde haya error, lleve yo la verdad;\ndonde haya desesperación, lleve yo la esperanza;\ndonde haya tristeza, lleve yo la alegría;\ndonde haya tinieblas, lleve yo la luz.\nOh Maestro, haz que yo no busque tanto\nser consolado como consolar,\nser comprendido como comprender,\nser amado como amar.\nPorque dando es como se recibe,\nperdonando es como se es perdonado,\ny muriendo es como se resucita a la vida eterna.",
+        titoloPreghiera5: "Oración por los enfermos",
+        testoPreghiera5: "Señor Jesús, creo que estás vivo y resucitado.\nTú eres la plenitud de la vida,\nTú, Señor, eres la salud de los enfermos.\nHoy te quiero presentar todos mis males.\nTen compasión de los sufrimientos de mi cuerpo, de mi corazón y de mi alma.\nTen compasión de mí, bendíceme y haz, Señor, que pueda recobrar la salud.\nQue crezca mi fe y que me abra a las maravillas de tu amor, para que sea también testigo de tu poder y de tu compasión.\nSáname, Señor.\nSáname en el cuerpo, sáname en el corazón, sáname en el alma.\nDame la vida, la vida en abundancia.\nSiervo de Dios P. Emiliano Tardif."
+      },
+      {
+        id: "venerdi",
+        giorno: "Viernes",
+        titolo: "Oración del Viernes de la CSCV",
+        titoloPreghiera1: "CONSAGRACIÓN AL CORAZÓN DE JESÚS",
+        testoPreghiera1: "Te saludamos, Corazón admirable de Jesús. Te alabamos, Te bendecimos, Te glorificamos, Te damos gracias, Te ofrecemos nuestro corazón, Te lo entregamos y consagramos a Ti. Recíbelo y poséelo por entero; purifícalo, ilumínalo y santifícalo, para que Vivas y reines en él perpetuamente.",
+        foto1: "cascdg.jpg",
+        titoloPreghiera2: "VIERNES - Culto de justicia",
+        testoPreghiera2: "Señor nuestro Jesucristo, contemplando Tu corazón abierto por la lanza, deseamos completar en nuestra carne lo que falta a Tu Pasión. Danos el valor de reparar nuestras propias injusticias y las de nuestros hermanos. Te pedimos, hoy, reconocer las injusticias que se cometen en nuestra comunidad e interceder por la liberación de todos los hijos de Dios. En unión con Nuestra Señora del Sagrado Corazón, Te pedimos por nosotros pecadores para que podamos salir de nuestro egoísmo y buscar la felicidad de nuestros hermanos. Corazón de Jesús, asilo de justicia y de amor, ten piedad de nosotros.",
+        foto2: "madonnina.jpg",
+        titoloPreghiera3: "Oración a Nuestra Señora del Sagrado Corazón",
+        testoPreghiera3: "Acuérdate, Nuestra Señora del Sagrado Corazón, de las maravillas que Dios hizo en Ti. Te escogió como Madre de su Hijo. Tú que lo seguiste hasta la cruz. Te glorificó con Él escuchando y aceptando tus oraciones por todos los hombres. Con gran confianza en el amor del Señor y en Tu intercesión, venimos contigo a la fuente de Su corazón, de donde brotan para la vida del mundo la esperanza y el perdón, la fidelidad y la salvación. Nuestra Señora del Sagrado Corazón, tú conoces nuestras necesidades; habla al Señor por nosotros y por todos los hombres. Ayúdanos a vivir en Su amor, para que por él recibamos las gracias que pedimos y lo que nos es necesario. Tu oración de madre es poderosa: que Dios responda a nuestra esperanza. Amén.",
+        titoloPreghiera4: "Oración Simple",
+        testoPreghiera4: "Señor, hazme un instrumento de tu paz:\ndonde haya odio, lleve yo el amor;\ndonde haya ofensa, lleve yo el perdón;\ndonde haya discordia, lleve yo la unión;\ndonde haya duda, lleve yo la fe;\ndonde haya error, lleve yo la verdad;\ndonde haya desesperación, lleve yo la esperanza;\ndonde haya tristeza, lleve yo la alegría;\ndonde haya tinieblas, lleve yo la luz.\nOh Maestro, haz que yo no busque tanto\nser consolado como consolar,\nser comprendido como comprender,\nser amado como amar.\nPorque dando es como se recibe,\nperdonando es como se es perdonado,\ny muriendo es como se resucita a la vida eterna.",
+        titoloPreghiera5: "Oración por los enfermos",
+        testoPreghiera5: "Señor Jesús, creo que estás vivo y resucitado.\nTú eres la plenitud de la vida,\nTú, Señor, eres la salud de los enfermos.\nHoy te quiero presentar todos mis males.\nTen compasión de los sufrimientos de mi cuerpo, de mi corazón y de mi alma.\nTen compasión de mí, bendíceme y haz, Señor, que pueda recobrar la salud.\nQue crezca mi fe y que me abra a las maravillas de tu amor, para que sea también testigo de tu poder y de tu compasión.\nSáname, Señor.\nSáname en el cuerpo, sáname en el corazón, sáname en el alma.\nDame la vida, la vida en abundancia.\nSiervo de Dios P. Emiliano Tardif."
+      },
+      {
+        id: "sabato",
+        giorno: "Sábado",
+        titolo: "Oración del Sábado de la CSCV",
+        titoloPreghiera1: "CONSAGRACIÓN AL CORAZÓN DE JESÚS",
+        testoPreghiera1: "Te saludamos, Corazón admirable de Jesús. Te alabamos, Te bendecimos, Te glorificamos, Te damos gracias, Te ofrecemos nuestro corazón, Te lo entregamos y consagramos a Ti. Recíbelo y poséelo por entero; purifícalo, ilumínalo y santifícalo, para que Vivas y reines en él perpetuamente.",
+        foto1: "cascdg.jpg",
+        titoloPreghiera2: "SÁBADO - Culto de unión",
+        testoPreghiera2: "Señor nuestro Jesucristo, hacemos nuestra Tu oración al Padre para que seamos uno y para que el mundo reconozca que Dios está en medio de nuestra comunidad. Ayúdanos a fortalecer la unión entre nosotros. Te pedimos, hoy, que cesen todos los rencores y podamos reconciliarnos con nuestros hermanos mediante verdaderos gestos de amistad. En unión con la Virgen Madre, Te pedimos por la comunidad cristiana, para que vivamos como hermanos en unión con Tu Amor. Corazón de Jesús, paz y reconciliación nuestra, ten piedad de nosotros.",
+        foto2: "madonnina.jpg",
+        titoloPreghiera3: "Oración a Nuestra Señora del Sagrado Corazón",
+        testoPreghiera3: "Acuérdate, Nuestra Señora del Sagrado Corazón, de las maravillas que Dios hizo en Ti. Te escogió como Madre de su Hijo. Tú que lo seguiste hasta la cruz. Te glorificó con Él escuchando y aceptando tus oraciones por todos los hombres. Con gran confianza en el amor del Señor y en Tu intercesión, venimos contigo a la fuente de Su corazón, de donde brotan para la vida del mundo la esperanza y el perdón, la fidelidad y la salvación. Nuestra Señora del Sagrado Corazón, tú conoces nuestras necesidades; habla al Señor por nosotros y por todos los hombres. Ayúdanos a vivir en Su amor, para que por él recibamos las gracias que pedimos y lo que nos es necesario. Tu oración de madre es poderosa: que Dios responda a nuestra esperanza. Amén.",
+        titoloPreghiera4: "Oración Simple",
+        testoPreghiera4: "Señor, hazme un instrumento de tu paz:\ndonde haya odio, lleve yo el amor;\ndonde haya ofensa, lleve yo el perdón;\ndonde haya discordia, lleve yo la unión;\ndonde haya duda, lleve yo la fe;\ndonde haya error, lleve yo la verdad;\ndonde haya desesperación, lleve yo la esperanza;\ndonde haya tristeza, lleve yo la alegría;\ndonde haya tinieblas, lleve yo la luz.\nOh Maestro, haz que yo no busque tanto\nser consolado como consolar,\nser comprendido como comprender,\nser amado como amar.\nPorque dando es como se recibe,\nperdonando es como se es perdonado,\ny muriendo es como se resucita a la vida eterna.",
+        titoloPreghiera5: "Oración por los enfermos",
+        testoPreghiera5: "Señor Jesús, creo que estás vivo y resucitado.\nTú eres la plenitud de la vida,\nTú, Señor, eres la salud de los enfermos.\nHoy te quiero presentar todos mis males.\nTen compasión de los sufrimientos de mi cuerpo, de mi corazón y de mi alma.\nTen compasión de mí, bendíceme y haz, Señor, que pueda recobrar la salud.\nQue crezca mi fe y que me abra a las maravillas de tu amor, para que sea también testigo de tu poder y de tu compasión.\nSáname, Señor.\nSáname en el cuerpo, sáname en el corazón, sáname en el alma.\nDame la vida, la vida en abundancia.\nSiervo de Dios P. Emiliano Tardif."
+      },
+      {
+        id: "domenica",
+        giorno: "Domingo",
+        titolo: "Oración del Domingo de la CSCV",
+        titoloPreghiera1: "CONSAGRACIÓN AL CORAZÓN DE JESÚS",
+        testoPreghiera1: "Te saludamos, Corazón admirable de Jesús. Te alabamos, Te bendecimos, Te glorificamos, Te damos gracias, Te ofrecemos nuestro corazón, Te lo entregamos y consagramos a Ti. Recíbelo y poséelo por entero; purifícalo, ilumínalo y santifícalo, para que Vivas y reines en él perpetuamente.",
+        foto1: "cascdg.jpg",
+        titoloPreghiera2: "DOMINGO - Culto de adoración",
+        testoPreghiera2: "Señor nuestro Jesucristo, en unión contigo, deseamos adorar a Dios, nuestro Padre. En nombre de toda la creación pedimos, hoy, manifestar públicamente nuestra adoración filial, especialmente durante la asamblea de nuestra comunidad. En unión con María santísima, Te pedimos sobre todo por los que no conocen a Dios, nuestro Padre, y por los que se han olvidado de su amor. Corazón de Jesús, templo santo de Dios, ten piedad de nosotros.",
+        foto2: "madonnina.jpg",
+        titoloPreghiera3: "Oración a Nuestra Señora del Sagrado Corazón",
+        testoPreghiera3: "Acuérdate, Nuestra Señora del Sagrado Corazón, de las maravillas que Dios hizo en Ti. Te escogió como Madre de su Hijo. Tú que lo seguiste hasta la cruz. Te glorificó con Él escuchando y aceptando tus oraciones por todos los hombres. Con gran confianza en el amor del Señor y en Tu intercesión, venimos contigo a la fuente de Su corazón, de donde brotan para la vida del mundo la esperanza y el perdón, la fidelidad y la salvación. Nuestra Señora del Sagrado Corazón, tú conoces nuestras necesidades; habla al Señor por nosotros y por todos los hombres. Ayúdanos a vivir en Su amor, para que por él recibamos las gracias que pedimos y lo que nos es necesario. Tu oración de madre es poderosa: que Dios responda a nuestra esperanza. Amén.",
+        titoloPreghiera4: "Oración Simple",
+        testoPreghiera4: "Señor, hazme un instrumento de tu paz:\ndonde haya odio, lleve yo el amor;\ndonde haya ofensa, lleve yo el perdón;\ndonde haya discordia, lleve yo la unión;\ndonde haya duda, lleve yo la fe;\ndonde haya error, lleve yo la verdad;\ndonde haya desesperación, lleve yo la esperanza;\ndonde haya tristeza, lleve yo la alegría;\ndonde haya tinieblas, lleve yo la luz.\nOh Maestro, haz que yo no busque tanto\nser consolado como consolar,\nser comprendido como comprender,\nser amado como amar.\nPorque dando es como se recibe,\nperdonando es como se es perdonado,\ny muriendo es como se resucita a la vida eterna.",
+        titoloPreghiera5: "Oración por los enfermos",
+        testoPreghiera5: "Señor Jesús, creo que estás vivo y resucitado.\nTú eres la plenitud de la vida,\nTú, Señor, eres la salud de los enfermos.\nHoy te quiero presentar todos mis males.\nTen compasión de los sufrimientos de mi cuerpo, de mi corazón y de mi alma.\nTen compasión de mí, bendíceme y haz, Señor, que pueda recobrar la salud.\nQue crezca mi fe y que me abra a las maravillas de tu amor, para que sea también testigo de tu poder y de tu compasión.\nSáname, Señor.\nSáname en el cuerpo, sáname en el corazón, sáname en el alma.\nDame la vida, la vida en abundancia.\nSiervo de Dios P. Emiliano Tardif."
+      }
+    ],
 
-      titoloPreghiera2: "LUNEDI’ - Culto di amore",
-      testoPreghiera2: "Signore nostro Gesù Cristo, insegnaci ad essere mansueti e umili di cuore per amare i nostri fratelli come Tu ci ami ed a trasformare tutta la nostra vita in una continua offerta agli altri. Ti chiediamo, oggi, di vivere intensamente questa consegna al servizio della nostra comunità. In unione con la Vergine nostra madre, Ti preghiamo in modo speciale per il Papa, i Vescovi, i Sacerdoti, i Diaconi, i Missionari, che hanno la vocazione di unire tutti gli uomini nell’amore. Cuore di Gesù, pieno di bontà e di amore, abbi pietà di noi.",
-      foto2: "madonnina.jpg",
-
-      titoloPreghiera3: "preghiera A nostra Signora del Sacro Cuore",
-      testoPreghiera3: "Ricordati Nostra Signora del Sacro Cuore delle meraviglie che Dio fece in Te. Te scelse come Madre del suo figlio. Te che lo seguisti fino alla croce. Te glorificò con lui ascoltando e accettando le tue preghiere per tutti gli uomini. Con grande confidenza nell'amore del Signore e nella Tua intercessione, veniamo con Te alla fonte del Suo cuore, da dove scaturiscono per la vita del mondo la speranza ed il perdono, la fedeltà e la salvezza. Nostra Signora del Sacro Cuore, tu conosci le nostre necessità, parla al Signore per noi e per tutti gli uomini. Aiutaci a vivere nel Suo amore, per esso riceviamo le grazie che chiediamo e quello che a noi è necessario. La Tua preghiera di madre è poderosa: che Dio risponda alla nostra speranza. Amen",
-
-      titoloPreghiera4: "Preghiera Semplice",
-      testoPreghiera4: "Oh Signore, fa di me un istrumento della tua pace:\nDove è odio, fa ch'io porti l'Amore.\nDove è offesa, ch'io porti il perdono.\nDove è discordia, ch'io porti l'Unione.\nDove è dubbio, ch'io porti la fede.\nDove è errore, ch'io porti la Verità.\nDove è disperazione, ch'io porti la Speranza.\nDove è tristezza, ch'io porti la Gioia.\nDove sono le tenebre, ch'io porti la Luce.\nOh! Maestro, fa ch'io non cerchi tanto,\nad essere consolato quanto a consolare,\nad essere compreso, quanto a comprendere,\nad essere amato, quanto ad amare.\nPoichè: E’ dando che si riceve,\nperdonando che si è perdonati,\nmorendo, che si risuscita a vita eterna.",
-
-      titoloPreghiera5: "Preghiera dell'ammalato",
-      testoPreghiera5: "Signore Gesù, credo che sei vivo e risorto.\nTu sei la pienezza della vita,\nTu. Signore. sei la salute dei malati.\nOggi ti voglio presentare\ntutti i miei mali.\nAbbi compassione delle\nsofferenze del mio corpo,\ndel mio cuore e della mia anima.\nAbbi compassione di me, benedici mi\ne fa, Signore, che possa\nriacquistare la salute.\nChe cresca la mia fede e che\nmi apra alle meraviglie del tuo amore,\nperché sia anche testimone della tua potenza\ne della tua compassione.\nGuariscimi, Signore.\nGuariscimi nel corpo,\nguariscimi nel cuore,\nguariscimi nell'anima.\nDammi la vita. la vita in abbondanza.\nServo di Dio P. E. Tardif."
-    },
-    {
-      id: "martedi",
-      giorno: "Martedì",
-      titolo: "Preghiera del Martedì della CSCV",
-
-      titoloPreghiera1: "CONSACRAZIONE AL CUORE DI GESÙ",
-      testoPreghiera1: "Ti salutiamo, Cuore ammirabile di Gesù. Ti lodiamo, Ti benediciamo, Ti glorifichiamo, Ti ringraziamo, Ti offriamo il nostro cuore, Te lo consegniamo e lo consacriamo a Te. Ricevilo e possiedilo intero; purificalo, illuminalo e santificalo, affinchè Tu viva e regni in esso perpetuamente.",
-      foto1: "cascdg.jpg",
-
-      titoloPreghiera2: "MARTEDÌ - Culto di riconoscenza",
-      testoPreghiera2: "Signore nostro Gesù Cristo, uniti a Te vogliamo dar grazie al Padre per il dono della fede e per i tanti favori che a noi elargisci ogni giorno. Dà a noi la semplicità del bambino per riconoscere le meraviglie che Dio fece in noi e a vivere nella gioia dei salvati. Desideriamo, oggi, rinnovare la nostra fedeltà ai voti battesimali. Come la Vergine nel Suo Magnificat, e in unione ad Essa, desideriamo cantare la gloria di Dio per mezzo del nostro apostolato. Ti preghiamo per tutti quelli che lavorano al servizio della Chiesa, perché perseverino nella loro missione di inviati di Dio. Cuore di Gesù, dalla cui pienezza tutti abbiamo ricevuto, abbi pietà di noi.",
-      foto2: "madonnina.jpg",
-
-      titoloPreghiera3: "preghiera A nostra Signora del Sacro Cuore",
-      testoPreghiera3: "Ricordati Nostra Signora del Sacro Cuore delle meraviglie che Dio fece in Te. Te scelse come Madre del suo figlio. Te che lo seguisti fino alla croce. Te glorificò con lui ascoltando e accettando le tue preghiere per tutti gli uomini. Con grande confidenza nell'amore del Signore e nella Tua intercessione, veniamo con Te alla fonte del Suo cuore, da dove scaturiscono per la vita del mondo la speranza ed il perdono, la fedeltà e la salvezza. Nostra Signora del Sacro Cuore, tu conosci le nostre necessità, parla al Signore per noi e per tutti gli uomini. Aiutaci a vivere nel Suo amore, per esso riceviamo le grazie che chiediamo e quello che a noi è necessario. La Tua preghiera di madre è poderosa: che Dio risponda alla nostra speranza. Amen",
-
-      titoloPreghiera4: "Preghiera Semplice",
-      testoPreghiera4: "Oh Signore, fa di me un istrumento della tua pace:\nDove è odio, fa ch'io porti l'Amore.\nDove è offesa, ch'io porti il perdono.\nDove è discordia, ch'io porti l'Unione.\nDove è dubbio, ch'io porti la fede.\nDove è errore, ch'io porti la Verità.\nDove è disperazione, ch'io porti la Speranza.\nDove è tristezza, ch'io porti la Gioia.\nDove sono le tenebre, ch'io porti la Luce.\nOh! Maestro, fa ch'io non cerchi tanto,\nad essere consolato quanto a consolare,\nad essere compreso, quanto a comprendere,\nad essere amato, quanto ad amare.\nPoichè: E’ dando che si receive,\nperdonando che si è perdonati,\nmorendo, che si risuscita a vita eterna.",
-
-      titoloPreghiera5: "Preghiera dell'ammalato",
-      testoPreghiera5: "Signore Gesù, credo che sei vivo e risorto.\nTu sei la pienezza della vita,\nTu. Signore. sei la salute dei malati.\nOggi ti voglio presentare\ntutti i miei mali.\nAbbi compassione delle\nsofferenze del mio corpo,\ndel mio cuore e della mia anima.\nAbbi compassione di me, benedici mi\ne fa, Signore, che possa\nriacquistare la salute.\nChe cresca la mia fede e che\nmi apra alle meraviglie del tuo amore,\nperché sia anche testimone della tua potenza\ne della tua compassione.\nGuariscimi, Signore.\nGuariscimi nel corpo,\nguariscimi nel cuore,\nguariscimi nell'anima.\nDammi la vita. la vita in abbondanza.\nServo di Dio P. E. Tardif."
-    },
-    {
-      id: "mercoledi",
-      giorno: "Mercoledì",
-      titolo: "Preghiera del Mercoledì della CSCV",
-
-      titoloPreghiera1: "CONSACRAZIONE AL CUORE DI GESÙ",
-      testoPreghiera1: "Ti salutiamo, Cuore ammirabile di Gesù. Ti lodiamo, Ti benediciamo, Ti glorifichiamo, Ti ringraziamo, Ti offriamo il nostro cuore, Te lo consegniamo e lo consacriamo a Te. Ricevilo e possiedilo intero; purificalo, illuminalo e santificalo, affinchè Tu viva e regni in esso perpetuamente.",
-      foto1: "cascdg.jpg",
-
-      titoloPreghiera2: "MERCOLEDÌ - Culto di speranza",
-      testoPreghiera2: "Signore nostro Gesù Cristo, Tu sei la via, la verità, la vita. Insegnaci a portare a tutti gli uomini un messaggio di speranza, principalmente a coloro che cercano un segno, un significato nella loro vita e a quelli che soffrono in condizioni di vita inumana. Ti chiediamo, oggi, di accettare con pazienza le sofferenze morali e fisiche che si presentano per purificare la nostra anima e andare avanti nel cammino della santità. In unione alla Vergine dei dolori Ti chiediamo per i moribondi, i malati, e per gli oppressi, perché abbiano la forza nello spirito e sappiano trasformare i loro dolori in strumento di liberazione. Cuore di Gesù, salvezza di quelli che in Te sperano, abbi pietà di noi.",
-      foto2: "madonnina.jpg",
-
-      titoloPreghiera3: "preghiera A nostra Signora del Sacro Cuore",
-      testoPreghiera3: "Ricordati Nostra Signora del Sacro Cuore delle meraviglie che Dio fece in Te. Te scelse come Madre del suo figlio. Te che lo seguisti fino alla croce. Te glorificò con lui ascoltando e accettando le tue preghiere per tutti gli uomini. Con grande confidenza nell'amore del Signore e nella Tua intercessione, veniamo con Te alla fonte del Suo cuore, da dove scaturiscono per la vita del mondo la speranza ed il perdono, la fedeltà e la salvezza. Nostra Signora del Sacro Cuore, tu conosci le nostre necessità, parla al Signore per noi e per tutti gli uomini. Aiutaci a vivere nel Suo amore, per esso riceviamo le grazie che chiediamo e quello che a noi è necessario. La Tua preghiera di madre è poderosa: che Dio risponda alla nostra speranza. Amen",
-
-      titoloPreghiera4: "Preghiera Semplice",
-      testoPreghiera4: "Oh Signore, fa di me un istrumento della tua pace:\nDove è odio, fa ch'io porti l'Amore.\nDove è offesa, ch'io porti il perdono.\nDove è discordia, ch'io porti l'Unione.\nDove è dubbio, ch'io porti la fede.\nDove è errore, ch'io porti la Verità.\nDove è disperazione, ch'io porti la Speranza.\nDove è tristezza, ch'io porti la Gioia.\nDove sono le tenebre, ch'io porti la Luce.\nOh! Maestro, fa ch'io non cerchi tanto,\nad essere consolato quanto a consolare,\nad essere compreso, quanto a comprendere,\nad essere amato, quanto ad amare.\nPoichè: E’ dando che si receive,\nperdonando che si è perdonati,\nmorendo, che si risuscita a vita eterna.",
-
-      titoloPreghiera5: "Preghiera dell'ammalato",
-      testoPreghiera5: "Signore Gesù, credo che sei vivo e risorto.\nTu sei la pienezza della vita,\nTu. Signore. sei la salute dei malati.\nOggi ti voglio presentare\ntutti i miei mali.\nAbbi compassione delle\nsofferenze del mio corpo,\ndel mio cuore e della mia anima.\nAbbi compassione di me, benedici mi\ne fa, Signore, che possa\nriacquistare la salute.\nChe cresca la mia fede e che\nmi apra alle meraviglie del tuo amore,\nperché sia anche testimone della tua potenza\ne della tua compassione.\nGuariscimi, Signore.\nGuariscimi nel corpo,\nguariscimi nel cuore,\nguariscimi nell'anima.\nDammi la vita. la vita in abbondanza.\nServo di Dio P. E. Tardif."
-    },
-    {
-      id: "giovedi",
-      giorno: "Giovedì",
-      titolo: "Preghiera del Giovedì della CSCV",
-
-      titoloPreghiera1: "CONSACRAZIONE AL CUORE DI GESÙ",
-      testoPreghiera1: "Ti salutiamo, Cuore ammirabile di Gesù. Ti lodiamo, Ti benediciamo, Ti glorifichiamo, Ti ringraziamo, Ti offriamo il nostro cuore, Te lo consegniamo e lo consacriamo a Te. Ricevilo e possiedilo intero; purificalo, illuminalo e santificalo, affinchè Tu viva e regni in esso perpetuamente.",
-      foto1: "cascdg.jpg",
-
-      titoloPreghiera2: "GIOVEDÌ - Culto di Preghiera",
-      testoPreghiera2: "Signore nostro Gesù Cristo, ricordando il Tuo invito a pregare senza interruzione, noi ci uniamo alla Tua preghiera sacerdotale per offrirti questo giorno con le sue gioie e con le sue pene le fatiche e il riposo, trasformalo tutto in una continua preghiera al nostro Padre del cielo. Ti chiediamo, oggi, di fortificare la nostra fede per comunicarla a quelli che pongono la fiducia nella vanità del mondo disprezzando il valore della preghiera. Come la Vergine nel cenacolo, Ti esprimiamo la nostra confidenza, e in unione ad essa, Ti preghiamo per la grande famiglia cristiana, perché sappia apprezzare meglio il valore della preghiera. Cuore di Gesù, ricco di grazia per tutti quelli che Ti invocano, abbi pietà di noi.",
-      foto2: "madonnina.jpg",
-
-      titoloPreghiera3: "preghiera A nostra Signora del Sacro Cuore",
-      testoPreghiera3: "Ricordati Nostra Signora del Sacro Cuore delle meraviglie che Dio fece in Te. Te scelse come Madre del suo figlio. Te che lo seguisti fino alla croce. Te glorificò con lui ascoltando e accettando le tue preghiere per tutti gli uomini. Con grande confidenza nell'amore del Signore e nella Tua intercessione, veniamo con Te alla fonte del Suo cuore, da dove scaturiscono per la vita del mondo la speranza ed il perdono, la fedeltà e la salvezza. Nostra Signora del Sacro Cuore, tu conosci le nostre necessità, parla al Signore per noi e per tutti gli uomini. Aiutaci a vivere nel Suo amore, per esso riceviamo le grazie che chiediamo e quello che a noi è necessario. La Tua preghiera di madre è poderosa: che Dio risponda alla nostra speranza. Amen",
-
-      titoloPreghiera4: "Preghiera Semplice",
-      testoPreghiera4: "Oh Signore, fa di me un istrumento della tua pace:\nDove è odio, fa ch'io porti l'Amore.\nDove è offesa, ch'io porti il perdono.\nDove è discordia, ch'io porti l'Unione.\nDove è dubbio, ch'io porti la fede.\nDove è errore, ch'io porti la Verità.\nDove è disperazione, ch'io porti la Speranza.\nDove è tristezza, ch'io porti la Gioia.\nDove sono le tenebre, ch'io porti la Luce.\nOh! Maestro, fa ch'io non cerchi tanto,\nad essere consolato quanto a consolare,\nad essere compreso, quanto a comprendere,\nad essere amato, quanto ad amare.\nPoichè: E’ dando che si receive,\nperdonando che si è perdonati,\nmorendo, che si risuscita a vita eterna.",
-
-      titoloPreghiera5: "Preghiera dell'ammalato",
-      testoPreghiera5: "Signore Gesù, credo che sei vivo e risorto.\nTu sei la pienezza della vita,\nTu. Signore. sei la salute dei malati.\nOggi ti voglio presentare\ntutti i miei mali.\nAbbi compassione delle\nsofferenze del mio corpo,\ndel mio cuore e della mia anima.\nAbbi compassione di me, benedici mi\ne fa, Signore, che possa\nriacquistare la salute.\nChe cresca la mia fede e che\nmi apra alle meraviglie del tuo amore,\nperché sia anche testimone della tua potenza\ne della tua compassione.\nGuariscimi, Signore.\nGuariscimi nel corpo,\nguariscimi nel cuore,\nguariscimi nell'anima.\nDammi la vita. la vita in abbondanza.\nServo di Dio P. E. Tardif."
-    },
-    {
-      id: "venerdi",
-      giorno: "Venerdì",
-      titolo: "Preghiera del Venerdì della CSCV",
-
-      titoloPreghiera1: "CONSACRAZIONE AL CUORE DI GESÙ",
-      testoPreghiera1: "Ti salutiamo, Cuore ammirabile di Gesù. Ti lodiamo, Ti benediciamo, Ti glorifichiamo, Ti ringraziamo, Ti offriamo il nostro cuore, Te lo consegniamo e lo consacriamo a Te. Ricevilo e possiedilo intero; purificalo, illuminalo e santificalo, affinchè Tu viva e regni in esso perpetuamente.",
-      foto1: "cascdg.jpg",
-
-      titoloPreghiera2: "VENERDÌ - Culto di giustizia",
-      testoPreghiera2: "Signore nostro Gesù Cristo, contemplando il Tuo cuore aperto per il colpo di lancia, desideriamo completare nella nostra carne quello che manca alla Tua Passione. Dà a noi il coraggio di riparare alle nostre stesse ingiustizie ed a quelli dei nostri fratelli.Ti chiediamo, oggi, di riconoscere le ingiustizie che si commettono nella nostra comunità e intercedere per la liberazione di tutti i figli di Dio. In unione a nostra Signora del Sacro Cuore, Ti preghiamo per noi peccatori perché possiamo uscire dal nostro egoismo e cercare la felicità dei nostri fratelli. Cuore di Gesù, asilo di giustizia e di amore, abbi pietà di noi.",
-      foto2: "madonnina.jpg",
-
-      titoloPreghiera3: "preghiera A nostra Signora del Sacro Cuore",
-      testoPreghiera3: "Ricordati Nostra Signora del Sacro Cuore delle meraviglie che Dio fece in Te. Te scelse come Madre del suo figlio. Te che lo seguisti fino alla croce. Te glorificò con lui ascoltando e accettando le tue preghiere per tutti gli uomini. Con grande confidenza nell'amore del Signore e nella Tua intercessione, veniamo con Te alla fonte del Suo cuore, da dove scaturiscono per la vita del mondo la speranza ed il perdono, la fedeltà e la salvezza. Nostra Signora del Sacro Cuore, tu conosci le nostre necessità, parla al Signore per noi e per tutti gli uomini. Aiutaci a vivere nel Suo amore, per esso riceviamo le grazie che chiediamo e quello che a noi è necessario. La Tua preghiera di madre è poderosa: che Dio risponda alla nostra speranza. Amen",
-
-      titoloPreghiera4: "Preghiera Semplice",
-      testoPreghiera4: "Oh Signore, fa di me un istrumento della tua pace:\nDove è odio, fa ch'io porti l'Amore.\nDove è offesa, ch'io porti il perdono.\nDove è discordia, ch'io porti l'Unione.\nDove è dubbio, ch'io porti la fede.\nDove è errore, ch'io porti la Verità.\nDove è disperazione, ch'io porti la Speranza.\nDove è tristezza, ch'io porti la Gioia.\nDove sono le tenebre, ch'io porti la Luce.\nOh! Maestro, fa ch'io non cerchi tanto,\nad essere consolato quanto a consolare,\nad essere compreso, quanto a comprendere,\nad essere amato, quanto ad amare.\nPoichè: E’ dando che si receive,\nperdonando che si è perdonati,\nmorendo, che si risuscita a vita eterna.",
-
-      titoloPreghiera5: "Preghiera dell'ammalato",
-      testoPreghiera5: "Signore Gesù, credo che sei vivo e risorto.\nTu sei la pienezza della vita,\nTu. Signore. sei la salute dei malati.\nOggi ti voglio presentare\ntutti i miei mali.\nAbbi compassione delle\nsofferenze del mio corpo,\ndel mio cuore e della mia anima.\nAbbi compassione di me, benedici mi\ne fa, Signore, che possa\nriacquistare la salute.\nChe cresca la mia fede e che\nmi apra alle meraviglie del tuo amore,\nperché sia anche testimone della tua potenza\ne della tua compassione.\nGuariscimi, Signore.\nGuariscimi nel corpo,\nguariscimi nel cuore,\nguariscimi nell'anima.\nDammi la vita. la vita in abbondanza.\nServo di Dio P. E. Tardif."
-    },
-    {
-      id: "sabato",
-      giorno: "Sabato",
-      titolo: "Preghiera del Sabato della CSCV",
-
-      titoloPreghiera1: "CONSACRAZIONE AL CUORE DI GESÙ",
-      testoPreghiera1: "Ti salutiamo, Cuore ammirabile di Gesù. Ti lodiamo, Ti benediciamo, Ti glorifichiamo, Ti ringraziamo, Ti offriamo il nostro cuore, Te lo consegniamo e lo consacriamo a Te. Ricevilo e possiedilo intero; purificalo, illuminalo e santificalo, affinchè Tu viva e regni in esso perpetuamente.",
-      foto1: "cascdg.jpg",
-
-      titoloPreghiera2: "SABATO - Culto di unione",
-      testoPreghiera2: "Signore nostro Gesù Cristo, facciamo nostra la Tua preghiera al Padre perché siamo uno e perché il mondo riconosca che Dio stà in mezzo alla nostra comunità. Aiutaci a fortificare l'unione tra noi. Ti chiediamo, oggi, che cessino tutti i rancori e possiamo rinconciliarci con i nostri fratelli per mezzo di veritieri gesti di amicizia. In unione con la Vergine Madre, ti preghiamo per la comunità cristiana, perché si viva come fratelli in unione al Tuo Amore. Cuore di Gesù, pace e rinconciliazione nostra, abbi pietà di noi.",
-      foto2: "madonnina.jpg",
-
-      titoloPreghiera3: "preghiera A nostra Signora del Sacro Cuore",
-      testoPreghiera3: "Ricordati Nostra Signora del Sacro Cuore delle meraviglie che Dio fece in Te. Te scelse come Madre del suo figlio. Te che lo seguisti fino alla croce. Te glorificò con lui ascoltando e accettando le tue preghiere per tutti gli uomini. Con grande confidenza nell'amore del Signore e nella Tua intercessione, veniamo con Te alla fonte del Suo cuore, da dove scaturiscono per la vita del mondo la speranza ed il perdono, la fedeltà e la salvezza. Nostra Signora del Sacro Cuore, tu conosci le nostre necessità, parla al Signore per noi e per tutti gli uomini. Aiutaci a vivere nel Suo amore, per esso riceviamo le grazie che chiediamo e quello che a noi è necessario. La Tua preghiera di madre è poderosa: che Dio risponda alla nostra speranza. Amen",
-
-      titoloPreghiera4: "Preghiera Semplice",
-      testoPreghiera4: "Oh Signore, fa di me un istrumento della tua pace:\nDove è odio, fa ch'io porti l'Amore.\nDove è offesa, ch'io porti il perdono.\nDove è discordia, ch'io porti l'Unione.\nDove è dubbio, ch'io porti la fede.\nDove è errore, ch'io porti la Verità.\nDove è disperazione, ch'io porti la Speranza.\nDove è tristezza, ch'io porti la Gioia.\nDove sono le tenebre, ch'io porti la Luce.\nOh! Maestro, fa ch'io non cerchi tanto,\nad essere consolato quanto a consolare,\nad essere compreso, quanto a comprendere,\nad essere amato, quanto ad amare.\nPoichè: E’ dando che si receive,\nperdonando che si è perdonati,\nmorendo, che si risuscita a vita eterna.",
-
-      titoloPreghiera5: "Preghiera dell'ammalato",
-      testoPreghiera5: "Signore Gesù, credo che sei vivo e risorto.\nTu sei la pienezza della vita,\nTu. Signore. sei la salute dei malati.\nOggi ti voglio presentare\ntutti i miei mali.\nAbbi compassione delle\nsofferenze del mio corpo,\ndel mio cuore e della mia anima.\nAbbi compassione di me, benedici mi\ne fa, Signore, che possa\nriacquistare la salute.\nChe cresca la mia fede e che\nmi apra alle meraviglie del tuo amore,\nperché sia anche testimone della tua potenza\ne della tua compassione.\nGuariscimi, Signore.\nGuariscimi nel corpo,\nguariscimi nel cuore,\nguariscimi nell'anima.\nDammi la vita. la vita in abbondanza.\nServo di Dio P. E. Tardif."
-    },
-    {
-      id: "domenica",
-      giorno: "Domenica",
-      titolo: "Preghiera della Domenica della CSCV",
-
-      titoloPreghiera1: "CONSACRAZIONE AL CUORE DI GESÙ",
-      testoPreghiera1: "Ti salutiamo, Cuore ammirabile di Gesù. Ti lodiamo, Ti benediciamo, Ti glorifichiamo, Ti ringraziamo, Ti offriamo il nostro cuore, Te lo consegniamo e lo consacriamo a Te. Ricevilo e possiedilo intero; purificalo, illuminalo e santificalo, affinchè Tu viva e regni in esso perpetuamente.",
-      foto1: "cascdg.jpg",
-
-      titoloPreghiera2: "DOMENICA - Culto di adorazione",
-      testoPreghiera2: "Signore nostro Gesù Cristo, in unione con Te, desideriamo adorare Dio, nostro Padre. In nome di tutta la creazione chiediamo, oggi, di manifestare pubblicamente la nostra adorazione filiale, specialmente durante l'assemblea della nostra comunità. In unione a Maria santissima, Ti preghiamo soprattutto per quelli che non conoscono Dio, nostro Padre, e per quelli che si sono dimenticati del Suo amore. Cuore di Gesù, tempio santo di Dio abbi pietà di noi.",
-      foto2: "madonnina.jpg",
-
-      titoloPreghiera3: "preghiera A nostra Signora del Sacro Cuore",
-      testoPreghiera3: "Ricordati Nostra Signora del Sacro Cuore delle meraviglie che Dio fece in Te. Te scelse come Madre del suo figlio. Te che lo seguisti fino alla croce. Te glorificò con lui ascoltando e accettando le tue preghiere per tutti gli uomini. Con grande confidenza nell'amore del Signore e nella Tua intercessione, veniamo con Te alla fonte del Suo cuore, da dove scaturiscono per la vita del mondo la speranza ed il perdono, la fedeltà e la salvezza. Nostra Signora del Sacro Cuore, tu conosci le nostre necessità, parla al Signore per noi e per tutti gli uomini. Aiutaci a vivere nel Suo amore, per esso riceviamo le grazie che chiediamo e quello che a noi è necessario. La Tua preghiera di madre è poderosa: che Dio risponda alla nostra speranza. Amen",
-
-      titoloPreghiera4: "Preghiera Semplice",
-      testoPreghiera4: "Oh Signore, fa di me un istrumento della tua pace:\nDove è odio, fa ch'io porti l'Amore.\nDove è offesa, ch'io porti il perdono.\nDove è discordia, ch'io porti l'Unione.\nDove è dubbio, ch'io porti la fede.\nDove è errore, ch'io porti la Verità.\nDove è disperazione, ch'io porti la Speranza.\nDove è tristezza, ch'io porti la Gioia.\nDove sono l'oscurità, ch'io porti la Luce.\nOh! Maestro, fa ch'io non cerchi tanto,\nad essere consolato quanto a consolare,\nad essere compreso, quanto a comprendere,\nad essere amato, quanto ad amare.\nPoichè: E’ dando che si receive,\nperdonando che si è perdonati,\nmorendo, che si risuscita a vita eterna.",
-
-      titoloPreghiera5: "Preghiera dell'ammalato",
-      testoPreghiera5: "Signore Gesù, credo che sei vivo e risorto.\nTu sei la pienezza della vita,\nTu. Signore. sei la salute dei malati.\nOggi ti voglio presentare\ntutti i miei mali.\nAbbi compassione delle\nsofferenze del mio corpo,\ndel mio cuore e della mia anima.\nAbbi compassione di me, benedici mi\ne fa, Signore, che possa\nriacquistare la salute.\nChe cresca la mia fede e che\nmi apra alle meraviglie del tuo amore,\nperché sia anche testimone della tua potenza\ne della tua compassione.\nGuariscimi, Signore.\nGuariscimi nel corpo,\nguariscimi nel cuore,\nguariscimi nell'anima.\nDammi la vita. la vita in abbondanza.\nServo di Dio P. E. Tardif."
-    }
-  ]
+    en: [
+      {
+        id: "lunedi",
+        giorno: "Monday",
+        titolo: "Monday Prayer of CSCV",
+        titoloPreghiera1: "CONSECRATION TO THE SACRED HEART OF JESUS",
+        testoPreghiera1: "We greet You, admirable Heart of Jesus. We praise You, we bless You, we glorify You, we thank You, we offer You our heart, we deliver and consecrate it to You. Receive it and possess it entirely; purify, enlighten and sanctify it, so that You may live and reign in it perpetually.",
+        foto1: "cascdg.jpg",
+        titoloPreghiera2: "MONDAY - Worship of Love",
+        testoPreghiera2: "Our Lord Jesus Christ, teach us to be meek and humble of heart to love our brothers and sisters as You love us and to transform our whole life into a continuous offering to others. We ask You, today, to live intensely this dedication at the service of our community. In union with the Virgin our mother, we pray especially for the Pope, Bishops, Priests, Deacons, and Missionaries, who have the vocation to unite all humanity in love. Heart of Jesus, full of goodness and love, have mercy on us.",
+        foto2: "madonnina.jpg",
+        titoloPreghiera3: "Prayer to Our Lady of the Sacred Heart",
+        testoPreghiera3: "Remember, Our Lady of the Sacred Heart, the wonders that God worked in You. He chose You as Mother of His Son. You who followed Him to the cross. He glorified You with Him by listening to and accepting Your prayers for all people. With great confidence in the Lord's love and in Your intercession, we come with You to the source of His heart, from where hope and forgiveness, fidelity and salvation flow for the life of the world. Our Lady of the Sacred Heart, You know our needs; speak to the Lord for us and for all humanity. Help us to live in His love, so that through it we may receive the graces we ask for and what is necessary for us. Your motherly prayer is powerful: may God answer our hope. Amen.",
+        titoloPreghiera4: "Simple Prayer",
+        testoPreghiera4: "Lord, make me an instrument of Your peace:\nwhere there is hatred, let me sow love;\nwhere there is injury, pardon;\nwhere there is doubt, faith;\nwhere there is despair, hope;\nwhere there is darkness, light;\nwhere there is sadness, joy.\nO Divine Master, grant that I may not so much seek\nto be consoled as to console,\nto be understood as to understand,\nto be loved as to love.\nFor it is in giving that we receive,\nit is in pardoning that we are pardoned,\nand it is in dying that we are born to eternal life.",
+        titoloPreghiera5: "Prayer for the Sick",
+        testoPreghiera5: "Lord Jesus, I believe You are alive and risen.\nYou are the fullness of life,\nYou, Lord, are the health of the sick.\nToday I want to present to You all my afflictions.\nHave compassion on the sufferings of my body, my heart and my soul.\nHave compassion on me, bless me and grant, Lord, that I may regain health.\nMay my faith grow and open me to the wonders of Your love, so that I may also be a witness to Your power and compassion.\nHeal me, Lord.\nHeal me in body, heal me in heart, heal me in soul.\nGive me life, life in abundance.\nServant of God Fr. Emiliano Tardif."
+      },
+      {
+        id: "martedi",
+        giorno: "Tuesday",
+        titolo: "Tuesday Prayer of CSCV",
+        titoloPreghiera1: "CONSECRATION TO THE SACRED HEART OF JESUS",
+        testoPreghiera1: "We greet You, admirable Heart of Jesus. We praise You, we bless You, we glorify You, we thank You, we offer You our heart, we deliver and consecrate it to You. Receive it and possess it entirely; purify, enlighten and sanctify it, so that You may live and reign in it perpetually.",
+        foto1: "cascdg.jpg",
+        titoloPreghiera2: "TUESDAY - Worship of Thanksgiving",
+        testoPreghiera2: "Our Lord Jesus Christ, united with You we want to give thanks to the Father for the gift of faith and for the many favors You bestow upon us every day. Give us the simplicity of a child to recognize the wonders God worked in us and to live in the joy of the saved. Today we wish to renew our fidelity to baptismal vows. Like the Virgin in her Magnificat, and in union with Her, we wish to sing God's glory through our apostolate. We pray for all who work in service of the Church, that they may persevere in their mission as God's messengers. Heart of Jesus, from whose fullness we have all received, have mercy on us.",
+        foto2: "madonnina.jpg",
+        titoloPreghiera3: "Prayer to Our Lady of the Sacred Heart",
+        testoPreghiera3: "Remember, Our Lady of the Sacred Heart, the wonders that God worked in You. He chose You as Mother of His Son. You who followed Him to the cross. He glorified You with Him by listening to and accepting Your prayers for all people. With great confidence in the Lord's love and in Your intercession, we come with You to the source of His heart, from where hope and forgiveness, fidelity and salvation flow for the life of the world. Our Lady of the Sacred Heart, You know our needs; speak to the Lord for us and for all humanity. Help us to live in His love, so that through it we may receive the graces we ask for and what is necessary for us. Your motherly prayer is powerful: may God answer our hope. Amen.",
+        titoloPreghiera4: "Simple Prayer",
+        testoPreghiera4: "Lord, make me an instrument of Your peace:\nwhere there is hatred, let me sow love;\nwhere there is injury, pardon;\nwhere there is doubt, faith;\nwhere there is despair, hope;\nwhere there is darkness, light;\nwhere there is sadness, joy.\nO Divine Master, grant that I may not so much seek\nto be consoled as to console,\nto be understood as to understand,\nto be loved as to love.\nFor it is in giving that we receive,\nit is in pardoning that we are pardoned,\nand it is in dying that we are born to eternal life.",
+        titoloPreghiera5: "Prayer for the Sick",
+        testoPreghiera5: "Lord Jesus, I believe You are alive and risen.\nYou are the fullness of life,\nYou, Lord, are the health of the sick.\nToday I want to present to You all my afflictions.\nHave compassion on the sufferings of my body, my heart and my soul.\nHave compassion on me, bless me and grant, Lord, that I may regain health.\nMay my faith grow and open me to the wonders of Your love, so that I may also be a witness to Your power and compassion.\nHeal me, Lord.\nHeal me in body, heal me in heart, heal me in soul.\nGive me life, life in abundance.\nServant of God Fr. Emiliano Tardif."
+      },
+      {
+        id: "mercoledi",
+        giorno: "Wednesday",
+        titolo: "Wednesday Prayer of CSCV",
+        titoloPreghiera1: "CONSECRATION TO THE SACRED HEART OF JESUS",
+        testoPreghiera1: "We greet You, admirable Heart of Jesus. We praise You, we bless You, we glorify You, we thank You, we offer You our heart, we deliver and consecrate it to You. Receive it and possess it entirely; purify, enlighten and sanctify it, so that You may live and reign in it perpetually.",
+        foto1: "cascdg.jpg",
+        titoloPreghiera2: "WEDNESDAY - Worship of Hope",
+        testoPreghiera2: "Our Lord Jesus Christ, You are the way, the truth, the life. Teach us to bring to all people a message of hope, mainly to those who seek a sign or meaning in their life and to those suffering in inhumane conditions. We ask You, today, to accept with patience moral and physical suffering to purify our soul and advance on the path of holiness. In union with Our Lady of Sorrows, we pray for the dying, the sick, and the oppressed, that they may have strength in spirit and transform their pain into an instrument of liberation. Heart of Jesus, salvation of those who hope in You, have mercy on us.",
+        foto2: "madonnina.jpg",
+        titoloPreghiera3: "Prayer to Our Lady of the Sacred Heart",
+        testoPreghiera3: "Remember, Our Lady of the Sacred Heart, the wonders that God worked in You. He chose You as Mother of His Son. You who followed Him to the cross. He glorified You with Him by listening to and accepting Your prayers for all people. With great confidence in the Lord's love and in Your intercession, we come with You to the source of His heart, from where hope and forgiveness, fidelity and salvation flow for the life of the world. Our Lady of the Sacred Heart, You know our needs; speak to the Lord for us and for all humanity. Help us to live in His love, so that through it we may receive the graces we ask for and what is necessary for us. Your motherly prayer is powerful: may God answer our hope. Amen.",
+        titoloPreghiera4: "Simple Prayer",
+        testoPreghiera4: "Lord, make me an instrument of Your peace:\nwhere there is hatred, let me sow love;\nwhere there is injury, pardon;\nwhere there is doubt, faith;\nwhere there is despair, hope;\nwhere there is darkness, light;\nwhere there is sadness, joy.\nO Divine Master, grant that I may not so much seek\nto be consoled as to console,\nto be understood as to understand,\nto be loved as to love.\nFor it is in giving that we receive,\nit is in pardoning that we are pardoned,\nand it is in dying that we are born to eternal life.",
+        titoloPreghiera5: "Prayer for the Sick",
+        testoPreghiera5: "Lord Jesus, I believe You are alive and risen.\nYou are the fullness of life,\nYou, Lord, are the health of the sick.\nToday I want to present to You all my afflictions.\nHave compassion on the sufferings of my body, my heart and my soul.\nHave compassion on me, bless me and grant, Lord, that I may regain health.\nMay my faith grow and open me to the wonders of Your love, so that I may also be a witness to Your power and compassion.\nHeal me, Lord.\nHeal me in body, heal me in heart, heal me in soul.\nGive me life, life in abundance.\nServant of God Fr. Emiliano Tardif."
+      },
+      {
+        id: "giovedi",
+        giorno: "Thursday",
+        titolo: "Thursday Prayer of CSCV",
+        titoloPreghiera1: "CONSECRATION TO THE SACRED HEART OF JESUS",
+        testoPreghiera1: "We greet You, admirable Heart of Jesus. We praise You, we bless You, we glorify You, we thank You, we offer You our heart, we deliver and consecrate it to You. Receive it and possess it entirely; purify, enlighten and sanctify it, so that You may live and reign in it perpetually.",
+        foto1: "cascdg.jpg",
+        titoloPreghiera2: "THURSDAY - Worship of Prayer",
+        testoPreghiera2: "Our Lord Jesus Christ, remembering Your invitation to pray without ceasing, we join Your priestly prayer to offer You this day with its joys and sorrows, labors and rest, transforming it all into a continuous prayer to our Father in heaven. We ask You, today, to strengthen our faith to communicate it to those who place confidence in the vanity of the world despising the value of prayer. Like the Virgin in the Cenacle, we express our confidence and, in union with Her, we pray for the great Christian family, that it may better appreciate the value of prayer. Heart of Jesus, rich in grace for all who call upon You, have mercy on us.",
+        foto2: "madonnina.jpg",
+        titoloPreghiera3: "Prayer to Our Lady of the Sacred Heart",
+        testoPreghiera3: "Remember, Our Lady of the Sacred Heart, the wonders that God worked in You. He chose You as Mother of His Son. You who followed Him to the cross. He glorified You with Him by listening to and accepting Your prayers for all people. With great confidence in the Lord's love and in Your intercession, we come with You to the source of His heart, from where hope and forgiveness, fidelity and salvation flow for the life of the world. Our Lady of the Sacred Heart, You know our needs; speak to the Lord for us and for all humanity. Help us to live in His love, so that through it we may receive the graces we ask for and what is necessary for us. Your motherly prayer is powerful: may God answer our hope. Amen.",
+        titoloPreghiera4: "Simple Prayer",
+        testoPreghiera4: "Lord, make me an instrument of Your peace:\nwhere there is hatred, let me sow love;\nwhere there is injury, pardon;\nwhere there is doubt, faith;\nwhere there is despair, hope;\nwhere there is darkness, light;\nwhere there is sadness, joy.\nO Divine Master, grant that I may not so much seek\nto be consoled as to console,\nto be understood as to understand,\nto be loved as to love.\nFor it is in giving that we receive,\nit is in pardoning that we are pardoned,\nand it is in dying that we are born to eternal life.",
+        titoloPreghiera5: "Prayer for the Sick",
+        testoPreghiera5: "Lord Jesus, I believe You are alive and risen.\nYou are the fullness of life,\nYou, Lord, are the health of the sick.\nToday I want to present to You all my afflictions.\nHave compassion on the sufferings of my body, my heart and my soul.\nHave compassion on me, bless me and grant, Lord, that I may regain health.\nMay my faith grow and open me to the wonders of Your love, so that I may also be a witness to Your power and compassion.\nHeal me, Lord.\nHeal me in body, heal me in heart, heal me in soul.\nGive me life, life in abundance.\nServant of God Fr. Emiliano Tardif."
+      },
+      {
+        id: "venerdi",
+        giorno: "Friday",
+        titolo: "Friday Prayer of CSCV",
+        titoloPreghiera1: "CONSECRATION TO THE SACRED HEART OF JESUS",
+        testoPreghiera1: "We greet You, admirable Heart of Jesus. We praise You, we bless You, we glorify You, we thank You, we offer You our heart, we deliver and consecrate it to You. Receive it and possess it entirely; purify, enlighten and sanctify it, so that You may live and reign in it perpetually.",
+        foto1: "cascdg.jpg",
+        titoloPreghiera2: "FRIDAY - Worship of Justice",
+        testoPreghiera2: "Our Lord Jesus Christ, contemplating Your heart pierced by the lance, we desire to complete in our flesh what is lacking in Your Passion. Give us courage to repair our own injustices and those of our brothers and sisters. We ask You, today, to recognize injustices committed in our community and intercede for the liberation of all God's children. In union with Our Lady of the Sacred Heart, we pray for us sinners so that we may overcome selfishness and seek the happiness of others. Heart of Jesus, asylum of justice and love, have mercy on us.",
+        foto2: "madonnina.jpg",
+        titoloPreghiera3: "Prayer to Our Lady of the Sacred Heart",
+        testoPreghiera3: "Remember, Our Lady of the Sacred Heart, the wonders that God worked in You. He chose You as Mother of His Son. You who followed Him to the cross. He glorified You with Him by listening to and accepting Your prayers for all people. With great confidence in the Lord's love and in Your intercession, we come with You to the source of His heart, from where hope and forgiveness, fidelity and salvation flow for the life of the world. Our Lady of the Sacred Heart, You know our needs; speak to the Lord for us and for all humanity. Help us to live in His love, so that through it we may receive the graces we ask for and what is necessary for us. Your motherly prayer is powerful: may God answer our hope. Amen.",
+        titoloPreghiera4: "Simple Prayer",
+        testoPreghiera4: "Lord, make me an instrument of Your peace:\nwhere there is hatred, let me sow love;\nwhere there is injury, pardon;\nwhere there is doubt, faith;\nwhere there is despair, hope;\nwhere there is darkness, light;\nwhere there is sadness, joy.\nO Divine Master, grant that I may not so much seek\nto be consoled as to console,\nto be understood as to understand,\nto be loved as to love.\nFor it is in giving that we receive,\nit is in pardoning that we are pardoned,\nand it is in dying that we are born to eternal life.",
+        titoloPreghiera5: "Prayer for the Sick",
+        testoPreghiera5: "Lord Jesus, I believe You are alive and risen.\nYou are the fullness of life,\nYou, Lord, are the health of the sick.\nToday I want to present to You all my afflictions.\nHave compassion on the sufferings of my body, my heart and my soul.\nHave compassion on me, bless me and grant, Lord, that I may regain health.\nMay my faith grow and open me to the wonders of Your love, so that I may also be a witness to Your power and compassion.\nHeal me, Lord.\nHeal me in body, heal me in heart, heal me in soul.\nGive me life, life in abundance.\nServant of God Fr. Emiliano Tardif."
+      },
+      {
+        id: "sabato",
+        giorno: "Saturday",
+        titolo: "Saturday Prayer of CSCV",
+        titoloPreghiera1: "CONSECRATION TO THE SACRED HEART OF JESUS",
+        testoPreghiera1: "We greet You, admirable Heart of Jesus. We praise You, we bless You, we glorify You, we thank You, we offer You our heart, we deliver and consecrate it to You. Receive it and possess it entirely; purify, enlighten and sanctify it, so that You may live and reign in it perpetually.",
+        foto1: "cascdg.jpg",
+        titoloPreghiera2: "SATURDAY - Worship of Unity",
+        testoPreghiera2: "Our Lord Jesus Christ, we make Your prayer to the Father our own, that we may be one and that the world may recognize that God is in the midst of our community. Help us to strengthen unity among us. We ask You, today, that all grudges cease and that we may reconcile with our brothers and sisters through true gestures of friendship. In union with the Virgin Mother, we pray for the Christian community, that we may live as brothers and sisters in union with Your Love. Heart of Jesus, our peace and reconciliation, have mercy on us.",
+        foto2: "madonnina.jpg",
+        titoloPreghiera3: "Prayer to Our Lady of the Sacred Heart",
+        testoPreghiera3: "Remember, Our Lady of the Sacred Heart, the wonders that God worked in You. He chose You as Mother of His Son. You who followed Him to the cross. He glorified You with Him by listening to and accepting Your prayers for all people. With great confidence in the Lord's love and in Your intercession, we come with You to the source of His heart, from where hope and forgiveness, fidelity and salvation flow for the life of the world. Our Lady of the Sacred Heart, You know our needs; speak to the Lord for us and for all humanity. Help us to live in His love, so that through it we may receive the graces we ask for and what is necessary for us. Your motherly prayer is powerful: may God answer our hope. Amen.",
+        titoloPreghiera4: "Simple Prayer",
+        testoPreghiera4: "Lord, make me an instrument of Your peace:\nwhere there is hatred, let me sow love;\nwhere there is injury, pardon;\nwhere there is doubt, faith;\nwhere there is despair, hope;\nwhere there is darkness, light;\nwhere there is sadness, joy.\nO Divine Master, grant that I may not so much seek\nto be consoled as to console,\nto be understood as to understand,\nto be loved as to love.\nFor it is in giving that we receive,\nit is in pardoning that we are pardoned,\nand it is in dying that we are born to eternal life.",
+        titoloPreghiera5: "Prayer for the Sick",
+        testoPreghiera5: "Lord Jesus, I believe You are alive and risen.\nYou are the fullness of life,\nYou, Lord, are the health of the sick.\nToday I want to present to You all my afflictions.\nHave compassion on the sufferings of my body, my heart and my soul.\nHave compassion on me, bless me and grant, Lord, that I may regain health.\nMay my faith grow and open me to the wonders of Your love, so that I may also be a witness to Your power and compassion.\nHeal me, Lord.\nHeal me in body, heal me in heart, heal me in soul.\nGive me life, life in abundance.\nServant of God Fr. Emiliano Tardif."
+      },
+      {
+        id: "domenica",
+        giorno: "Sunday",
+        titolo: "Sunday Prayer of CSCV",
+        titoloPreghiera1: "CONSECRATION TO THE SACRED HEART OF JESUS",
+        testoPreghiera1: "We greet You, admirable Heart of Jesus. We praise You, we bless You, we glorify You, we thank You, we offer You our heart, we deliver and consecrate it to You. Receive it and possess it entirely; purify, enlighten and sanctify it, so that You may live and reign in it perpetually.",
+        foto1: "cascdg.jpg",
+        titoloPreghiera2: "SUNDAY - Worship of Adoration",
+        testoPreghiera2: "Our Lord Jesus Christ, in union with You, we desire to worship God, our Father. In the name of all creation we ask, today, to publicly manifest our filial adoration, especially during the assembly of our community. In union with Most Holy Mary, we pray above all for those who do not know God, our Father, and for those who have forgotten His love. Heart of Jesus, holy temple of God, have mercy on us.",
+        foto2: "madonnina.jpg",
+        titoloPreghiera3: "Prayer to Our Lady of the Sacred Heart",
+        testoPreghiera3: "Remember, Our Lady of the Sacred Heart, the wonders that God worked in You. He chose You as Mother of His Son. You who followed Him to the cross. He glorified You with Him by listening to and accepting Your prayers for all people. With great confidence in the Lord's love and in Your intercession, we come with You to the source of His heart, from where hope and forgiveness, fidelity and salvation flow for the life of the world. Our Lady of the Sacred Heart, You know our needs; speak to the Lord for us and for all humanity. Help us to live in His love, so that through it we may receive the graces we ask for and what is necessary for us. Your motherly prayer is powerful: may God answer our hope. Amen.",
+        titoloPreghiera4: "Simple Prayer",
+        testoPreghiera4: "Lord, make me an instrument of Your peace:\nwhere there is hatred, let me sow love;\nwhere there is injury, pardon;\nwhere there is doubt, faith;\nwhere there is despair, hope;\nwhere there is darkness, light;\nwhere there is sadness, joy.\nO Divine Master, grant that I may not so much seek\nto be consoled as to console,\nto be understood as to understand,\nto be loved as to love.\nFor it is in giving that we receive,\nit is in pardoning that we are pardoned,\nand it is in dying that we are born to eternal life.",
+        titoloPreghiera5: "Prayer for the Sick",
+        testoPreghiera5: "Lord Jesus, I believe You are alive and risen.\nYou are the fullness of life,\nYou, Lord, are the health of the sick.\nToday I want to present to You all my afflictions.\nHave compassion on the sufferings of my body, my heart and my soul.\nHave compassion on me, bless me and grant, Lord, that I may regain health.\nMay my faith grow and open me to the wonders of Your love, so that I may also be a witness to Your power and compassion.\nHeal me, Lord.\nHeal me in body, heal me in heart, heal me in soul.\nGive me life, life in abundance.\nServant of God Fr. Emiliano Tardif."
+      }
+    ]
+  }
 };
