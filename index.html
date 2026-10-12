@@ -730,6 +730,9 @@
         const activeTabId = activeSection.id.replace('sec-', '');
         document.getElementById('section-badge').innerText = badgeMap[lang][activeTabId] || badgeMap[lang]['home'];
       }
+
+      // Ricarica i contenuti dinamici da contenuti.js nella nuova lingua
+      caricaContenutiJS();
     }
 
     function getSettimanaSalterio() {
@@ -956,10 +959,15 @@
           </div>`;
       }
 
+      // Carica i misteri del Rosario nella lingua attiva
       const misteriDiv = document.getElementById('rosario-misteri-list');
-      if (misteriDiv && datiOrazione.misteriRosario) {
+      const listaMisteri = (datiOrazione.misteriRosario && datiOrazione.misteriRosario[currentLang]) 
+                            ? datiOrazione.misteriRosario[currentLang] 
+                            : (datiOrazione.misteriRosario ? datiOrazione.misteriRosario['it'] : []);
+
+      if (misteriDiv && listaMisteri) {
         misteriDiv.innerHTML = '';
-        datiOrazione.misteriRosario.forEach(m => {
+        listaMisteri.forEach(m => {
           misteriDiv.innerHTML += `
             <div class="audio-item-box">
               <strong><i class="fa-solid fa-cross" style="color:var(--accent-terracotta);"></i> ${m.titolo}</strong>
@@ -968,10 +976,15 @@
         });
       }
 
+      // Carica l'elenco delle preghiere settimanali nella lingua attiva
       const daysContainer = document.getElementById('days-container');
-      if (daysContainer && datiOrazione.preghiereSettimanali) {
+      const listaPreghiere = (datiOrazione.preghiereSettimanali && datiOrazione.preghiereSettimanali[currentLang]) 
+                              ? datiOrazione.preghiereSettimanali[currentLang] 
+                              : (datiOrazione.preghiereSettimanali ? datiOrazione.preghiereSettimanali['it'] : []);
+
+      if (daysContainer && listaPreghiere) {
         daysContainer.innerHTML = '';
-        datiOrazione.preghiereSettimanali.forEach(p => {
+        listaPreghiere.forEach(p => {
           daysContainer.innerHTML += `
             <button class="day-item-btn" onclick="openPrayer('${p.id}')">
               <span>${p.titolo}</span><i class="fa-solid fa-chevron-right" style="color:var(--accent-terracotta);"></i>
@@ -983,11 +996,12 @@
     function inizializzaApp() {
       caricaLiturgiaDaGoogleSheet();
       caricaCatechesiDaGoogleSheet();
-      caricaContenutiJS();
 
       const savedLang = localStorage.getItem('app_lang');
       if (savedLang && translations[savedLang]) {
         changeLanguage(savedLang);
+      } else {
+        changeLanguage('it');
       }
 
       const currentHash = window.location.hash.replace('#', '');
@@ -1001,7 +1015,8 @@
 
     function openPrayer(id) {
       if (typeof datiOrazione !== 'undefined' && datiOrazione.preghiereSettimanali) {
-        const preghiera = datiOrazione.preghiereSettimanali.find(p => p.id === id);
+        const listaPreghiere = datiOrazione.preghiereSettimanali[currentLang] || datiOrazione.preghiereSettimanali['it'];
+        const preghiera = listaPreghiere.find(p => p.id === id);
         if (preghiera) {
           document.getElementById('detail-title').innerText = preghiera.titolo || '';
           document.getElementById('title-p1').innerText = preghiera.titoloPreghiera1 || '';
