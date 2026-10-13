@@ -55,7 +55,37 @@
       --text-main: #2C2623;
       --text-muted: #8C827A;
       --border-color: #E6E0D6;
+      --base-font-size: 15px;
     }
+
+    /* TEMA SCURO (DARK MODE) */
+    body.dark-mode {
+      --bg-color: #121212;
+      --card-bg: #1E1E1E;
+      --accent-terracotta: #E07A5F;
+      --text-main: #E0E0E0;
+      --text-muted: #AAAAAA;
+      --border-color: #333333;
+    }
+    body.dark-mode .home-quote-box {
+      background: #1A1A1A;
+    }
+    body.dark-mode .audio-item-box, 
+    body.dark-mode .home-nav-btn {
+      background: #1A1A1A;
+    }
+    body.dark-mode .bottom-nav {
+      background: #1E1E1E;
+    }
+    body.dark-mode .lang-btn {
+      background-color: #1E1E1E;
+      color: #E0E0E0;
+    }
+    body.dark-mode .modal-content {
+      background-color: #1E1E1E;
+      color: #E0E0E0;
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
@@ -65,6 +95,8 @@
       display: flex;
       justify-content: center;
       min-height: 100vh;
+      font-size: var(--base-font-size);
+      transition: background-color 0.3s, color 0.3s;
     }
     .app-container {
       width: 100%;
@@ -120,7 +152,7 @@
       font-family: 'Playfair Display', serif;
       font-size: 20px;
       line-height: 1.3;
-      color: #2C2623;
+      color: var(--text-main);
       font-weight: 700;
     }
     header .author {
@@ -167,7 +199,7 @@
     .link-card h2 {
       font-family: 'Playfair Display', serif;
       font-size: 22px;
-      color: #2C2623;
+      color: var(--text-main);
       margin-bottom: 8px;
     }
     .link-card p {
@@ -234,8 +266,8 @@
       text-align: left;
       white-space: pre-wrap;
       line-height: 1.7;
-      font-size: 15px;
-      color: #2C2623;
+      font-size: inherit;
+      color: var(--text-main);
       padding: 10px 5px;
     }
 
@@ -247,8 +279,8 @@
     .catechesi-testo-box {
       text-align: left;
       line-height: 1.7;
-      font-size: 15px;
-      color: #2C2623;
+      font-size: inherit;
+      color: var(--text-main);
       padding: 10px 5px;
       font-style: italic;
     }
@@ -268,7 +300,7 @@
       font-size: 16px;
       font-weight: 700;
       font-style: normal;
-      color: #2C2623;
+      color: var(--text-main);
       margin: 14px 0 6px 0;
     }
     .catechesi-hr {
@@ -307,6 +339,7 @@
       font-weight: 600;
       width: 100%;
       text-align: left;
+      color: var(--text-main);
     }
     .day-item-btn span.subtitle {
       display: block;
@@ -331,7 +364,7 @@
       padding: 20px; border: 1px solid var(--border-color); margin-top: 10px;
     }
     .prayer-detail-card img { width: 100%; border-radius: 12px; margin: 12px 0; }
-    .prayer-detail-card p { white-space: pre-line; line-height: 1.6; margin-bottom: 12px; }
+    .prayer-detail-card p { white-space: pre-line; line-height: 1.6; margin-bottom: 12px; font-size: inherit; }
 
     .bottom-nav {
       position: fixed; bottom: 0; width: 100%; max-width: 480px;
@@ -356,10 +389,11 @@
     #menu-overlay.active { display: block; }
 
     #side-menu {
-      position: fixed; top: 0; right: -300px; width: 280px; height: 100%;
+      position: fixed; top: 0; right: -320px; width: 300px; height: 100%;
       background-color: var(--bg-color); box-shadow: -4px 0 15px rgba(0,0,0,0.15);
       z-index: 999999; transition: right 0.3s ease-in-out;
       display: flex; flex-direction: column; padding: 20px; box-sizing: border-box;
+      overflow-y: auto;
     }
     #side-menu.open { right: 0; }
 
@@ -373,20 +407,49 @@
     .close-menu-btn {
       background: none; border: none; font-size: 20px; cursor: pointer; color: var(--accent-terracotta);
     }
-    .menu-section { margin-bottom: 25px; }
+    .menu-section { margin-bottom: 22px; }
     .menu-section h3 {
       font-size: 15px; color: var(--accent-terracotta); font-family: 'Playfair Display', serif; margin-bottom: 10px;
     }
     .lang-options { display: flex; flex-direction: column; gap: 8px; }
-    .lang-btn {
+    .lang-btn, .menu-action-btn {
       background-color: #fff; border: 1px solid var(--border-color); padding: 10px 12px;
       text-align: left; border-radius: 10px; cursor: pointer; font-size: 14px;
-      color: var(--text-main); font-weight: 500; transition: all 0.2s;
+      color: var(--text-main); font-weight: 500; transition: all 0.2s; display: flex; align-items: center; gap: 10px;
+      width: 100%;
     }
-    .lang-btn.active, .lang-btn:hover {
+    body.dark-mode .menu-action-btn { background-color: #1E1E1E; color: #E0E0E0; }
+    .lang-btn.active, .lang-btn:hover, .menu-action-btn:hover {
       background-color: var(--accent-terracotta); color: #fff; border-color: var(--accent-terracotta);
     }
     .menu-info-text { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+    /* CONTROLLI EXTRA NEL MENU */
+    .menu-row-options { display: flex; gap: 8px; }
+    .menu-row-options button { flex: 1; text-align: center; justify-content: center; }
+
+    /* MODALE GENERALI (Chi siamo / PWA) */
+    .custom-modal {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5); z-index: 9999999; display: none;
+      justify-content: center; align-items: center; padding: 20px;
+    }
+    .custom-modal.active { display: flex; }
+    .modal-content {
+      background: var(--card-bg); width: 100%; max-width: 420px;
+      border-radius: 18px; padding: 22px; border: 1px solid var(--border-color);
+      max-height: 85vh; overflow-y: auto; box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    }
+    .modal-content h3 {
+      font-family: 'Playfair Display', serif; color: var(--accent-terracotta); font-size: 20px; margin-bottom: 12px;
+    }
+    .modal-content p {
+      font-size: 14px; line-height: 1.6; color: var(--text-main); margin-bottom: 12px;
+    }
+    .modal-close-btn {
+      background: var(--accent-terracotta); color: white; border: none; width: 100%;
+      padding: 12px; border-radius: 10px; font-weight: 600; cursor: pointer; margin-top: 10px;
+    }
   </style>
 
 <style>
@@ -440,6 +503,7 @@
       <button class="close-menu-btn" onclick="toggleMenu()">✕</button>
     </div>
 
+    <!-- LINGUA -->
     <div class="menu-section">
       <h3 id="lang-heading">🌐 Seleziona Lingua</h3>
       <div class="lang-options">
@@ -449,11 +513,80 @@
       </div>
     </div>
 
+    <!-- ASPETTO E TESTO -->
+    <div class="menu-section">
+      <h3 id="appearance-heading">🎨 Aspetto e Testo</h3>
+      <div class="lang-options">
+        <button class="menu-action-btn" id="btn-theme-toggle" onclick="toggleDarkMode()">
+          <i class="fa-solid fa-moon" id="theme-icon"></i> <span id="theme-label">Tema Scuro</span>
+        </button>
+        <div style="font-size: 13px; color: var(--text-muted); margin-top: 6px; margin-bottom: 4px;" id="fontsize-label">Dimensione Testo:</div>
+        <div class="menu-row-options">
+          <button class="menu-action-btn" onclick="setFontSize('small')">A-</button>
+          <button class="menu-action-btn" onclick="setFontSize('medium')">A</button>
+          <button class="menu-action-btn" onclick="setFontSize('large')">A+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- NOTIFICHE PUSH -->
+    <div class="menu-section">
+      <h3 id="notif-heading">🔔 Notifiche</h3>
+      <button class="menu-action-btn" onclick="openOneSignalPrompt()">
+        <i class="fa-solid fa-bell"></i> <span id="notif-label">Gestisci Notifiche Push</span>
+      </button>
+    </div>
+
+    <!-- CHI SIAMO / CSCV -->
+    <div class="menu-section">
+      <h3 id="about-heading">📖 La Comunità</h3>
+      <button class="menu-action-btn" onclick="openModal('about-modal')">
+        <i class="fa-solid fa-church"></i> <span id="about-label">Chi Siamo / Storia CSCV</span>
+      </button>
+    </div>
+
+    <!-- CONDIVIDI E INSTALLA -->
+    <div class="menu-section">
+      <h3 id="share-heading">📲 Condividi e Installa</h3>
+      <div class="lang-options">
+        <button class="menu-action-btn" onclick="shareApp()">
+          <i class="fa-solid fa-share-nodes"></i> <span id="share-label">Condividi l'App</span>
+        </button>
+        <button class="menu-action-btn" onclick="openModal('install-modal')">
+          <i class="fa-solid fa-download"></i> <span id="install-label">Come Installare l'App</span>
+        </button>
+      </div>
+    </div>
+
     <div class="menu-section">
       <h3 id="info-heading">Padre Emiliano Tardif</h3>
       <p class="menu-info-text" id="info-text">
         Comunità Servi di Cristo Vivo. Fondata con l'ispirazione di Padre Emiliano Tardif per portare la guarigione e l'amore di Gesù in tutto il mondo.
       </p>
+    </div>
+  </div>
+
+  <!-- MODALE: CHI SIAMO -->
+  <div id="about-modal" class="custom-modal" onclick="closeModalOutside(event, 'about-modal')">
+    <div class="modal-content">
+      <h3 id="modal-about-title">Chi Siamo & CSCV</h3>
+      <p id="modal-about-text">
+        La <strong>Comunità Servi di Cristo Vivo (CSCV)</strong> nasce nel cuore della Chiesa per diffondere la buona novella e la grazia della guarigione e della liberazione in Cristo risorto. Ispira profondamente il suo carisma alla vita e all'opera del Servo di Dio <strong>Padre Emiliano Tardif</strong>, missionario del Sacro Cuore, che ha speso la sua vita proclamando con potenza che Gesù è vivo ed è il Salvatore. La realtà di <em>Casaemmaus Messina</em> si inserisce in questo cammino di fraternità, lode e servizio ai fratelli.
+      </p>
+      <button class="modal-close-btn" onclick="closeModal('about-modal')" id="modal-close-1">Chiudi</button>
+    </div>
+  </div>
+
+  <!-- MODALE: ISTRUZIONI INSTALLAZIONE PWA -->
+  <div id="install-modal" class="custom-modal" onclick="closeModalOutside(event, 'install-modal')">
+    <div class="modal-content">
+      <h3 id="modal-install-title">Installa l'App</h3>
+      <p id="modal-install-text">
+        Puoi installare questa applicazione direttamente sul tuo smartphone per averla sempre a portata di mano, anche offline:<br><br>
+        📱 <strong>Su Android (Chrome):</strong> Tocca il menu in alto a destra (i tre puntini) e seleziona <em>"Aggiungi a schermata Home"</em> oppure <em>"Installa app"</em>.<br><br>
+        🍏 <strong>Su iOS / iPhone (Safari):</strong> Tocca l'icona di condivisione (il quadrato con la freccia verso l'alto) in basso e seleziona <em>"Aggiungi alla schermata Home"</em>.
+      </p>
+      <button class="modal-close-btn" onclick="closeModal('install-modal')" id="modal-close-2">Capito</button>
     </div>
   </div>
 
@@ -598,6 +731,17 @@
       it: {
         menuTitle: "Impostazioni",
         langHeading: "🌐 Seleziona Lingua",
+        appearanceHeading: "🎨 Aspetto e Testo",
+        themeLight: "Tema Chiaro",
+        themeDark: "Tema Scuro",
+        fontSizeLabel: "Dimensione Testo:",
+        notifHeading: "🔔 Notifiche",
+        notifLabel: "Gestisci Notifiche Push",
+        aboutHeading: "📖 La Comunità",
+        aboutLabel: "Chi Siamo / Storia CSCV",
+        shareHeading: "📲 Condividi e Installa",
+        shareLabel: "Condividi l'App",
+        installLabel: "Come Installare l'App",
         infoHeading: "Padre Emiliano Tardif",
         infoText: "Comunità Servi di Cristo Vivo. Fondata con l'ispirazione di Padre Emiliano Tardif per portare la guarigione e l'amore di Gesù in tutto il mondo.",
         headerTitle: "Gesù è vivo e cammina insieme a noi.",
@@ -614,11 +758,27 @@
         backCatechesi: "Torna alla lista Catechesi",
         backAudio: "Torna agli Audio",
         backPrayers: "Torna all'elenco giorni",
+        modalAboutTitle: "Chi Siamo & CSCV",
+        modalAboutText: "La <strong>Comunità Servi di Cristo Vivo (CSCV)</strong> nasce nel cuore della Chiesa per diffondere la buona novella e la grazia della guarigione e della liberazione in Cristo risorto. Ispira profondamente il suo carisma alla vita e all'opera del Servo di Dio <strong>Padre Emiliano Tardif</strong>, missionario del Sacro Cuore, che ha speso la sua vita proclamando con potenza che Gesù è vivo ed è il Salvatore. La realtà di <em>Casaemmaus Messina</em> si inserisce in questo cammino di fraternità, lode e servizio ai fratelli.",
+        modalInstallTitle: "Installa l'App",
+        modalInstallText: "Puoi installare questa applicazione direttamente sul tuo smartphone per averla sempre a portata di mano, anche offline:<br><br>📱 <strong>Su Android (Chrome):</strong> Tocca il menu in alto a destra (i tre puntini) e seleziona <em>\"Aggiungi a schermata Home\"</em> oppure <em>\"Installa app\"</em>.<br><br>🍏 <strong>Su iOS / iPhone (Safari):</strong> Tocca l'icona di condivisione (il quadrato con la freccia verso l'alto) in basso e seleziona <em>\"Aggiungi alla schermata Home\"</em>.",
+        modalClose: "Chiudi",
         nav: { home: "HOME", lodi: "LODI", vespri: "VESPRI", compieta: "COMPIETA", letture: "LETTURE", catechesi: "CATECHESI", audio: "AUDIO", preghiere: "PREGHIERE" }
       },
       es: {
         menuTitle: "Configuración",
         langHeading: "🌐 Seleccionar Idioma",
+        appearanceHeading: "🎨 Aspecto y Texto",
+        themeLight: "Tema Claro",
+        themeDark: "Tema Oscuro",
+        fontSizeLabel: "Tamaño de Texto:",
+        notifHeading: "🔔 Notificaciones",
+        notifLabel: "Gestionar Notificaciones Push",
+        aboutHeading: "📖 La Comunidad",
+        aboutLabel: "Quiénes Somos / Historia CSCV",
+        shareHeading: "📲 Compartir e Instalar",
+        shareLabel: "Compartir la Aplicación",
+        installLabel: "Cómo Instalar la App",
         infoHeading: "Padre Emiliano Tardif",
         infoText: "Comunidad Siervos de Cristo Vivo. Fundada bajo la inspiración del Padre Emiliano Tardif para llevar la sanación y el amor de Jesús a todo el mundo.",
         headerTitle: "Jesús está vivo y camina con nosotros.",
@@ -635,11 +795,27 @@
         backCatechesi: "Volver a la lista de Catequesis",
         backAudio: "Volver a los Audios",
         backPrayers: "Volver a la lista de días",
+        modalAboutTitle: "Quiénes Somos & CSCV",
+        modalAboutText: "La <strong>Comunidad Siervos de Cristo Vivo (CSCV)</strong> nace en el corazón de la Iglesia para difundir la buena nueva y la gracia de la sanación y liberación en Cristo resucitado. Inspira profundamente su carisma en la vida y obra del Siervo de Dios <strong>Padre Emiliano Tardif</strong>, misionero del Sagrado Corazón, quien gastó su vida proclamando con poder que Jesús está vivo y es el Salvador.",
+        modalInstallTitle: "Instalar la Aplicación",
+        modalInstallText: "Puedes instalar esta aplicación directamente en tu smartphone para tenerla siempre a mano:<br><br>📱 <strong>En Android (Chrome):</strong> Toca el menú superior derecho y selecciona <em>\"Añadir a la pantalla de inicio\"</em>.<br><br>🍏 <strong>En iOS / iPhone (Safari):</strong> Toca el icono de compartir en la parte inferior y selecciona <em>\"Añadir a pantalla de inicio\"</em>.",
+        modalClose: "Cerrar",
         nav: { home: "INICIO", lodi: "LAUDES", vespri: "VÍSPERAS", compieta: "COMPLETA", letture: "LECTURAS", catechesi: "CATEQUESIS", audio: "AUDIO", preghiere: "ORACIONES" }
       },
       en: {
         menuTitle: "Settings",
         langHeading: "🌐 Select Language",
+        appearanceHeading: "🎨 Appearance & Text",
+        themeLight: "Light Mode",
+        themeDark: "Dark Mode",
+        fontSizeLabel: "Text Size:",
+        notifHeading: "🔔 Notifications",
+        notifLabel: "Manage Push Notifications",
+        aboutHeading: "📖 The Community",
+        aboutLabel: "About Us / CSCV History",
+        shareHeading: "📲 Share & Install",
+        shareLabel: "Share the App",
+        installLabel: "How to Install the App",
         infoHeading: "Father Emiliano Tardif",
         infoText: "Servants of Christ Alive Community. Founded with the inspiration of Father Emiliano Tardif to bring Jesus' healing and love to the whole world.",
         headerTitle: "Jesus is alive and walks with us.",
@@ -656,7 +832,12 @@
         backCatechesi: "Back to Catechesis list",
         backAudio: "Back to Audios",
         backPrayers: "Back to days list",
-        nav: { home: "HOME", lodi: "LAUDS", vespri: "VESPERS", compieta: "COMPLINE", letture: "READINGS", catechesi: "CATECHESIS", audio: "AUDIO", preghiere: "PRAYERS" }
+        modalAboutTitle: "About Us & CSCV",
+        modalAboutText: "The <strong>Servants of Christ Alive Community (CSCV)</strong> was born in the heart of the Church to spread the good news and the grace of healing and liberation in the risen Christ, inspired by Servant of God <strong>Fr. Emiliano Tardif</strong>.",
+        modalInstallTitle: "Install App",
+        modalInstallText: "You can install this app directly on your smartphone for quick access:<br><br>📱 <strong>Android (Chrome):</strong> Tap menu and select <em>\"Add to Home screen\"</em>.<br><br>🍏 <strong>iOS / iPhone (Safari):</strong> Tap share icon at the bottom and select <em>\"Add to Home Screen\"</em>.",
+        modalClose: "Close",
+        nav: { home: "HOME", lodi: "LAUDS", vespri: "VESPERS", compieta: "COMPLINE", letture: "READINGS", catechesi: "CATECHESI", audio: "AUDIO", preghiere: "PRAYERS" }
       }
     };
 
@@ -684,6 +865,16 @@
 
       document.getElementById('menu-title-text').innerText = t.menuTitle;
       document.getElementById('lang-heading').innerText = t.langHeading;
+      document.getElementById('appearance-heading').innerText = t.appearanceHeading;
+      document.getElementById('fontsize-label').innerText = t.fontSizeLabel;
+      document.getElementById('notif-heading').innerText = t.notifHeading;
+      document.getElementById('notif-label').innerText = t.notifLabel;
+      document.getElementById('about-heading').innerText = t.aboutHeading;
+      document.getElementById('about-label').innerText = t.aboutLabel;
+      document.getElementById('share-heading').innerText = t.shareHeading;
+      document.getElementById('share-label').innerText = t.shareLabel;
+      document.getElementById('install-label').innerText = t.installLabel;
+
       document.getElementById('info-heading').innerText = t.infoHeading;
       document.getElementById('info-text').innerText = t.infoText;
       document.getElementById('header-main-title').innerText = t.headerTitle;
@@ -698,6 +889,15 @@
       document.getElementById('letture-title').innerText = t.lettureTitle;
       document.getElementById('letture-desc').innerText = t.lettureDesc;
       document.getElementById('btn-letture-text').innerText = t.btnLetture;
+
+      document.getElementById('modal-about-title').innerText = t.modalAboutTitle;
+      document.getElementById('modal-about-text').innerHTML = t.modalAboutText;
+      document.getElementById('modal-install-title').innerText = t.modalInstallTitle;
+      document.getElementById('modal-install-text').innerHTML = t.modalInstallText;
+      document.getElementById('modal-close-1').innerText = t.modalClose;
+      document.getElementById('modal-close-2').innerText = t.modalClose;
+
+      updateThemeLabel();
 
       document.getElementById('qnav-lodi').innerText = t.nav.lodi;
       document.getElementById('qnav-vespri').innerText = t.nav.vespri;
@@ -731,8 +931,78 @@
         document.getElementById('section-badge').innerText = badgeMap[lang][activeTabId] || badgeMap[lang]['home'];
       }
 
-      // Ricarica i contenuti dinamici da contenuti.js nella nuova lingua
       caricaContenutiJS();
+    }
+
+    // GESTIONE TEMA SCURO / CHIARO
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+      const isDark = document.body.classList.contains('dark-mode');
+      localStorage.setItem('app_dark_mode', isDark ? '1' : '0');
+      updateThemeLabel();
+    }
+
+    function updateThemeLabel() {
+      const isDark = document.body.classList.contains('dark-mode');
+      const t = translations[currentLang] || translations['it'];
+      const icon = document.getElementById('theme-icon');
+      const label = document.getElementById('theme-label');
+      if (isDark) {
+        icon.className = "fa-solid fa-sun";
+        label.innerText = t.themeLight;
+      } else {
+        icon.className = "fa-solid fa-moon";
+        label.innerText = t.themeDark;
+      }
+    }
+
+    // GESTIONE DIMENSIONE TESTO (A-/A+)
+    function setFontSize(size) {
+      let fontSize = '15px';
+      if (size === 'small') fontSize = '13px';
+      if (size === 'medium') fontSize = '15px';
+      if (size === 'large') fontSize = '18px';
+
+      document.documentElement.style.setProperty('--base-font-size', fontSize);
+      localStorage.setItem('app_font_size', size);
+    }
+
+    // ONESIGNAL NOTIFICHE PROMPT
+    function openOneSignalPrompt() {
+      if (window.OneSignal && window.OneSignal.Slidedown) {
+        window.OneSignal.Slidedown.promptPush();
+      } else {
+        alert("Le notifiche sono già attive o gestite dal browser.");
+      }
+      toggleMenu();
+    }
+
+    // MODALI
+    function openModal(modalId) {
+      document.getElementById(modalId).classList.add('active');
+      toggleMenu();
+    }
+    function closeModal(modalId) {
+      document.getElementById(modalId).classList.remove('active');
+    }
+    function closeModalOutside(event, modalId) {
+      if (event.target.id === modalId) {
+        closeModal(modalId);
+      }
+    }
+
+    // CONDIVIDI APP
+    function shareApp() {
+      if (navigator.share) {
+        navigator.share({
+          title: 'App Preghiera CSCV',
+          text: 'Scarica l\'applicazione ufficiale della Comunità Servi di Cristo Vivo!',
+          url: window.location.href
+        }).catch(console.error);
+      } else {
+        prompt("Copia il link dell'app:", window.location.href);
+      }
+      toggleMenu();
     }
 
     function getSettimanaSalterio() {
@@ -959,7 +1229,6 @@
           </div>`;
       }
 
-      // Carica i misteri del Rosario nella lingua attiva
       const misteriDiv = document.getElementById('rosario-misteri-list');
       const listaMisteri = (datiOrazione.misteriRosario && datiOrazione.misteriRosario[currentLang]) 
                             ? datiOrazione.misteriRosario[currentLang] 
@@ -976,7 +1245,6 @@
         });
       }
 
-      // Carica l'elenco delle preghiere settimanali nella lingua attiva
       const daysContainer = document.getElementById('days-container');
       const listaPreghiere = (datiOrazione.preghiereSettimanali && datiOrazione.preghiereSettimanali[currentLang]) 
                               ? datiOrazione.preghiereSettimanali[currentLang] 
@@ -994,6 +1262,15 @@
     }
 
     function inizializzaApp() {
+      // Carica preferenze salvate
+      if (localStorage.getItem('app_dark_mode') === '1') {
+        document.body.classList.add('dark-mode');
+      }
+      const savedFontSize = localStorage.getItem('app_font_size');
+      if (savedFontSize) {
+        setFontSize(savedFontSize);
+      }
+
       caricaLiturgiaDaGoogleSheet();
       caricaCatechesiDaGoogleSheet();
 
