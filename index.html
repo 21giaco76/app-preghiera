@@ -8,43 +8,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
-<!-- INTEGRAZIONE ONESIGNAL PER NOTIFICHE PUSH -->
-<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-<script>
-  window.OneSignalDeferred = window.OneSignalDeferred || [];
-  OneSignalDeferred.push(async function(OneSignal) {
-    await OneSignal.init({
-      appId: "f5fbfaa1-7138-48b8-a103-1a71b298913a",
-      serviceWorkerPath: "/app-preghiera/OneSignalSDKWorker.js",
-      serviceWorkerParam: { scope: "/app-preghiera/" },
-      notifyButton: {
-        enable: true,
-        size: 'small',
-        position: 'bottom-left',
-        showCredit: false
-      }
-    });
-  });
-</script>
-
-<!-- CSS PERSONALIZZATO PER SPOSTARE LA CAMPANELLA TUTTA A SINISTRA -->
-<style>
-  #onesignal-bell-container.onesignal-bell-container-bottom-left,
-  #onesignal-bell-container,
-  .onesignal-bell-launcher {
-    bottom: 35px !important;
-    left: 8px !important;
-    transform: scale(0.7) !important;
-    transform-origin: bottom left !important;
-    z-index: 999999 !important;
-  }
-
-  #onesignal-bell-container .onesignal-bell-launcher-button {
-    width: 40px !important;
-    height: 40px !important;
-  }
-</style>
-
   <script src="contenuti.js"></script>
 
   <style>
@@ -529,14 +492,6 @@
       </div>
     </div>
 
-    <!-- NOTIFICHE PUSH -->
-    <div class="menu-section">
-      <h3 id="notif-heading">🔔 Notifiche</h3>
-      <button class="menu-action-btn" onclick="openOneSignalPrompt()">
-        <i class="fa-solid fa-bell"></i> <span id="notif-label">Gestisci Notifiche Push</span>
-      </button>
-    </div>
-
     <!-- CHI SIAMO / CSCV -->
     <div class="menu-section">
       <h3 id="about-heading">📖 La Comunità</h3>
@@ -735,8 +690,6 @@
         themeLight: "Tema Chiaro",
         themeDark: "Tema Scuro",
         fontSizeLabel: "Dimensione Testo:",
-        notifHeading: "🔔 Notifiche",
-        notifLabel: "Gestisci Notifiche Push",
         aboutHeading: "📖 La Comunità",
         aboutLabel: "Chi Siamo / Storia CSCV",
         shareHeading: "📲 Condividi e Installa",
@@ -772,8 +725,6 @@
         themeLight: "Tema Claro",
         themeDark: "Tema Oscuro",
         fontSizeLabel: "Tamaño de Texto:",
-        notifHeading: "🔔 Notificaciones",
-        notifLabel: "Gestionar Notificaciones Push",
         aboutHeading: "📖 La Comunidad",
         aboutLabel: "Quiénes Somos / Historia CSCV",
         shareHeading: "📲 Compartir e Instalar",
@@ -809,8 +760,6 @@
         themeLight: "Light Mode",
         themeDark: "Dark Mode",
         fontSizeLabel: "Text Size:",
-        notifHeading: "🔔 Notifications",
-        notifLabel: "Manage Push Notifications",
         aboutHeading: "📖 The Community",
         aboutLabel: "About Us / CSCV History",
         shareHeading: "📲 Share & Install",
@@ -867,8 +816,6 @@
       document.getElementById('lang-heading').innerText = t.langHeading;
       document.getElementById('appearance-heading').innerText = t.appearanceHeading;
       document.getElementById('fontsize-label').innerText = t.fontSizeLabel;
-      document.getElementById('notif-heading').innerText = t.notifHeading;
-      document.getElementById('notif-label').innerText = t.notifLabel;
       document.getElementById('about-heading').innerText = t.aboutHeading;
       document.getElementById('about-label').innerText = t.aboutLabel;
       document.getElementById('share-heading').innerText = t.shareHeading;
@@ -965,16 +912,6 @@
 
       document.documentElement.style.setProperty('--base-font-size', fontSize);
       localStorage.setItem('app_font_size', size);
-    }
-
-    // ONESIGNAL NOTIFICHE PROMPT
-    function openOneSignalPrompt() {
-      if (window.OneSignal && window.OneSignal.Slidedown) {
-        window.OneSignal.Slidedown.promptPush();
-      } else {
-        alert("Le notifiche sono già attive o gestite dal browser.");
-      }
-      toggleMenu();
     }
 
     // MODALI
@@ -1262,7 +1199,6 @@
     }
 
     function inizializzaApp() {
-      // Carica preferenze salvate
       if (localStorage.getItem('app_dark_mode') === '1') {
         document.body.classList.add('dark-mode');
       }
