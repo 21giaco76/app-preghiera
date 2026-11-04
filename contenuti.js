@@ -16,7 +16,10 @@ const datiOrazione = {
     letture: "letture.jpg"
   },
 
-  coroncinaMisericordia: "https://21giaco76.github.io/app-preghiera/coroncina.mp3",
+  coroncinaMisericordia: {
+    it: "https://21giaco76.github.io/app-preghiera/coroncina.mp3",
+    es: "https://21giaco76.github.io/app-preghiera/CoronillaALaDivinaMisericordia.mp3",
+    en: "https://21giaco76.github.io/app-preghiera/coroncina-en.mp3"
 
   misteriRosario: {
     it: [
@@ -26,10 +29,10 @@ const datiOrazione = {
       { titolo: "Misteri Gloriosi (Mercoledì e Domenica)", url: "https://archive.org/download/misteri-gloriosi-mercoledi-e-domenica/misteri-gloriosi-mercoledi-e-domenica.mp3" }
     ],
     es: [
-      { titolo: "Misterios Gozosos (Lunes y Sábado)", url: "https://archive.org/download/misteri-della-gioia-lunedi-e-sabato/misteri-della-gioia-lunedi-e-sabato.mp3" },
-      { titolo: "Misterios Luminosos (Jueves)", url: "https://archive.org/download/misteri-luce-giovedi/misteri-luce-giovedi.mp3" },
-      { titolo: "Misterios Dolorosos (Martes y Viernes)", url: "https://archive.org/download/misteri-dolorosi-martedi-e-venerdi/misteri-dolorosi-martedi-e-venerdi.mp3" },
-      { titolo: "Misterios Gloriosos (Miércoles y Domingo)", url: "https://archive.org/download/misteri-gloriosi-mercoledi-e-domenica/misteri-gloriosi-mercoledi-e-domenica.mp3" }
+      { titolo: "Misterios Gozosos (Lunes y Sábado)", url: "https://21giaco76.github.io/app-preghiera/Rosario-Gozosos.mp3" },
+      { titolo: "Misterios Luminosos (Jueves)", url: "https://21giaco76.github.io/app-preghiera/Rosario-Luminosos.mp3" },
+      { titolo: "Misterios Dolorosos (Martes y Viernes)", url: "https://21giaco76.github.io/app-preghiera/Rosario-Dolorosos.mp3" },
+      { titolo: "Misterios Gloriosos (Miércoles y Domingo)", url: "https://21giaco76.github.io/app-preghiera/Rosario-Gloriosos.mp3" }
     ],
     en: [
       { titolo: "Joyful Mysteries (Monday & Saturday)", url: "https://archive.org/download/misteri-della-gioia-lunedi-e-sabato/misteri-della-gioia-lunedi-e-sabato.mp3" },
