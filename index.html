@@ -1204,15 +1204,25 @@
         return;
       }
 
+      // 1. Caricamento dinamico della Coroncina in base alla lingua corrente
       const singoliDiv = document.getElementById('audio-singoli-list');
       if (singoliDiv && datiOrazione.coroncinaMisericordia) {
+        const audioCoroncina = typeof datiOrazione.coroncinaMisericordia === 'object' 
+          ? (datiOrazione.coroncinaMisericordia[currentLang] || datiOrazione.coroncinaMisericordia['it'])
+          : datiOrazione.coroncinaMisericordia;
+
+        const nomeCoroncina = currentLang === 'es' ? 'Coronilla de la Divina Misericordia' 
+                            : currentLang === 'en' ? 'Divine Mercy Chaplet' 
+                            : 'Coroncina della Divina Misericordia';
+
         singoliDiv.innerHTML = `
           <div class="audio-item-box">
-            <strong><i class="fa-solid fa-hands-praying" style="color:var(--accent-terracotta);"></i> Coroncina della Divina Misericordia</strong>
-            <audio controls src="${datiOrazione.coroncinaMisericordia}" style="margin-top:8px; width:100%;"></audio>
+            <strong><i class="fa-solid fa-hands-praying" style="color:var(--accent-terracotta);"></i> ${nomeCoroncina}</strong>
+            <audio controls src="${audioCoroncina}" style="margin-top:8px; width:100%;"></audio>
           </div>`;
       }
 
+      // 2. Caricamento dinamico dei Misteri del Rosario in base alla lingua corrente
       const misteriDiv = document.getElementById('rosario-misteri-list');
       const listaMisteri = (datiOrazione.misteriRosario && datiOrazione.misteriRosario[currentLang]) 
                             ? datiOrazione.misteriRosario[currentLang] 
@@ -1229,6 +1239,7 @@
         });
       }
 
+      // 3. Caricamento delle preghiere settimanali
       const daysContainer = document.getElementById('days-container');
       const listaPreghiere = (datiOrazione.preghiereSettimanali && datiOrazione.preghiereSettimanali[currentLang]) 
                               ? datiOrazione.preghiereSettimanali[currentLang] 
