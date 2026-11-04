@@ -20,7 +20,7 @@ const datiOrazione = {
     it: "https://21giaco76.github.io/app-preghiera/coroncina.mp3",
     es: "https://21giaco76.github.io/app-preghiera/CoronillaALaDivinaMisericordia.mp3",
     en: "https://21giaco76.github.io/app-preghiera/coroncina-en.mp3"
-
+  },
   misteriRosario: {
     it: [
       { titolo: "Misteri Gaudiosi (Lunedì e Sabato)", url: "https://archive.org/download/misteri-della-gioia-lunedi-e-sabato/misteri-della-gioia-lunedi-e-sabato.mp3" },
