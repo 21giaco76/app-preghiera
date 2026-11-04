@@ -48,6 +48,13 @@
       background-color: #1E1E1E;
       color: #E0E0E0;
     }
+    body.dark-mode .whatsapp-box {
+      background: #062b16 !important;
+      border-color: #14532d !important;
+    }
+    body.dark-mode .whatsapp-box p {
+      color: #d1d5db !important;
+    }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -466,6 +473,19 @@
       <button class="close-menu-btn" onclick="toggleMenu()">✕</button>
     </div>
 
+    <!-- SEZIONE WHATSAPP -->
+    <div class="menu-section">
+      <h3 id="wa-heading"><i class="fa-brands fa-whatsapp" style="color:#25d366; font-size:18px;"></i> Gruppo WhatsApp</h3>
+      <div class="whatsapp-box" style="padding: 14px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px; text-align: center;">
+        <p id="wa-text" style="margin-bottom: 12px; font-size: 13px; color: #374151; line-height: 1.4;">
+          Unisciti al gruppo per rimanere sempre aggiornato sui nuovi contenuti e avvisi della comunità.
+        </p>
+        <a href="https://chat.whatsapp.com/BrLqW31yd420Cyqdzh8Y3w" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; background-color: #25d366; color: white; padding: 10px 14px; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 13px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+          <i class="fa-brands fa-whatsapp" style="font-size: 16px;"></i> <span id="wa-btn-text">Entra nel Gruppo</span>
+        </a>
+      </div>
+    </div>
+
     <!-- LINGUA -->
     <div class="menu-section">
       <h3 id="lang-heading">🌐 Seleziona Lingua</h3>
@@ -690,6 +710,9 @@
     const translations = {
       it: {
         menuTitle: "Impostazioni",
+        waHeading: "<i class=\"fa-brands fa-whatsapp\" style=\"color:#25d366; font-size:18px;\"></i> Gruppo WhatsApp",
+        waText: "Unisciti al gruppo per rimanere sempre aggiornato sui nuovi contenuti e avvisi della comunità.",
+        waBtnText: "Entra nel Gruppo",
         langHeading: "🌐 Seleziona Lingua",
         appearanceHeading: "🎨 Aspetto e Testo",
         themeLight: "Tema Chiaro",
@@ -725,6 +748,9 @@
       },
       es: {
         menuTitle: "Configuración",
+        waHeading: "<i class=\"fa-brands fa-whatsapp\" style=\"color:#25d366; font-size:18px;\"></i> Grupo de WhatsApp",
+        waText: "Únete al grupo para mantenerte informado sobre nuevos contenidos y avisos de la comunidad.",
+        waBtnText: "Entrar al Grupo",
         langHeading: "🌐 Seleccionar Idioma",
         appearanceHeading: "🎨 Aspecto y Texto",
         themeLight: "Tema Claro",
@@ -760,6 +786,9 @@
       },
       en: {
         menuTitle: "Settings",
+        waHeading: "<i class=\"fa-brands fa-whatsapp\" style=\"color:#25d366; font-size:18px;\"></i> WhatsApp Group",
+        waText: "Join the group to stay updated on new content and community announcements.",
+        waBtnText: "Join Group",
         langHeading: "🌐 Select Language",
         appearanceHeading: "🎨 Appearance & Text",
         themeLight: "Light Mode",
@@ -818,6 +847,9 @@
       const t = translations[lang];
 
       document.getElementById('menu-title-text').innerText = t.menuTitle;
+      document.getElementById('wa-heading').innerHTML = t.waHeading;
+      document.getElementById('wa-text').innerText = t.waText;
+      document.getElementById('wa-btn-text').innerText = t.waBtnText;
       document.getElementById('lang-heading').innerText = t.langHeading;
       document.getElementById('appearance-heading').innerText = t.appearanceHeading;
       document.getElementById('fontsize-label').innerText = t.fontSizeLabel;
