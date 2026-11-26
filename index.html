@@ -296,6 +296,10 @@
       margin-bottom: 6px;
     }
 
+    #catechesi-detail-audio {
+      margin-top: 16px;
+    }
+
     .audio-cat-card, .day-item-btn {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
@@ -665,6 +669,7 @@
         <h2 id="catechesi-detail-title"></h2>
         <div id="catechesi-detail-subtitle" style="text-align:center; font-style:italic; color:var(--text-muted); font-size:14px; margin-bottom:15px;"></div>
         <div id="catechesi-detail-text" class="catechesi-testo-box"></div>
+        <div id="catechesi-detail-audio" style="display:none;"></div>
       </div>
     </main>
 
@@ -719,6 +724,7 @@
     };
 
     const GOOGLE_SHEET_CATECHESI_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ7TkEPy5gLgUDVgfsaB_MlYvlkCmOZxK7xJvUuBLSgkltuLm0mVw6juakwvVpTdOMumgigW_M6ONtA/pub?gid=514329846&single=true&output=csv";
+    const GITHUB_AUDIO_BASE_URL = "https://21giaco76.github.io/app-preghiera/";
 
     let currentLang = 'it';
 
@@ -752,6 +758,7 @@
         lettureDesc: "Consulta le letture e il Vangelo del giorno con audio ufficiale.",
         btnLetture: "Apri Letture del Giorno",
         rosarioTitle: "Il Santo Rosario",
+        catechesiAudioLabel: "Audio guidato della catechesi",
         backCatechesi: "Torna alla lista Catechesi",
         backAudio: "Torna agli Audio",
         backPrayers: "Torna all'elenco giorni",
@@ -792,6 +799,7 @@
         lettureDesc: "Consulta las lecturas y el Evangelio del día con audio oficial.",
         btnLetture: "Abrir Lecturas del Día",
         rosarioTitle: "El Santo Rosario",
+        catechesiAudioLabel: "Audio guiado de la catequesis",
         backCatechesi: "Volver a la lista de Catequesis",
         backAudio: "Volver a los Audios",
         backPrayers: "Volver a la lista de días",
@@ -832,6 +840,7 @@
         lettureDesc: "Read the daily scriptures and Gospel with official audio.",
         btnLetture: "Open Daily Readings",
         rosarioTitle: "The Holy Rosary",
+        catechesiAudioLabel: "Guided audio of the catechesis",
         backCatechesi: "Back to Catechesis list",
         backAudio: "Back to Audios",
         backPrayers: "Back to days list",
@@ -1120,6 +1129,19 @@
       return htmlRisultato.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
     }
 
+    function risolviUrlAudioCatechesi(valoreAudio) {
+      if (!valoreAudio) return '';
+      const pulito = valoreAudio.trim();
+      if (!pulito) return '';
+      if (/^https?:\/\//i.test(pulito)) {
+        return pulito;
+      }
+      const baseUrl = (typeof datiOrazione !== 'undefined' && datiOrazione.logoUrl)
+        ? datiOrazione.logoUrl.replace(/logo\.png$/i, '')
+        : GITHUB_AUDIO_BASE_URL;
+      return baseUrl + pulito.replace(/^\/+/, '');
+    }
+
     async function caricaLiturgiaDaGoogleSheet() {
       try {
         const targetUrl = GOOGLE_SHEET_CSV_URLS[currentLang] || GOOGLE_SHEET_CSV_URLS['it'];
@@ -1180,8 +1202,10 @@
             const titolo = (r[colTitle] && r[colTitle].trim()) ? r[colTitle].trim() : (r[0] ? r[0].trim() : `Catechesi ${index + 1}`);
             const sottotitolo = (r[colSub] && r[colSub].trim()) ? r[colSub].trim() : (r[1] ? r[1].trim() : '');
             const testo = (r[colText] && r[colText].trim()) ? r[colText].trim() : (r[2] ? r[2].trim() : 'Testo non ancora disponibile.');
+            const audioRaw = (r[9] && r[9].trim()) ? r[9].trim() : '';
+            const audioUrl = risolviUrlAudioCatechesi(audioRaw);
 
-            elencoCatechesiGlobal.push({ titolo, sottotitolo, testo });
+            elencoCatechesiGlobal.push({ titolo, sottotitolo, testo, audioUrl });
 
             container.innerHTML += `
               <button class="day-item-btn" onclick="openCatechesi(${index})">
@@ -1204,9 +1228,23 @@
     function openCatechesi(index) {
       const item = elencoCatechesiGlobal[index];
       if (item) {
+        const t = translations[currentLang] || translations['it'];
         document.getElementById('catechesi-detail-title').innerText = item.titolo;
         document.getElementById('catechesi-detail-subtitle').innerText = item.sottotitolo;
         document.getElementById('catechesi-detail-text').innerHTML = formattaTestoCatechesi(item.testo);
+
+        const audioBox = document.getElementById('catechesi-detail-audio');
+        if (item.audioUrl) {
+          audioBox.innerHTML = `
+            <div class="audio-item-box">
+              <strong><i class="fa-solid fa-headphones" style="color:var(--accent-terracotta); margin-right:6px;"></i> ${t.catechesiAudioLabel}</strong>
+              <audio controls preload="metadata" src="${item.audioUrl}" style="margin-top:8px; width:100%;"></audio>
+            </div>`;
+          audioBox.style.display = 'block';
+        } else {
+          audioBox.innerHTML = '';
+          audioBox.style.display = 'none';
+        }
 
         document.getElementById('catechesi-list-container').style.display = 'none';
         document.getElementById('catechesi-detail').style.display = 'block';
